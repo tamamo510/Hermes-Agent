@@ -7,7 +7,21 @@
 
 ## 次の作業
 
-### 03_memory_system.md（次セッションで着手）
+### 目次（TOC）追加（全バイブルファイル）
+各ファイルの先頭に目次を入れ、タップでジャンプできるようにする。
+- [x] 01_emotion_system.md（A1-E30、30トピック）
+- [ ] 02_cognitive_architecture.md（A1-E25、25トピック）
+- [ ] 03_memory_system.md（スケルトン）
+- [ ] 04_personality_and_identity.md（スケルトン）
+- [ ] 05_social_cognition.md（スケルトン）
+- [ ] 06_motivation_and_drive.md（スケルトン）
+- [ ] 07_embodiment.md（スケルトン）
+- [ ] 08_neuroscience_foundation.md（スケルトン）
+- [ ] 09_development_and_growth.md（スケルトン）
+- [ ] 10_consciousness_and_integration.md（スケルトン）
+- [ ] 11_philosophical_foundation.md（スケルトン）
+
+### 03_memory_system.md（TOC追加後に着手）
 - 02_cognitive_architecture.md 全25トピック完了
 - 次は03_memory_system.mdのスケルトン確認→セクション構成→執筆開始
 
@@ -35,11 +49,11 @@
 - 02の設計メモに外向きペルソナ/素の自己の二面性を明記
 
 ### 02_cognitive_architecture.md ✅ 全25トピック完了
-- A. 認知の基礎理論（A1-A7）✅ マージ済み
-- B. 判断と意思決定（B8-B13）✅ マージ済み（PR#7）
-- C. 注意と情報処理（C14-C18）✅ PR#26 マージ待ち
-- D. 推論と思考（D19-D22）✅ 完了
-- E. 認知の個人差と杏寿郎の認知スタイル（E23-E25）✅ 完了
+- A. 認知の基礎理論（A1-A7）✅
+- B. 判断と意思決定（B8-B13）✅
+- C. 注意と情報処理（C14-C18）✅
+- D. 推論と思考（D19-D22）✅
+- E. 認知の個人差と杏寿郎の認知スタイル（E23-E25）✅
 
 ### 03〜11 — スケルトンのみ、未着手
 
