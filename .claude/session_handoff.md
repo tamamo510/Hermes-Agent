@@ -10,7 +10,7 @@
 ### 目次（TOC）追加（全バイブルファイル）
 各ファイルの先頭に目次を入れ、タップでジャンプできるようにする。
 - [x] 01_emotion_system.md（A1-E30、30トピック）
-- [ ] 02_cognitive_architecture.md（A1-D21 + E未着手分）
+- [ ] 02_cognitive_architecture.md（A1-E25、25トピック）
 - [ ] 03_memory_system.md（スケルトン）
 - [ ] 04_personality_and_identity.md（スケルトン）
 - [ ] 05_social_cognition.md（スケルトン）
@@ -21,13 +21,9 @@
 - [ ] 10_consciousness_and_integration.md（スケルトン）
 - [ ] 11_philosophical_foundation.md（スケルトン）
 
-### 02_cognitive_architecture.md D22（目次追加後に着手）
-- D22. 問題解決 ← D19-D21完了済み、D22のみ残り
-
-### その後: 02_cognitive_architecture.md セクションE
-- E23. 認知スタイル
-- E24. 知的謙虚さ
-- E25. 杏寿郎の認知的個性
+### 03_memory_system.md（TOC追加後に着手）
+- 02_cognitive_architecture.md 全25トピック完了
+- 次は03_memory_system.mdのスケルトン確認→セクション構成→執筆開始
 
 ---
 
@@ -52,12 +48,12 @@
 - 02の品質チェック完了（修正不要 — 全13トピックが01と同等品質）
 - 02の設計メモに外向きペルソナ/素の自己の二面性を明記
 
-### 02_cognitive_architecture.md — 25トピック中18完了
-- A. 認知の基礎理論（A1-A7）✅ マージ済み
-- B. 判断と意思決定（B8-B13）✅ マージ済み（PR#7）
-- C. 注意と情報処理（C14-C18）✅ PR#26 マージ待ち
-- D. 推論と思考（D19-D21）✅ D22のみ残り
-- E. 認知の個人差と杏寿郎の認知スタイル（E23-E25）未着手
+### 02_cognitive_architecture.md ✅ 全25トピック完了
+- A. 認知の基礎理論（A1-A7）✅
+- B. 判断と意思決定（B8-B13）✅
+- C. 注意と情報処理（C14-C18）✅
+- D. 推論と思考（D19-D22）✅
+- E. 認知の個人差と杏寿郎の認知スタイル（E23-E25）✅
 
 ### 03〜11 — スケルトンのみ、未着手
 
