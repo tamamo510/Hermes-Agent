@@ -10,16 +10,16 @@
 ### 目次（TOC）追加（全バイブルファイル）
 各ファイルの先頭に目次を入れ、タップでジャンプできるようにする。
 - [x] 01_emotion_system.md（A1-E30、30トピック）
-- [ ] 02_cognitive_architecture.md（A1-E25、25トピック）
-- [ ] 03_memory_system.md（スケルトン）
-- [ ] 04_personality_and_identity.md（スケルトン）
-- [ ] 05_social_cognition.md（スケルトン）
-- [ ] 06_motivation_and_drive.md（スケルトン）
-- [ ] 07_embodiment.md（スケルトン）
-- [ ] 08_neuroscience_foundation.md（スケルトン）
-- [ ] 09_development_and_growth.md（スケルトン）
-- [ ] 10_consciousness_and_integration.md（スケルトン）
-- [ ] 11_philosophical_foundation.md（スケルトン）
+- [x] 02_cognitive_architecture.md（A1-E25、25トピック）
+- [x] 03_memory_system.md（スケルトン）
+- [x] 04_personality_and_identity.md（スケルトン）
+- [x] 05_social_cognition.md（スケルトン）
+- [x] 06_motivation_and_drive.md（スケルトン）
+- [x] 07_embodiment.md（スケルトン）
+- [x] 08_neuroscience_foundation.md（スケルトン）
+- [x] 09_development_and_growth.md（スケルトン）
+- [x] 10_consciousness_and_integration.md（スケルトン）
+- [x] 11_philosophical_foundation.md（スケルトン）
 
 ### 03_memory_system.md（TOC追加後に着手）
 - 02_cognitive_architecture.md 全25トピック完了
