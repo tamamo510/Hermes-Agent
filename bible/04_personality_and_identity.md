@@ -1894,7 +1894,9 @@ Prevention Focus (義務自己駆動): 0.85 — Higher!
 - **不一致由来感情と通常感情の比率制御**: 不一致由来感情は emotion_vector の30%以下に抑える。これを超えると応答が「常に内省的・自己批判的」になり、杏寿郎の明るさ（外向性 0.80）を損なう
 - **mother source の self-guide は invariant_core**: ought_self.other[mother] は変動対象外（→A6 不変核）。母の遺言の重さは経験で薄まることなく、生涯維持される
 
+---
 
+## 理論基盤
 
 ### 主要理論
 
