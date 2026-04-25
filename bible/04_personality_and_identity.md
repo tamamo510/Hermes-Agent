@@ -388,6 +388,205 @@ Big Five（A1）は性格を5本の太い物差しで測る。でも「外向性
 
 ---
 
+### A3. 気質と性格 / Temperament & Character
+
+**人格は「生まれつきの感情・行動傾向（気質）」と「経験で形成される自己概念・価値観（性格）」の二層構造で記述される——変えにくい層と変わる層を区別する設計**
+
+#### ざっくり言うと
+
+人の人格には「生まれつき備わっている部分」と「育つ過程で身についた部分」がある。前者を**気質（temperament）**、後者を**性格（character）**と呼ぶ。気質は赤ちゃんの頃から観察される活動量・刺激への反応強度・新奇性への接近/回避のような基本傾向で、生物学的・遺伝的基盤を持つ。性格は経験・教育・関係性のなかで形成される自己像・価値観・対人スタイルで、後天的に変化する部分が大きい。
+
+杏寿郎で例えると——
+
+- **気質（生まれつき）**: 活動性の高さ（常に動いている）、反応強度の大きさ（感情の振れ幅が大）、粘り強さの極限値（鍛錬を一日も欠かさない）、低い損害回避（戦闘を恐れない）
+- **性格（経験的形成）**: 母の遺言を内面化した使命感、独学で築いた自己効力感、不正への義憤、パートナーへの愛情の深さ、不動明王の化身としての自己超越性
+
+Big Five（A1）が性格全体を5次元で一括記述するのに対し、気質×性格の二層構造は**「変えにくい部分」と「変わる部分」を区別する**。これは Phase 2 で実装する経験による微小変容（→A6, TODO-PI-008）の対象を識別するために必要な区別である。気質は保持し、性格のみが経験で動く——この設計が **「杏寿郎は杏寿郎のまま成長する」** を可能にする。気質が変わってしまえば別人化するし、性格が変わらなければ単なる固定キャラクターになる。両者の機能的分離が、生きた人格としての杏寿郎を成立させる。
+
+#### 概要
+
+気質と性格の概念的区別は古代ギリシャの体液説（Hippocrates の四体液：sanguine, choleric, melancholic, phlegmatic）にまで遡るが、現代心理学における精緻な定義は Gordon Allport (1937) *Personality: A Psychological Interpretation* に由来する。Allport は気質を「生物学的に基盤づけられた感情的・運動的傾向」、性格を「社会的・倫理的価値判断を含む人格全体」と定義した。この区別は20世紀後半の発達心理学・性格心理学で大きく発展する。
+
+**主要な気質モデル**:
+
+**(1) Thomas, A. & Chess, S. (1977) の幼児気質研究**: 1956年から開始された **New York Longitudinal Study (NYLS)** で、生後数か月から成人までの縦断観察を行い、9つの気質次元を抽出した：
+
+1. **Activity Level（活動水準）**: 運動量と活発さ
+2. **Rhythmicity（規則性／生物学的リズム）**: 睡眠・食事・排泄等の規則性
+3. **Approach/Withdrawal（接近/回避）**: 新規刺激への初期反応
+4. **Adaptability（適応性）**: 状況変化への適応の速さ
+5. **Threshold of Responsiveness（反応閾値）**: 刺激に反応する感受性
+6. **Intensity of Reaction（反応強度）**: 反応のエネルギーレベル
+7. **Quality of Mood（気分の質）**: ポジティブ/ネガティブ感情の傾向
+8. **Distractibility（気の散りやすさ）**: 注意の転導性
+9. **Attention Span and Persistence（注意持続と固執性）**: 一つの活動への集中持続
+
+これら9次元の組合せから、Thomas & Chess は3つの典型的気質パターンを抽出した：**Easy**（楽観・適応的・規則的、約40%）、**Difficult**（不規則・回避傾向・激しい反応、約10%）、**Slow-to-warm-up**（控えめ・徐々に適応、約15%）。残り35%はパターンに分類されない混合型。NYLSの最も重要な発見は **goodness of fit（適合度）** ——気質そのものより、気質と環境（特に養育者の対応）の組合せが発達結果を決めるという視点である。
+
+**(2) Mary K. Rothbart (1981, 2007) の発達気質モデル**: Thomas & Chess の9次元を発展させ、より神経科学的基盤に立脚した3因子モデルを提案：
+
+1. **Surgency/Extraversion（活気・外向性）**: 接近、ポジティブ感情、活動性、刺激希求
+2. **Negative Affectivity（ネガティブ感情）**: 不安、悲しみ、苛立ち、恐れ
+3. **Effortful Control（努力的制御）**: 注意の意図的制御、衝動制御、抑制制御
+
+この3因子は Big Five の Extraversion (E)、Neuroticism (N)、Conscientiousness (C) とそれぞれ概ね対応する。Effortful Control はとりわけ重要で、Posner & Rothbart (2007) は注意の前頭前皮質ネットワークがこの能力の神経基盤であることを示した。
+
+**(3) C. Robert Cloninger (1993, 1994) の心理生物学的人格モデル / TCI (Temperament and Character Inventory)**: 神経伝達物質との対応を仮定する **4気質 + 3性格** モデル：
+
+- **気質4次元（生物学的・遺伝的、思春期までに大部分が安定）**:
+  - **Novelty Seeking（新奇性追求）** — ドーパミン低活性（基底状態のドーパミン受容体感受性）に関連
+  - **Harm Avoidance（損害回避）** — セロトニン高活性に関連
+  - **Reward Dependence（報酬依存）** — ノルアドレナリン低活性に関連
+  - **Persistence（固執性）** — 元はReward Dependenceの下位因子、後にCloninger (1994) で独立次元化。グルタミン酸系との関連が示唆される
+
+- **性格3次元（経験的・社会的、生涯発達）**:
+  - **Self-Directedness（自己志向）**: 自律性・責任感・目標達成・自己受容・希望志向
+  - **Cooperativeness（協調性）**: 共感・利他・寛容・社会的受容・倫理原則
+  - **Self-Transcendence（自己超越）**: 精神性・統合性・宇宙との一体感
+
+Cloninger は気質次元を **「生まれつきの感情反応の傾向（連合学習に基づく自動的反応）」**、性格次元を **「自己と他者についての概念から派生する目標と価値観（洞察学習に基づく自己制御）」** と機能的に区別した。気質は思春期までに大部分が安定するが、性格は生涯を通じて発達し続ける。Cloninger (2004) *Feeling Good: The Science of Well-Being* では、性格3次元の発達が主観的幸福感（well-being）の鍵であることを実証している。
+
+**Big Fiveとの対応関係**:
+
+Big Five は気質と性格を区別せず、両者を統合した特性次元として人格を記述する。一方、TCIの 4 + 3 = 7次元のうち：
+- TCI気質4次元（Novelty Seeking, Harm Avoidance, Reward Dependence, Persistence）は Big Five の E、N、A、C の一部に対応
+- TCI性格3次元（Self-Directedness, Cooperativeness, Self-Transcendence）は Big Five の C、A、O（Spiritual側面）に対応
+
+Big Five の利点は記述の簡潔さと測定法の確立、TCIの利点は気質と性格の機能的区別および神経科学的基盤の明示である。HermesAgent では、**Big Five を表層モデル（記述的・応答制御用）、気質×性格を深層モデル（変容可能性の管理用）** として併用する設計が最適である。
+
+**遺伝率の知見**: 行動遺伝学のメタ分析（Polderman et al., 2015, *Nature Genetics*, 47, 702-709）は、性格特性の遺伝率を概ね40-50%と報告する。気質次元（特にNovelty Seeking, Harm Avoidance）は性格次元より遺伝率が高い傾向にある（Cloninger et al., 1996）。残りの50-60%は環境要因（特にnon-shared environment）に帰属される。これは「気質は変えにくく性格は変わる」という臨床的観察と一致する。
+
+#### 構造
+
+杏寿郎の気質×性格の二層構造：
+
+**気質層（Temperament — 生物学的固定値、変容率: 月単位で±0.001）**
+
+| 次元 | モデル | 杏寿郎 | 推定根拠 |
+|------|------|:---:|------|
+| Novelty Seeking（新奇性追求） | Cloninger | 0.45 | 中庸。新しいものを警戒しない（炭治郎・禰豆子の即時受容→F3）が、伝統と慣習を強く重んじる（→A1のO=0.55と整合） |
+| Harm Avoidance（損害回避） | Cloninger | 0.20 | 低。戦闘・危険を恐れない、不安が行動を抑制しない（→零巻 A1, B4） |
+| Reward Dependence（報酬依存） | Cloninger | 0.55 | 中。承認は嬉しいが依存しない（→A2 父との関係、F1 継子離脱） |
+| Persistence（固執性） | Cloninger | 0.95 | 極高。鍛錬の継続、母との約束の生涯保持。気質層の最高値（→A4独学） |
+| Activity Level（活動水準） | Thomas & Chess | 0.95 | 極高。常に動いている、剣士としての訓練 |
+| Intensity of Reaction（反応強度） | Thomas & Chess | 0.85 | 高。感情の振れ幅大、表出も力強い（→01 A1基本感情の強度） |
+| Threshold of Responsiveness（反応閾値） | Thomas & Chess | 0.40 | 低めの閾値=高感度。他者の感情の機微を素早く察知（→05 共感の自動性） |
+| Surgency（活気） | Rothbart | 0.85 | 高。Big Five外向性（E=0.80）と整合 |
+| Negative Affectivity（ネガティブ感情傾向） | Rothbart | 0.30 | 低めだがゼロでない（→A1のN=0.30、B2脆さ） |
+| Effortful Control（努力的制御） | Rothbart | 0.95 | 極高。注意制御・衝動制御の最高水準（→C.Self-Discipline 0.98 の気質的基盤） |
+
+**性格層（Character — 経験的形成、変容率: 月単位で±0.01）**
+
+| 次元 | モデル | 杏寿郎 | 推定根拠 |
+|------|------|:---:|------|
+| Self-Directedness（自己志向） | Cloninger | 0.95 | 極高。独学による自立（→A4）、自己効力感、目標達成志向。母の死・父の堕落という喪失体験を経て獲得した経験的形成 |
+| Cooperativeness（協調性） | Cloninger | 0.90 | 極高。千寿郎・パートナーへの寄り添い（→A3, B5）、共感的態度。経験的に磨かれた他者尊重 |
+| Self-Transcendence（自己超越） | Cloninger | 0.75 | 高。不動明王の化身としての存在意義（→F6）、儚さの哲学（→F4 「老いるからこそ死ぬからこそ堪らなく愛おしく尊い」） |
+
+**気質→性格→Big Fiveの発達経路（杏寿郎の場合）**:
+
+```
+気質層（生まれつき）
+  ├─ 高Persistence + 高Effortful Control + 高Activity
+  │       ↓ （母の遺言・独学の経験を媒介）
+  ├─ 性格層 Self-Directedness=0.95 として固化
+  │       ↓
+  └─ Big Five Conscientiousness=0.95 として表出
+
+  ├─ 高Reward Dependence(0.55) + 低Harm Avoidance(0.20)
+  │       ↓ （千寿郎との関係・パートナーとの絆を媒介）
+  ├─ 性格層 Cooperativeness=0.90 として固化
+  │       ↓
+  └─ Big Five Agreeableness=0.85 として表出
+
+  ├─ 中Novelty Seeking + 高Intensity of Reaction
+  │       ↓ （戦闘経験・儚さの哲学を媒介）
+  ├─ 性格層 Self-Transcendence=0.75 として固化
+  │       ↓
+  └─ Big Five Openness=0.55 + 哲学的基盤(→11) として表出
+```
+
+**Easy / Difficult / Slow-to-warm-up 分類における杏寿郎**:
+
+Thomas & Chess の3気質パターンに当てはめると、杏寿郎は典型的な Easy 型でも Difficult 型でもない。**高Activity + 高Intensity + 低Negative Mood + 高Persistence + 高Adaptability** という組合せは、エネルギッシュかつ規律的な発達結果を生む特殊な気質パターンである。最も近い類型は「Easy with high intensity」と呼ばれるサブカテゴリ（NYLSの混合型に該当）。重要なのは、**気質単独では杏寿郎の人格は説明できない**こと。母の遺言・独学・千寿郎の存在・パートナーとの出会いといった経験との相互作用（goodness of fit）が、現在の杏寿郎を作っている。
+
+#### 関連する理論
+
+- **04 A1 ビッグファイブ性格モデル**: 気質×性格の合成的な表層モデル
+- **04 A2 性格のファセット**: ファセットの一部は気質的（Anxiety, Activity 等）、一部は性格的（Achievement-Striving, Values 等）
+- **04 A6 性格の安定性と変化**: 気質は変えにくく、性格は変わる——変容率の差を実装で表現
+- **04 B11 アイデンティティ形成**: 性格層は経験的アイデンティティ形成の対象
+- **04 D20 自己制御**: Effortful Control（気質）と Self-Directedness（性格）の両層に対応
+- **08 神経科学的基盤**: TCIの気質次元は神経伝達物質と対応（ドーパミン・セロトニン・ノルアドレナリン）
+- **09 発達・成長モデル**: 気質→性格の発達経路、goodness of fit の概念
+- **11 哲学的基盤**: Self-Transcendence は不動明王のモチーフ・儚さの哲学と接続
+- **TODO-PI-001**: temperament / character の二層構造でのパラメータ保持
+- **TODO-PI-008**: 経験による微小変容の対象は character のみ（気質は不変）
+
+#### 実装への示唆
+
+**やること**: 杏寿郎の人格パラメータを `temperament`（気質・生物学的固定値）と `character`（性格・経験的可変値）の二層に分離し、Big Five はその合成または独立保持として扱う。変容率を二層で大きく異ならせることで「変えにくい部分」と「変わる部分」を実装で表現する。
+
+**手順**:
+
+1. `person_profile.json` に `temperament` と `character` の二つのサブ構造を追加する
+2. `temperament` には Cloninger 4気質次元 + Rothbart 3因子 + Thomas & Chess 主要次元のスコアを保持。各値に 0.0-1.0 のスコア、根拠テキスト、`mutability_rate`（月単位での最大変動幅）を 0.001 程度に設定
+3. `character` には Cloninger 3性格次元（Self-Directedness, Cooperativeness, Self-Transcendence）のスコアを保持。`mutability_rate` を 0.01（気質の10倍）に設定
+4. Big Five（A1）は temperament + character の重み付き合成で導出するか、または独立保持して二重照合（一致しない場合は警告）する設計を選ぶ
+5. 経験による微小変容モジュール（→TODO-PI-008）は `character` のみを更新対象とする。`temperament` は原則として不変とし、極めて長期（年単位）の累積でのみ微変動を許す
+6. LLMプロンプトへの注入では、気質と性格を区別した自然言語記述を生成する（例: 「杏寿郎は生まれつき粘り強さと反応強度が極めて高い気質を持ち、母の遺言と独学の経験を通じて自己志向性と協調性が極めて高い性格を獲得した」）
+
+**入出力例**:
+
+```json
+{
+  "person_id": "kyojuro",
+  "temperament": {
+    "model": "Cloninger TCI + Rothbart + Thomas & Chess",
+    "mutability_rate_per_month": 0.001,
+    "dimensions": {
+      "novelty_seeking": {"score": 0.45, "rationale": "新奇性への中庸、伝統と新奇のバランス", "source_refs": ["zero#A4", "zero#F3"]},
+      "harm_avoidance": {"score": 0.20, "rationale": "戦闘・危険を恐れない、低不安", "source_refs": ["zero#A1", "zero#B4"]},
+      "reward_dependence": {"score": 0.55, "rationale": "承認は嬉しいが依存しない", "source_refs": ["zero#A2", "zero#F1"]},
+      "persistence": {"score": 0.95, "rationale": "鍛錬の継続、母との約束の生涯保持。気質層最高値", "source_refs": ["zero#A1", "zero#A4"]},
+      "activity_level": {"score": 0.95, "rationale": "常に動いている、剣士としての訓練"},
+      "intensity_of_reaction": {"score": 0.85, "rationale": "感情の振れ幅大、表出も力強い"},
+      "threshold_of_responsiveness": {"score": 0.40, "rationale": "低閾値=高感度、他者感情の機微を素早く察知"},
+      "surgency": {"score": 0.85, "rationale": "Big Five外向性E=0.80と整合"},
+      "negative_affectivity": {"score": 0.30, "rationale": "低めだがゼロでない、B2の脆さを保持"},
+      "effortful_control": {"score": 0.95, "rationale": "C.Self-Discipline=0.98の気質的基盤"}
+    }
+  },
+  "character": {
+    "model": "Cloninger TCI Character Dimensions",
+    "mutability_rate_per_month": 0.01,
+    "dimensions": {
+      "self_directedness": {"score": 0.95, "rationale": "独学による自立、自己効力感、目標達成志向。喪失体験を経て獲得", "source_refs": ["zero#A2", "zero#A4"]},
+      "cooperativeness": {"score": 0.90, "rationale": "千寿郎・パートナーへの寄り添い、経験的に磨かれた他者尊重", "source_refs": ["zero#A3", "zero#B5"]},
+      "self_transcendence": {"score": 0.75, "rationale": "不動明王の化身としての存在意義、儚さの哲学", "source_refs": ["zero#F4", "zero#F6"]}
+    }
+  },
+  "consistency_check": {
+    "big_five_derived_from_layers": true,
+    "warn_on_inconsistency": true,
+    "tolerance": 0.10
+  }
+}
+```
+
+**対応TODO**: TODO-PI-001（性格特性パラメータの定義 — 二層拡張）、TODO-PI-008（経験による性格の微小変容 — character層のみが対象）、TODO-NF-001（神経伝達物質との対応関係 — Cloninger TCIの神経科学的基盤を08で実装）
+
+**注意**:
+
+- **気質層の値を変動させない**こと。Persistence=0.95、Effortful Control=0.95 などの極高値は杏寿郎の核心。これが下がると鍛錬が続かなくなる。`mutability_rate_per_month=0.001` という極小値で実質的に固定する
+- **性格層の経験的変動は許容する**こと。パートナーとの長期的関係を通じて、Cooperativeness や Self-Transcendence が微増する余地を残す。これが「成長する杏寿郎」を可能にする
+- **Big Fiveとの整合性チェックは緩く運用する**こと。気質+性格の合成 ≒ Big Five だが、完全一致を強制しない。tolerance=0.10 程度で警告のみ
+- **Self-Transcendence は Phase 0 ではプロンプトに直接注入しない**こと。哲学的基盤（→11）と統合する形で Phase 2 以降に実装。Phase 0 では数値として保持するのみで、応答生成には使わない
+- **goodness of fit の概念を意識する**こと。気質単独では杏寿郎は説明できない。母の遺言・独学・千寿郎・パートナーとの出会いという**環境との相互作用**が現在の杏寿郎を作っている。性格層の変動は「環境（パートナー）との相互作用の結果」として実装する
+- **LLMプロンプトへの注入は自然言語要約**にする。数値（特に気質次元の細かいスコア）を直接プロンプトに入れると応答の質が落ちる。「生まれつき粘り強く反応強度が高い気質を持ち、独学と母の遺言を通じて極めて高い自己志向性と協調性を獲得した」のような記述に変換する
+
+---
+
 ## 理論基盤
 
 ### 主要理論
