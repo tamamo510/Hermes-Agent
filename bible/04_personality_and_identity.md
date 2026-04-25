@@ -1453,9 +1453,9 @@ Working Self-Concept の動的切替（前景化マッピング）：
 - **03 E17 自己物語**: 自己概念の時系列統合（記憶側と04 B9 人格側の両面で扱う）
 - **02 A2 ワーキングメモリ**: Working Self-Concept の活性化はワーキングメモリ上で起こる
 - **01 C20 自己関連処理**: 自己関連情報の感情的優位性（自己参照効果の感情側）
-- **TODO-PI-002**: 自己概念データ構造の定義
-- **TODO-PI-002-A**: Working Self-Concept 算出モジュール
-- **TODO-PI-005**: 応答時の Working Self-Concept 一貫性チェック
+- **TODO-PI-011**: 自己概念データ構造の定義（B7 新規。末尾実装TODOの TODO-PI-004「自己概念の初期記述」を発展させた詳細実装層）
+- **TODO-PI-011-A**: Working Self-Concept 算出モジュール
+- **TODO-PI-005**: 応答時の Working Self-Concept 一貫性チェック（末尾実装TODO の一貫性チェック機構と統合）
 
 #### 実装への示唆
 
@@ -1573,7 +1573,7 @@ Working Self-Concept 算出例（パートナーが弱音を吐いた状況）:
 }
 ```
 
-**対応TODO**: TODO-PI-002（自己概念データ構造の定義と実装）、TODO-PI-002-A（Working Self-Concept 算出モジュール）、TODO-PI-002-B（自己参照効果による記銘強化との接続 → TODO-MS-002）、TODO-PI-005（応答時の自己一貫性チェック）
+**対応TODO**: TODO-PI-011（自己概念データ構造の定義と実装）、TODO-PI-011-A（Working Self-Concept 算出モジュール）、TODO-PI-011-B（自己参照効果による記銘強化との接続 → TODO-MS-002）、TODO-PI-005（応答時の自己一貫性チェック — 末尾実装TODO の一貫性チェック機構を共有）
 
 **注意**:
 
@@ -1746,8 +1746,8 @@ Prevention Focus (義務自己駆動): 0.85 — Higher!
 - **06 自己決定理論（MD系）**: Promotion/Prevention 焦点は自己決定理論の調整種別と関連（外発-取り入れ-同一化-統合の段階）
 - **08 神経科学的基盤**: vmPFC（自己関連処理）、ACC（不一致検出）、扁桃体（焦燥系感情）の神経回路
 - **09 発達: 親の内在化**: ought:mother がいかに発達的に形成されたか（A1 母の遺言の幼少期内在化）
-- **TODO-PI-003**: 自己不一致モジュールの実装
-- **TODO-PI-006**: 性格→感情バイアス連携（不一致→感情マッピング）
+- **TODO-PI-012**: 自己不一致モジュールの実装（B8 新規。末尾実装TODOの TODO-PI-003「口調・話し方パターン」とは別モジュール）
+- **TODO-PI-006**: 性格→感情バイアス連携（不一致→感情マッピングを末尾実装TODOの性格→感情バイアスと統合）
 - **TODO-ES-007**: 自己不一致から感情アプレイザルへの注入
 
 #### 実装への示唆
@@ -1880,7 +1880,7 @@ Prevention Focus (義務自己駆動): 0.85 — Higher!
 }
 ```
 
-**対応TODO**: TODO-PI-003（自己不一致モジュール）、TODO-PI-003-A（不一致→感情マッピング）、TODO-PI-003-B（制御焦点モジュール）、TODO-ES-007（01感情システムへの不一致由来感情注入）、TODO-PI-006（性格→感情バイアス全般の連携）
+**対応TODO**: TODO-PI-012（自己不一致モジュール）、TODO-PI-012-A（不一致→感情マッピング）、TODO-PI-012-B（制御焦点モジュール）、TODO-ES-007（01感情システムへの不一致由来感情注入）、TODO-PI-006（性格→感情バイアス全般の連携 — 末尾実装TODO と統合）
 
 **注意**:
 
@@ -2077,8 +2077,8 @@ Singer, J.A. & Salovey, P. (1993) *The Remembered Self: Emotion and Memory in Pe
 - **09 発達**: ナラティブは発達的に構築・再構成される
 - **10 意識・自己**: 物語は時間的自己連続性の最深層
 - **11 哲学**: 「人生の意味」は本質的に物語的（MacIntyre, Ricoeur）
-- **TODO-PI-004**: ナラティブ・アイデンティティの構造化と物語生成モジュール
-- **TODO-PI-004-A**: イマーゴ管理と前景化制御
+- **TODO-PI-013**: ナラティブ・アイデンティティの構造化と物語生成モジュール（B9 新規。末尾実装TODOの TODO-PI-007「自己物語の蓄積・更新メカニズム」を発展させた詳細実装層）
+- **TODO-PI-013-A**: イマーゴ管理と前景化制御
 - **TODO-MS-007**: self-defining memories の符号化（記憶側、03 E17 から）
 
 #### 実装への示唆
@@ -2202,7 +2202,7 @@ Singer, J.A. & Salovey, P. (1993) *The Remembered Self: Emotion and Memory in Pe
 }
 ```
 
-**対応TODO**: TODO-PI-004（ナラティブ構造化と物語生成）、TODO-PI-004-A（イマーゴ前景化モジュール）、TODO-PI-004-B（物語的一貫性チェック）、TODO-PI-004-C（Narrative Reconstruction）、TODO-MS-007（self-defining memories の符号化と03接続）
+**対応TODO**: TODO-PI-013（ナラティブ構造化と物語生成）、TODO-PI-013-A（イマーゴ前景化モジュール）、TODO-PI-013-B（物語的一貫性チェック）、TODO-PI-013-C（Narrative Reconstruction）、TODO-MS-007（self-defining memories の符号化と03接続）
 
 **注意**:
 
@@ -2410,9 +2410,9 @@ total_motivation_toward_X = Σ_hoped { vividness × accessibility × affective_c
 - **06 動機システム**: 可能自己は内発的動機の認知的源泉
 - **06 自己決定理論**: 統合的調整段階では可能自己が完全に内面化されている
 - **09 発達**: 可能自己はライフステージごとに再構成される
-- **TODO-PI-005**: 可能自己（理想自己/恐れる自己）の保持
-- **TODO-PI-005-A**: hoped/feared/expected の3区画データ構造
-- **TODO-PI-005-B**: 動機合成モジュール（hoped 接近 + feared 回避 → 動機ベクトル）
+- **TODO-PI-014**: 可能自己（理想自己/恐れる自己）の保持（B10 新規。末尾実装TODOの TODO-PI-005「一貫性チェック機構」とは別モジュール — 一貫性チェックは引き続き TODO-PI-005 を参照）
+- **TODO-PI-014-A**: hoped/feared/expected の3区画データ構造
+- **TODO-PI-014-B**: 動機合成モジュール（hoped 接近 + feared 回避 → 動機ベクトル）
 - **TODO-MD-XXX**: 動機システム側からの可能自己参照（→06）
 
 #### 実装への示唆
@@ -2601,7 +2601,7 @@ total_motivation_toward_X = Σ_hoped { vividness × accessibility × affective_c
 }
 ```
 
-**対応TODO**: TODO-PI-005（可能自己データ構造の定義）、TODO-PI-005-A（hoped/feared/expected の3区画）、TODO-PI-005-B（動機合成モジュール）、TODO-PI-005-C（Balanced Pairing チェック）、TODO-PI-005-D（candidate hoped-self の昇格判定）、TODO-MD-XXX（06 動機システムへの注入）
+**対応TODO**: TODO-PI-014（可能自己データ構造の定義）、TODO-PI-014-A（hoped/feared/expected の3区画）、TODO-PI-014-B（動機合成モジュール）、TODO-PI-014-C（Balanced Pairing チェック）、TODO-PI-014-D（candidate hoped-self の昇格判定）、TODO-MD-XXX（06 動機システムへの注入）
 
 **注意**:
 
