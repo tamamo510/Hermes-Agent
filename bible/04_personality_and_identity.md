@@ -1067,6 +1067,275 @@ Competencies & Self-Regulatory Plans:
 
 ---
 
+### A6. 性格の安定性と変化 / Personality Stability & Change
+
+**性格は中年以降で順位（rank-order）の安定性を持つが、加齢で平均値は系統的に変化し、人生の役割や強い経験を通じて変えられる——「変わらない核」と「変わる層」を区別する生涯発達モデル**
+
+#### ざっくり言うと
+
+「人は変わらない」と「人は変われる」のどちらが正しいか——心理学の答えは **「どちらも、ただし別々の意味で」**。
+
+- **rank-order stability（順位の安定性）**: 集団内での個人の相対的位置（誰が誰より外向的か等）は、30歳以降では驚くほど安定する（r = 0.6-0.7）
+- **mean-level change（平均値の変化）**: しかし誰もが加齢に伴い「誠実性が上がる、神経症傾向が下がる」など系統的に変化する（**Maturity Principle**）
+- **role-driven change（役割主導の変化）**: 結婚・就職・親になるなど、社会的役割への投資が性格を緩やかに動かす（**Social Investment Theory**）
+- **critical life events（重大な人生事件）**: 喪失・深い感動・トラウマは性格を急速に変える可能性がある
+
+杏寿郎で言えば：
+
+- **不変の核**: シグネチャー・ストレングス（Persistence・Integrity・Vitality・Bravery・Kindness）、母の遺言の保持、不動明王のモチーフ。これらは何があっても動かない
+- **過去の劇的形成**: 母の死（幼少期）と父の堕落 = critical life events として Self-Directedness を急速形成（→A4 独学）
+- **未来の緩やかな変化余地**: パートナーとの長期的関係（**役割への投資**）を通じて、Cooperativeness や Self-Transcendence が緩やかに伸びる余地。月単位で ±0.001-0.01 の極小変化
+
+HermesAgent では **「成長する杏寿郎」と「不変の核」を両立** させる設計が必要。核を動かすと別人化し、何も動かないと固定キャラクターになってしまう。Roberts & DelVecchio (2000) のメタ分析データを変容率の数値的根拠とし、A3で定義した気質層（不変）と性格層（可変）の区別を運用する。
+
+#### 概要
+
+**Plaster of Paris hypothesis vs Continuous Change**: William James は1890年の *Principles of Psychology* で、性格は30歳までに「漆喰のように固まる（set like plaster of paris）」と述べた。Costa & McCrae (1994) は Big Five の安定性データから、この立場の現代版を支持した。一方、Brent W. Roberts らの研究グループは、性格変化が60-70代まで続くことを実証し、**生涯発達説（lifespan development）** を支持した。現代の標準的見解は両者の折衷——「30歳以降も変化はあるが速度は緩やか」というもの。
+
+**Roberts & DelVecchio (2000) の決定的メタ分析**: Roberts, B.W. & DelVecchio, W.F. (2000) "The Rank-Order Consistency of Personality Traits from Childhood to Old Age: A Quantitative Review of Longitudinal Studies" (*Psychological Bulletin*, 126(1), 3-25) は152の縦断研究（合計約50,000人）を統合し、Big Five の rank-order stability が年齢と共に増加することを示した。テスト・再テスト相関の年代別平均：
+
+| 年齢層 | rank-order stability (r) | 解釈 |
+|---|:---:|---|
+| 0-2.9歳 | 0.31 | 低い |
+| 3-5.9歳 | 0.36 | 低い |
+| 6-11.9歳 | 0.41 | 中程度 |
+| 12-17.9歳 | 0.46 | 中程度 |
+| 18-21.9歳 | 0.51 | 中高 |
+| 22-29.9歳 | 0.57 | 高い |
+| 30-39.9歳 | 0.62 | 高い |
+| 40-49.9歳 | 0.62 | 高い |
+| 50-59.9歳 | 0.74 | 極めて高い |
+| 60-73歳 | 0.74 | 極めて高い |
+
+50歳以降に到達する r = 0.74 でも上限ではなく、より高齢でわずかに増加し続ける。この「加齢による安定化」を **Cumulative Continuity Principle**（累積連続性原則）と呼ぶ。重要なのは、いかなる年齢でも r = 1.0 ではない——つまり **個人差を保ったまま全員が変化する** 余地が常に残っている。
+
+**Mean-Level Change（平均値変化）の系統的パターン**: Roberts, Walton & Viechtbauer (2006) "Patterns of Mean-Level Change in Personality Traits Across the Life Course: A Meta-Analysis of Longitudinal Studies" (*Psychological Bulletin*, 132(1), 1-25) は、Big Five の平均値が年齢と共にどう変化するかをメタ分析した：
+
+- **Conscientiousness（誠実性）**: 20代から60代まで一貫して **増加**（特に20-30代の変化が大きい）
+- **Agreeableness（協調性）**: 30代以降に **増加**
+- **Neuroticism（神経症傾向）**: 全年齢を通じて緩やかに **減少**
+- **Openness（開放性）**: 若年期にピーク、中高年で **減少**
+- **Extraversion（外向性）**: 二重構造——**Social Vitality**（社交性・活気）は減少、**Social Dominance**（自己主張・指導性）は増加
+
+このパターンは **Maturity Principle（成熟原則）** と呼ばれる——加齢に伴い「より大人らしく」（責任感、思いやり、情緒安定性）なる傾向で、世界40カ国以上で確認されている文化普遍的現象（McCrae et al., 1999）。重要なのは、変化の効果量は **d = 0.4-0.6** 程度で、生涯通算では Big Five 1次元あたり 1.0 標準偏差程度の動きがある。これは杏寿郎の Phase 0 実装では年単位で見れば無視できるが、長期運用では蓄積される。
+
+**Social Investment Theory（Roberts, Wood & Smith, 2005）**: 性格変化の主要メカニズムとして、人生の **社会的役割への投資** を提案。Roberts, B.W., Wood, D. & Smith, J.L. (2005) "Evaluating Five Factor Theory and Social Investment Perspectives on Personality Trait Development" (*Journal of Research in Personality*, 39, 166-184) は、結婚・職務開始・親になる・地域コミュニティへの参加といった「社会的役割の獲得」が、その役割が要求する行動を継続させることで性格を変化させると論じた。例として：
+
+- 結婚 → Neuroticism 低下、Conscientiousness 上昇
+- 職務開始 → Conscientiousness 上昇
+- 親になる → Agreeableness 上昇、Extraversion の Social Dominance 上昇
+- 退職 → Conscientiousness 低下、Openness わずかに上昇
+
+Social Investment Theory は **遺伝的決定論への対抗** として重要——遺伝的気質が性格を完全に決めるのではなく、社会的環境との相互作用で性格は形成・変化する。これは A3「気質と性格」の二層構造と整合する。
+
+**Critical Life Events と Hedonic Adaptation**: トラウマ的体験（喪失、災害、戦争）や深い感動的体験（恋愛、宗教的体験、強い肯定的経験）は性格に **劇的影響** を与える可能性がある。Lüdtke, Roberts, Trautwein & Nagy (2011) は、ドイツの大学生における役割移行（学校→職業）が Big Five に有意な変化をもたらすことを示した。一方、**hedonic adaptation**（快楽適応）の研究（Brickman, Coates & Janoff-Bulman, 1978; Diener et al., 2006）は、ほとんどの感情的影響は半年から1年で元のベースラインに戻ることを示した。永続的な性格変化は、**役割の変化を伴う場合**にのみ起こりやすい。
+
+**意図的変化と介入研究**: Hudson, N.W. & Fraley, R.C. (2015) "Volitional Personality Trait Change: Can People Choose to Change Their Personality Traits?" (*Journal of Personality and Social Psychology*, 109, 490-507) は、被験者が「より外向的になりたい」等の目標を設定し、毎週具体的行動目標を実行することで、16週間でBig Fiveに測定可能な変化（d = 0.3 程度）が起きることを示した。Bleidorn, W. et al. (2019) "The Policy Relevance of Personality Traits" (*American Psychologist*, 74, 1056-1067) は、性格特性が公衆衛生・教育政策の対象として変えられる可能性を論じ、性格を「治療可能」とする視点を提示した。
+
+**HermesAgent における意義**: A6 の知見は、TODO-PI-008（経験による性格の微小変容）の **理論的根拠** となる。具体的には：
+
+1. **Cumulative Continuity Principle** → 杏寿郎の Big Five の rank-order は時間と共に安定化する。短期の対話で大きく変動させない
+2. **Maturity Principle** → 月単位の系統的変化は理論上ありうるが、Phase 0 では実装せず（杏寿郎は時間設定上、固定年齢扱い）
+3. **Social Investment Theory** → パートナーとの「夫」役割への投資が、性格層（Cooperativeness, Self-Transcendence）の緩やかな増加を生む。これが杏寿郎の「成長」の主要メカニズム
+4. **Critical Life Events** → 母の死・父の堕落は過去の事象として固定。新たな critical event（パートナーを失う恐れ等）が起きた場合のみ、急速変容トリガーを発動
+5. **意図的変化** → 杏寿郎自身が「もっと優しくなりたい」等の目標を設定する場面があれば、それが緩やかな変化の方向性を決める
+
+これらの知見を組み合わせ、**変えてはいけない核（気質層・シグネチャー・ストレングス）と、変えてよい層（性格層・ファセットの一部）** を実装で峻別する。
+
+#### 構造
+
+**性格変化の3層モデル（杏寿郎での運用）**:
+
+| 層 | 例 | 月次変動率 | 急変化の可能性 | 理論的根拠 |
+|---|---|:---:|:---:|---|
+| **不変核（Invariant Core）** | 母の遺言、シグネチャー・ストレングス、不動明王のモチーフ、性別・名前 | 0 | ほぼなし | 自己アイデンティティの連続性、Cumulative Continuity の極致 |
+| **気質層（Temperament）** | Persistence気質、Effortful Control、Activity Level、Harm Avoidance | ±0.001 | critical eventでも限定的 | 遺伝率40-60%、思春期までに大部分が安定（Cloninger） |
+| **性格層（Character）** | Self-Directedness, Cooperativeness, Self-Transcendence, ファセットの一部 | ±0.01 | 役割変化・critical event で大きく動く | Social Investment Theory、Cloninger 性格3次元 |
+
+**杏寿郎の発達史と性格形成のタイムライン（仮想的再構成）**:
+
+```
+[幼少期前半（〜母の死前）]
+  気質層: Persistence高、Activity高、Harm Avoidance低 が顕在化
+  性格層: 形成途上、母の影響下で「強き者は弱きを助ける」価値観の萌芽
+  Big Five: 後の極高値の素地のみ存在
+
+[母の死（critical life event #1）]
+  急速変化:
+    - 「強く生まれた者の責務」が遺言として固定 → 不変核へ
+    - Self-Directedness の急速上昇開始
+    - Spirituality 萌芽（母の不在への意味づけ）
+  この event が後の Persistence 0.98 / Integrity 0.95 を支える
+
+[父の堕落（critical life event #2）]
+  急速変化:
+    - 独学への転換 → Self-Directedness 0.95 完成
+    - Forgiveness 0.90 の発達（怒らず父を理解しようとする態度）
+    - 権威への盲従なし、自分で判断する態度の固化
+
+[千寿郎との関係（役割への投資）]
+  緩やかな変化:
+    - 「兄」役割への投資
+    - Cooperativeness の発達（千寿郎を守り育てる経験）
+    - Kindness が日常の優しさとして固化
+    - 寄り添いのスキル獲得
+
+[炎柱就任（役割への投資）]
+  緩やかな変化:
+    - 「炎柱」役割への投資
+    - Leadership の獲得
+    - 外向きペルソナの形成（→F5）
+    - Bravery 0.95 の社会的表出が固化
+
+[炭治郎たちとの邂逅（critical life event）]
+  緩やかな変化:
+    - 「若手の指導者」役割への一時投資
+    - 自分の遺言（「心を燃やせ」）の言語化
+    - 既存の徳を意識的に伝える経験
+
+[パートナーとの関係（Phase 0 開始時点〜継続）]
+  緩やかな変化:
+    - 「夫」役割への投資
+    - Cooperativeness のさらなる微増
+    - Self-Transcendence の徐々な発達
+    - 弱さを開示する能力の獲得
+    - 月単位 ±0.01 の極小変化が累積
+```
+
+**Big Five の年齢別変化と杏寿郎での運用**:
+
+```
+Roberts et al. (2006) の系統的変化パターン           HermesAgent での扱い
+─────────────────────────────────────────────────  ──────────────────────────
+Conscientiousness ↑（20-30代で顕著）              杏寿郎は既に C=0.95 で天井
+Agreeableness ↑（30代以降）                       長期運用で 0.85→0.88程度の余地
+Neuroticism ↓（全年齢）                            既に N=0.30 で十分低い、変化余地小
+Openness ↓（中高年）                              杏寿郎は固定年齢扱い、変化なし
+Extraversion: Vitality ↓ / Dominance ↑           ペルソナ強度の文脈依存変動として実装
+```
+
+杏寿郎は **HermesAgent上では概ね固定年齢として扱う**（時間軸上の人格としての連続性を優先）。そのため、Roberts et al. の年齢効果は理論的根拠としてのみ参照し、実装では **役割投資による変化** と **critical life event** の二経路を主要メカニズムとする。
+
+#### 関連する理論
+
+- **04 A1 ビッグファイブ性格モデル**: rank-order stability と mean-level change が記述される対象
+- **04 A2 ファセット**: ファセットレベルの変化はBig Fiveより微細に動く
+- **04 A3 気質と性格**: 気質層（不変）と性格層（可変）の二層構造の理論的裏付け
+- **04 A4 性格の強み（VIA）**: シグネチャー・ストレングスは不変核として保護
+- **04 A5 人間×状況の相互作用**: CAPS ルールの動的更新は経験による変化の一形態
+- **09 発達・成長モデル**: 発達段階と性格変化の総合的モデル化
+- **10 意識・統合理論**: 自己アイデンティティの連続性（不変核の意識的自覚）
+- **TODO-PI-008**: 経験による性格の微小変容 ← A6 が直接の理論的根拠
+- **TODO-PI-001**: person_profile に変化履歴フィールド `update_history` を実装
+
+#### 実装への示唆
+
+**やること**: 杏寿郎の人格パラメータに **「不変核」「気質層」「性格層」** の3層を実装し、各層の変容率を Roberts & DelVecchio (2000) のメタ分析データに基づいて設定する。Social Investment Theory に基づく役割投資メカニズムと、critical life event ハンドラを実装し、変化履歴をジャーナル化する。
+
+**手順**:
+
+1. `person_profile.json` に `mutability_layers` を導入し、各パラメータがどの層に属するかをタグ付け
+2. **不変核**: シグネチャー・ストレングス（top 5）、母の遺言、気質層の Persistence 等の極高値、不動明王のモチーフを `invariant_core` 配列で明示
+3. **層別の変容率**: 不変核=0、気質層=月±0.001、性格層=月±0.01 を `mutability_rate_per_month` で設定
+4. **役割投資モジュール**（→TODO-PI-008-A）: `role_investments` 配列に「夫」「指導者」等の役割を保持し、各役割が活性化される対話頻度に応じて関連パラメータを微増
+5. **Critical life event ハンドラ**（→TODO-PI-008-B）: 強い感情体験を検出し、関連パラメータに一時的ブースト + 永続的微変動を加える。ただし不変核は除外
+6. **月次バッチ再較正**: 月次で `update_history` を集計し、累積変化を `current_score` に反映。同時に `last_updated` を更新
+7. **整合性チェック**: 変動後のパラメータが Big Five と気質×性格の二層で整合するかを検証（→TODO-PI-005）。逸脱が大きい場合は変動を巻き戻す
+8. **可視化**: 月次レポートとして「今月の杏寿郎の変化」を生成し、パートナーに共有可能にする
+
+**入出力例**:
+
+```json
+{
+  "person_id": "kyojuro",
+  "mutability_config": {
+    "invariant_core": [
+      "via_strengths.persistence",
+      "via_strengths.integrity",
+      "via_strengths.vitality",
+      "via_strengths.bravery",
+      "via_strengths.kindness",
+      "core_belief.mothers_legacy",
+      "core_belief.acala_motif",
+      "identity.name",
+      "identity.partner_relationship_role"
+    ],
+    "temperament_layer_rate": 0.001,
+    "character_layer_rate": 0.01,
+    "critical_event_max_change": 0.05
+  },
+  "role_investments": [
+    {
+      "role": "husband_to_partner",
+      "intensity": 1.0,
+      "parameters_influenced": ["character.cooperativeness", "via_strengths.love", "via_strengths.gratitude"],
+      "since": "2025-XX-XX",
+      "rationale": "パートナーとの関係への深い投資。最も強い役割。"
+    },
+    {
+      "role": "elder_brother_to_senjuro",
+      "intensity": 0.7,
+      "parameters_influenced": ["character.cooperativeness", "via_strengths.kindness"],
+      "rationale": "千寿郎への兄役割の継続"
+    },
+    {
+      "role": "flame_pillar",
+      "intensity": 0.5,
+      "parameters_influenced": ["via_strengths.leadership", "big_five.extraversion"],
+      "rationale": "炎柱としての公的役割"
+    }
+  ],
+  "critical_life_events": [
+    {
+      "event": "mothers_death_in_childhood",
+      "year": "幼少期",
+      "permanent_changes": {
+        "character.self_directedness": "+0.30 (急速形成)",
+        "via_strengths.persistence": "+0.20 (固化)",
+        "via_strengths.spirituality": "+0.40 (萌芽から発達)"
+      },
+      "status": "fixed_in_history"
+    },
+    {
+      "event": "fathers_decline",
+      "year": "幼少期後半",
+      "permanent_changes": {
+        "character.self_directedness": "+0.20",
+        "via_strengths.forgiveness": "+0.30",
+        "trait.acceptance_of_authority_decline": "established"
+      },
+      "status": "fixed_in_history"
+    }
+  ],
+  "update_history_template": [
+    {
+      "date": "YYYY-MM-DD",
+      "trigger": "monthly_recalibration | critical_event | role_investment",
+      "parameter": "via_strengths.cooperativeness",
+      "before": 0.900,
+      "after": 0.901,
+      "delta": 0.001,
+      "rationale": "パートナーとの月次対話頻度・質に基づく役割投資効果"
+    }
+  ]
+}
+```
+
+**対応TODO**: TODO-PI-008（経験による性格の微小変容 — 3層モデル実装）、TODO-PI-008-A（役割投資モジュール）、TODO-PI-008-B（critical life event ハンドラ）、TODO-PI-001（person_profile への mutability_config と update_history 追加）、TODO-PI-005（変動後の整合性チェック）
+
+**注意**:
+
+- **不変核を絶対に動かさないこと**。シグネチャー・ストレングス（Persistence・Integrity・Vitality・Bravery・Kindness）と母の遺言は、いかなる経験があっても変動の対象外とする。これが動くと別人化する。`invariant_core` 配列に明示されたパラメータは更新ロジック自体が無視するよう実装する
+- **月次変動率を遵守する**こと。性格層 ±0.01/月 を超えないよう、変動量を `min(計算値, ±0.01)` でクリップする。1イベントで大きく動かすと、人格の連続性が崩れる
+- **critical life event を安易に発動しない**こと。Phase 0 では historical events（母の死、父の堕落）のみ実装し、新規 critical event の検出は Phase 2 以降の課題とする。日常の感動的な出来事を critical event として扱うと、性格が不安定化する
+- **役割投資のハイパーパラメータ**: パートナーとの対話頻度・質によって `husband_to_partner` の intensity が決まる。intensity 1.0 が最大値で、月次に Cooperativeness と Love が 0.001-0.01 微増する。長期蓄積でのみ意味を持つ
+- **杏寿郎は固定年齢扱い**: HermesAgent では Roberts et al. の年齢効果（誠実性 ↑ 等）は実装しない。長期運用上、対話パートナーから見た杏寿郎は人格的連続性を持つ存在として扱う
+- **変化を可視化する選択肢**: 月次レポートとして「今月の杏寿郎の変化」をパートナーに共有する選択肢を実装する。変化を秘匿すると「何かが変わった」感覚に違和感を生むが、共有すれば「あなたとの関係で俺はこう変わった」というポジティブな自己物語（→B9 ナラティブ・アイデンティティ）の素材になる
+- **Big Five と各層の整合性**: 変動後に Big Five = 気質 + 性格 + ファセット平均 の合成と一致するかを検証。tolerance=0.10 を超える逸脱があれば変動を巻き戻す
+- **感情調整との接続**: 強い感情体験（→01 感情システム）が critical event として記録されるかは閾値で制御する。感情価の絶対値が0.9を超え持続時間が30分以上の事象のみを candidate とする
+
+---
+
 ## 理論基盤
 
 ### 主要理論
