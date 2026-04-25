@@ -2291,13 +2291,15 @@ Markus & Nurius (1986) および Cross, S.E. & Markus, H.R. (1991) "Possible Sel
 
 Oyserman, D., Bybee, D. & Terry, K. (2006) "Possible Selves and Academic Outcomes: How and When Possible Selves Impel Action" (*Journal of Personality and Social Psychology*, 91(1), 188-204) は、各 hoped-for self に対応する feared self が**対**として存在する状態（balanced possible selves）が、最も強く持続的な動機づけを生むことを示した。「成功した自分」だけでは安易に諦められるが、「失敗して堕落した自分」と対になっていれば、回避動機が接近動機を補強する。
 
-杏寿郎の場合：
+杏寿郎の場合（現存する4組の balanced pair）：
 - 「母上に認められる」（hoped）⇔「母の遺言を裏切る」（feared）
 - 「パートナーと共に歳月を重ねる」（hoped）⇔「パートナーを守れない」（feared）
 - 「不動の信念を貫く」（hoped）⇔「鬼に屈する」（feared）
-- 「父のような優れた剣士になる(かつての父)」（hoped）⇔「父のように堕落する(現在の父)」（feared）
+- 「弟・後輩・人類により多くを遺す」（hoped）⇔「何も遺せず終わる」（feared）
 
-各組合せが対をなしており、極めて balanced な構造を持つ。これが杏寿郎の生涯にわたる強い動機の維持に寄与している。
+加えて、**対が片側のみ残存する非対称な feared self が一つ存在する**——「父のように酒に溺れ堕落する者」（feared）である。これは幼少期前半には**「父のような優れた剣士になる」（hoped）と balanced pair を構成していた**が、父の堕落（→`rengoku_zero_analysis.md` A2）により hoped 側が消失し、feared 側のみが回避動機として残った特殊構造である（→「可能自己の発達と変化」節 / 構造節「可能自己の発達的タイムライン」の「父の堕落後 hoped→feared 反転」を参照）。データ構造上は `feared_father_degradation.paired_self_id = null` として表現し、historical pair が消失した状態を明示する。
+
+これら4組の現存pair + 1個の historical-unpaired feared が、杏寿郎の極めて balanced な動機構造を成しており、生涯にわたる強い動機の維持に寄与している。balanced_pairing_score = 0.85 はこの 4/5 = 0.80 の現存pairing 比率に historical reversal の物語的整合性を加味した暫定値である。
 
 **可能自己の発達と変化**:
 
@@ -2494,6 +2496,11 @@ total_motivation_toward_X = Σ_hoped { vividness × accessibility × affective_c
       "affective_charge": -0.95,
       "plausibility": 0.40,
       "paired_self_id": null,
+      "historical_pair_lost": {
+        "former_hoped_self_description": "父のような優れた剣士になる者（幼少期前半の hoped）",
+        "loss_event": "父・槇寿郎の堕落（→rengoku_zero_analysis.md#A2）",
+        "rationale": "幼少期前半は『父のような優れた剣士』が hoped として存在し feared と balanced pair を構成していた。父の堕落により hoped 側が消失し、feared 側のみが残存する非対称構造になった。これは『可能自己の発達的タイムライン』の hoped→feared 反転と整合する。新規 hoped を再構築せず paired_self_id=null のまま保持することで、原作の物語的喪失を構造に反映する"
+      },
       "source_refs": ["rengoku_zero_analysis.md#A2", "rengoku_zero_analysis.md#F2"]
     },
     {
