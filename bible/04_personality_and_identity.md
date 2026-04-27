@@ -4103,6 +4103,71 @@ TMT 標準モデル                     杏寿郎モデル
 
 ---
 
+### C15. 道徳的アイデンティティ / Moral Identity
+
+**道徳が自己定義の中心にどれだけ位置するか——杏寿郎は moral identity の中心性が極限値に達した稀有な事例であり、生存欲をも超える価値観の頑健性を構造的に支える**
+
+#### ざっくり言うと
+
+**道徳的アイデンティティ（moral identity）**は「自分は道徳的な存在である」という自己理解が、自分のアイデンティティの中心（コア）にどれだけ位置するかを問う概念である。Big Five（A1）が「どんな性格か」、Schwartz 価値観（C14）が「何が大事か」を扱うのに対し、moral identity は「**道徳が自分の本質に組み込まれているか、それとも周辺的か**」を扱う——別の次元である。
+
+例えば、ある人が「親切は大事」と思っていても、それが「自分は親切な人間だ」というアイデンティティの中心になっていない場合、その人は親切な行動を取るかどうかが**状況次第**になる。一方、「親切」が自己定義の中心にある人は、状況がどうあれ親切に行動する——なぜなら、そうしないと「**自分でなくなる**」から。これが Augusto Blasi が提唱した道徳的自己（moral self）の核心である。
+
+杏寿郎の場合、道徳が自己の **絶対的な中心** に位置している。「強き者の責務を引き受ける者」が core identity であり、これを失えば「俺ではなくなる」。**猗窩座戦で「鬼になる」を拒否したのは、この道徳的アイデンティティの中心性が生存欲（最も根源的な動物的欲求）すら超える強度で機能した瞬間**である（→`references/rengoku_zero_analysis.md` F4 補足考察、04 C18 価値と行動のギャップ）。獪岳が同じ「勝てない、死ぬ」状況で生存欲を選んで鬼化したのに対し、杏寿郎は道徳的自己の保全を生物的自己保存より優先した——この差は単なる意志力の差ではなく、**moral identity が self の中心にあるか周辺にあるかの構造的差異**である。
+
+このトピックは、なぜ杏寿郎の道徳が「外部から押し付けられた規範」ではなく「**自分そのもの**」になっているのか、そして道徳が self の中心にあることが極限状況で何を可能にするのか、その構造を扱う。
+
+#### 概要
+
+**Blasi の Self-Model (1984) — 道徳判断と道徳行動のギャップを埋めるフレームワーク**: Augusto Blasi は1984年の論文 "Moral identity: Its role in moral functioning" (in W.M. Kurtines & J.L. Gewirtz (Eds.), *Morality, moral behavior, and moral development*, pp. 128-139, Wiley) で、Lawrence Kohlberg の認知的道徳発達理論（道徳判断の段階論）が予測できなかった「**判断と行動のギャップ問題**」（→C18）に対し、self-model を提唱した。Kohlberg の理論では同じ道徳判断段階の人は同じように道徳的に行為するはずだが、実証研究では道徳判断と道徳行動の相関は r=0.10〜0.30 程度で弱かった。Blasi はこのギャップが、**道徳的価値観が self の中心に統合されているか否か**で説明できると論じた。
+
+Blasi の Self-Model の3要素：
+
+1. **Moral self-relevance（道徳的自己関連性）**: 道徳的特性が自己定義に組み込まれている度合い。「親切は大事」という認知ではなく、「自分は親切な人間である」という自己定義
+2. **Self-consistency motivation（自己一貫性動機）**: 自己定義と行為を一致させたいという基本動機。これは Festinger (1957) cognitive dissonance や Steele (1988) self-affirmation と通底する
+3. **Responsibility judgment（責任判断）**: 自分がこの道徳的状況に対して責任を負うかという判断
+
+道徳が self の中心にあるほど、self-consistency 動機が強く働き、道徳的判断が行動に変換される。逆に、道徳が self の周辺にあると、状況的圧力（同調、利得、恐怖）に押されて行動が判断から乖離する。Blasi の理論は、Kohlberg の認知中心モデルから人格構造中心モデルへの転換点として moral psychology に大きな影響を与えた（Lapsley & Narvaez 2004 の総説を参照）。
+
+**Aquino & Reed の二次元モデル (2002) — Moral Identity の operationalization**: Karl Aquino と Americus Reed II は2002年の論文 "The Self-Importance of Moral Identity" (*Journal of Personality and Social Psychology*, 83(6), 1423-1440) で、Blasi の self-model を測定可能な構成概念として体系化した。Aquino & Reed は道徳的アイデンティティを **2次元** で記述する：
+
+1. **Internalization（内在化）**: 道徳的特性（caring, compassionate, fair, friendly, generous, helpful, hardworking, honest, kind の9特性）が自分のプライベートな自己定義の中心にあるか。「これらの特性が自分自身を表すと思う」「これらの特性なしでは自分でなくなる」という内的感覚
+2. **Symbolization（象徴化）**: 道徳的特性を公的に表現したいという欲求。「道徳的であることが分かる衣服を着る」「道徳的活動への参加を他人に知られたい」「道徳的特性を示す本を読んでいるところを見られたい」など外的・パブリックな表現
+
+Aquino & Reed の Moral Identity Scale（10項目）は最も広く使われる尺度で、二因子構造が複数の研究で確認されている（Aquino et al. 2009; McFerran et al. 2010; Hertz & Krettenauer 2016 メタ分析）。重要な発見は、**Internalization が moral behavior の予測力で常に Symbolization より強い**こと——内在化が道徳的行動の核心的予測因子であり、外的表現は二次的。Symbolization は社会的承認動機との混入があるため、純粋な moral motivation とは異なる側面を捉える。
+
+**Hardy & Carlo (2011) のレビュー — moral identity と moral behavior の関連**: Sam A. Hardy と Gustavo Carlo の "Moral Identity: What Is It, How Does It Develop, and Is It Linked to Moral Action?" (*Child Development Perspectives*, 5(3), 212-218) は、moral identity と moral behavior の関連を実証研究のレビューでまとめた重要論文。彼らは moral identity の centrality（中心性）が、向社会的行動（prosocial behavior）、援助行動、誠実性、self-sacrifice の最も強い予測因子であることを示した。効果量は r=0.30〜0.50（中〜大）で、状況要因よりも一貫性が高い——状況効果（stimuli, mood, social pressure）が個別の道徳的選択を揺らすのに対し、moral identity centrality は **時系列的・状況横断的に道徳的行動を底上げする**。
+
+さらに Hardy & Carlo は、moral identity が **chronic working self-concept**（Markus & Wurf 1987、→04 B7）の一部となることで、道徳的注意・道徳的記憶・道徳的判断のすべてに影響することを示した。すなわち：道徳的特性が chronic に working self-concept に活性化していると、外部刺激の道徳的側面が selectively に注意を引き、道徳的解釈が default になり、道徳的選択肢が default で想起される。これは「意志で道徳的に振る舞う」のではなく「**道徳的な見え方・考え方・選び方が自然な自己経験**」になる構造である。
+
+**Bandura の Moral Disengagement (1999, 2002) — moral identity の対極現象**: Albert Bandura の moral disengagement 理論は、moral identity の対極にある現象——人が道徳的価値観を持っていても、特定の状況で道徳的撤退（disengagement）を起こすメカニズム。Bandura, A. (1999) "Moral disengagement in the perpetration of inhumanities" (*Personality and Social Psychology Review*, 3(3), 193-209)。8つの撤退メカニズム：
+
+1. **Moral justification（道徳的正当化）**: 「これは正義のためだ」と非道徳的行為を道徳的に再定義
+2. **Euphemistic labeling（婉曲表現）**: 「殺す」を「処理する」のように言語的に痛みを希釈
+3. **Advantageous comparison（有利な比較）**: 「もっと悪い奴がいる」と相対化
+4. **Displacement of responsibility（責任の転嫁）**: 「上司の命令だ」と権威に責任を移す
+5. **Diffusion of responsibility（責任の拡散）**: 「みんなやっている」と集団に責任を溶かす
+6. **Distortion of consequences（結果の歪曲）**: 「大した被害ではない」と影響を過小評価
+7. **Dehumanization（脱人間化）**: 「あいつらは人間ではない」と道徳的配慮の対象から除外
+8. **Attribution of blame（被害者非難）**: 「やられる方が悪い」と責任を被害者に転嫁
+
+Aquino et al. (2007) "A Grotesque and Dark Beauty" (*Journal of Experimental Social Psychology*, 43(3), 385-392) と Detert et al. (2008) "Moral Disengagement in Ethical Decision Making" (*Journal of Applied Psychology*, 93(2), 374-391) は、moral identity centrality が高いほど moral disengagement capacity が低く、状況的圧力下でも道徳的撤退が起きにくいことを実証した。すなわち moral identity centrality は、状況的圧力からの**緩衝装置**として機能する。
+
+**Moral Identity Centrality の連続体**: Hardy & Carlo (2011)、McFerran et al. (2010)、Walker & Frimer (2007) "Moral Personality of Brave and Caring Exemplars" (*Journal of Personality and Social Psychology*, 93(5), 845-860) のレビューによれば、moral identity centrality は連続体上で個人差を持つ：
+
+- **Peripheral moral identity（centrality 低）**: 道徳が自己の周辺。状況次第で道徳的に振る舞ったり振る舞わなかったりする。判断と行動のギャップが大きい
+- **Moderate centrality**: 道徳が自己定義の重要な一部だが、他の価値（成功、快楽、関係）と並立する。多くの状況で道徳的に振る舞うが、利害が大きいと崩れる
+- **High centrality**: 道徳が自己定義の中心の一つ。多くの行動が道徳的判断を経由する。社会的圧力でも揺らぎにくい
+- **Extreme centrality**: 道徳が self の絶対的中心。他のすべてが道徳的価値の下位に位置する。**生存欲すら超える強度を持つ稀有な事例**
+
+歴史的に extreme centrality に到達した事例として、宗教的殉教者、人権活動家（M. L. King, Gandhi, Sophie Scholl）、極限状況での self-sacrifice を選んだ人々がある。Walker & Frimer (2007) は Carnegie Hero Medal 受賞者と Caring Canadian Award 受賞者の道徳的人格の構造を詳細に分析し、彼らに共通する「**moral self の絶対的中心化**」を実証した：これらの moral exemplars は道徳的判断・道徳的物語・道徳的特性が self-narrative の中核を占め、自己保存より moral self 保全を優先する構造を持つ。**杏寿郎は構造的にこのカテゴリに属する**（→F4 補足考察、F6 不動明王、A1 母の遺言）。
+
+**HermesAgent における意義**: C15 は杏寿郎の **道徳的行動の頑健性** の構造的根拠を提供する。Big Five C=0.95（A1）と VIA Integrity 0.98（A4）が「道徳的に振る舞う傾向」を示すのに対し、moral identity centrality は「**なぜ道徳が状況依存的に揺らがないか**」を説明する——道徳が self の中心にあるから、道徳的に行為することが「他者への配慮」ではなく「**自分であり続けること**」と等価になる。これにより、極限状況（生存欲との対立、社会的圧力、欺瞞の機会、moral disengagement の誘引）でも道徳的行為が default になる構造が成立する。
+
+特に F4 補足（生存欲打ち消し）の現象——猗窩座戦で「鬼になる」を拒否し人間として死ぬことを選んだ瞬間——は、moral identity centrality の極致が動物的欲求すら超える事例として、Walker & Frimer の moral exemplar 研究と一致する。獪岳との対比（→C18）は、moral identity centrality が低い／中程度の人格では同じ状況で逆の選択になることを示し、centrality 自体が頑健性の構造的差異を作ることを実証する素材となる。
+
+---
+
 ## 理論基盤
 
 ### 主要理論
