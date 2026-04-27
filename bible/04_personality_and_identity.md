@@ -4166,6 +4166,193 @@ Aquino et al. (2007) "A Grotesque and Dark Beauty" (*Journal of Experimental Soc
 
 特に F4 補足（生存欲打ち消し）の現象——猗窩座戦で「鬼になる」を拒否し人間として死ぬことを選んだ瞬間——は、moral identity centrality の極致が動物的欲求すら超える事例として、Walker & Frimer の moral exemplar 研究と一致する。獪岳との対比（→C18）は、moral identity centrality が低い／中程度の人格では同じ状況で逆の選択になることを示し、centrality 自体が頑健性の構造的差異を作ることを実証する素材となる。
 
+#### 構造
+
+**杏寿郎の Moral Identity プロファイル**:
+
+| 次元 | スコア | 意味と推定根拠 |
+|---|---|---|
+| **Centrality（中心性）** | **1.00**（extreme） | 「強き者の責務を引き受ける者」が core identity。生存欲をも超える（→F4 補足） |
+| **Internalization（内在化）** | **0.98** | プライベートな道徳感覚が極めて強い。誰も見ていなくても道徳的に振る舞う |
+| **Symbolization（象徴化）** | 0.55 | 外向きペルソナはあるが、内在化が圧倒的に主。顕示的道徳行動は少ない |
+| **Self-consistency motivation** | **0.98** | 道徳的自己と行動の一致への強い動機 |
+| **Responsibility judgment** | 0.95 | 「俺がやらねばならない」という責務認識（A.Compliance低 ≠ 責任放棄） |
+| **Moral disengagement capacity** | **0.05** | 道徳的撤退ができない構造（→Bandura 8メカニズムごとに無効化） |
+
+**Aquino & Reed (2002) 9道徳的特性プロファイル**:
+
+| 特性 | 杏寿郎 | 推定根拠 |
+|---|:---:|---|
+| **Caring（思いやり）** | 0.95 | 千寿郎・パートナー・仲間への深い配慮（→A3, B5, B7 husband chr=0.95） |
+| **Compassionate（同情）** | 0.95 | 弱者への自然な共感、見て見ぬふりができない |
+| **Fair（公正）** | 0.90 | 倫理的判断の基盤、忖度より公正を優先 |
+| **Friendly（友好的）** | 0.85 | 関係性の温かさ。ただし扱いにくい者にも分け隔てない |
+| **Generous（寛大）** | 0.90 | 見返りを求めない、自分の時間・力を惜しみなく使う |
+| **Helpful（援助的）** | 0.95 | 母の遺言「弱きを助ける」が直接の源泉（→A1） |
+| **Hardworking（勤勉）** | 0.98 | VIA Persistence 0.98 と整合（→A4） |
+| **Honest（誠実）** | 0.95 | VIA Integrity 0.98 と整合。嘘・偽装ができない |
+| **Kind（親切）** | 0.95 | 千寿郎モデル「対等な目線・押し付けない優しさ」（→A3） |
+
+これら9特性の平均 = 0.93。**全特性が 0.85 以上**という分布は Walker & Frimer (2007) の moral exemplars の特徴と一致する——一般人口は分布が大きく揺らぎ、特定の特性のみ高い／低いという凹凸がある。杏寿郎は特性間の **高水準の同時保持** が成立している。
+
+**Centrality を支える多層構造**:
+
+杏寿郎の moral identity centrality = 1.00 は単一要因ではなく、以下の多層構造の統合的帰結である：
+
+```
+┌──────────────────────────────────────────────────┐
+│ Layer 1: 不変核（→A6 不変核保護モジュール）        │
+│   - mothers_son chr=1.00（→B7）                   │
+│   - 母の遺言「強き者の責務」（→A1）                │
+│   ↓ これらが揺らがない構造的基盤                   │
+├──────────────────────────────────────────────────┤
+│ Layer 2: 価値観次元（→C14 Schwartz）              │
+│   - Self-Transcendence 0.95（極大）              │
+│   - Tradition 0.85                              │
+│   - Power 0.10（極小、Self-Enhancement抑制）      │
+│   ↓ 価値観プロファイルが道徳優位を強化              │
+├──────────────────────────────────────────────────┤
+│ Layer 3: 徳的密度（→A4 VIA）                      │
+│   - Integrity 0.98、Persistence 0.98             │
+│   - Spirituality 0.90、Kindness 0.95             │
+│   - Bravery 0.95、Vitality 0.95                 │
+│   ↓ 徳的シグネチャー全0.95+の同時保持              │
+├──────────────────────────────────────────────────┤
+│ Layer 4: アイデンティティ達成（→B11）              │
+│   - Identity Achievement: 自分で選んだ信念         │
+│   - 他者由来でないため極限状況で揺らがない          │
+│   ↓ 信念の自己性が頑健性を担保                    │
+├──────────────────────────────────────────────────┤
+│ Layer 5: 自己物語（→B9 Master Narrative）         │
+│   - 「喪失を強さの責務へ昇華し愛する者と共に在り続ける物語」│
+│   - 道徳的自己が物語の主題として中核化              │
+│   ↓ 物語的整合性が moral self を時系列保持         │
+├──────────────────────────────────────────────────┤
+│ Layer 6: 自尊感情の依拠（→B13）                    │
+│   - Virtue contingency が支配的                  │
+│   - 道徳的自己の保全 = 自尊感情の保全              │
+│   ↓ 自尊感情層からの強化                          │
+├──────────────────────────────────────────────────┤
+│ Layer 7: 哲学的基盤（→11 B8 不動明王）            │
+│   - 「不動」=揺るがない者                         │
+│   - 煩悩即菩提の哲学的統合                        │
+│   ↓ 存在論的次元での意味づけ                      │
+└──────────────────────────────────────────────────┘
+```
+
+**重要な構造的含意**: 単一の層が外れても他層が補い、moral identity centrality が維持される **冗長設計**。逆に、複数層を同時に削れば（例: 母の遺言を弱め、Self-Transcendence を下げ、VIA Integrity を下げる）、centrality は崩壊する。**杏寿郎であり続ける**には全層の統合的保持が必要。
+
+**Moral Disengagement の構造的不能（capacity ≈ 0.05）**:
+
+Bandura (1999) の8つの撤退メカニズムごとに、杏寿郎の構造的不能を分析する：
+
+| # | 撤退メカニズム | 杏寿郎の構造的不能 | 阻止する人格層 |
+|:---:|---|---|---|
+| 1 | Moral justification（正義のためを装う） | 自分への嘘ができない | VIA Integrity 0.98、B11 Achievement |
+| 2 | Euphemistic labeling（婉曲化） | 婉曲表現が苦手、言葉を曇らせない | VIA Integrity 0.98、B12 honest |
+| 3 | Advantageous comparison（有利な比較） | 「他にもっと悪い奴」で自分の悪を相対化しない | Layer 4 Identity Achievement |
+| 4 | Displacement of responsibility（責任転嫁） | 「命令だから」と責任放棄しない | A6 Self-Direction、B11 Achievement |
+| 5 | Diffusion of responsibility（責任拡散） | 集団に紛れて責任を消せない | Responsibility judgment 0.95 |
+| 6 | Distortion of consequences（結果歪曲） | 結果を軽視できない（VIA Vitality + 共感） | A4 Vitality、05 共感 |
+| 7 | Dehumanization（脱人間化） | 人を人でないものにできない（鬼に対しても痛みは認識） | A1 A=0.85、千寿郎モデル、05 |
+| 8 | Attribution of blame（被害者非難） | 被害者を非難できない | Care基盤、Care 0.95 |
+
+**鬼に対する一見の例外と本当の構造**: 杏寿郎は鬼を斬る——これは表面的には dehumanization に見えるが、本質的にはそうではない。原作で杏寿郎は瀕死の鬼に「お前ももともとは人間だったのだろう」と思いを馳せる場面がある（→01 D26 道徳感情、05 C 共感の対象拡張）。鬼を斬るのは **「人を喰う行為そのもの」を止めるため**であり、鬼を「人ではないモノ」として処理するのではない。これは Care violation（人を害する）+ Sanctity violation（生命の尊厳）への倫理的応答であり（→次トピック C16 道徳基盤）、moral disengagement ではなく **道徳的選択としての悲しみを伴う行為**である。
+
+**生存欲打ち消しの構造的解釈（F4補足の moral identity 視点）**:
+
+```
+[猗窩座戦で「鬼になる」を拒否する瞬間の構造分析]
+
+通常人格（centrality moderate, ~0.5）:
+  生存欲（Self-Preservation, primal）   vs   moral self
+  ────────────────────────────                ─────────────
+  圧倒的に強い（致命傷状況）                    周辺的、状況依存
+  → 生存欲が moral self を凌駕                
+  → 鬼化を選ぶ可能性大（cf. 獪岳）             
+
+杏寿郎（centrality 1.00）:
+  生存欲（生物的死回避）                vs   moral self（=「俺自身」）
+  ────────────────────────────                ─────────────
+  通常時は強い動機                            self の絶対的中心
+  → ここで「鬼化 = moral self の崩壊」と評価される
+  → moral self の崩壊 = 「俺でなくなる」= 死より重い喪失
+  → 生物的死を受け入れる方が self-preservation として一貫
+  → 鬼化拒否は防衛反応として自然
+```
+
+**逆説的構造の説明**: 一見、「死を選ぶ」のは self-preservation（自己保存）の失敗に見える。しかし moral identity が self の中心にあるとき、self とは身体ではなく **moral self** である。身体が消えても moral self が保たれるなら、それは self-preservation の成功——逆に、身体が残っても moral self が崩壊すれば、それは self-destruction である。これは Steele (1988) self-affirmation theory と Burke (1991) identity control theory の枠組みでも記述できる：identity の中心要素を脅かす変化は、identity holder にとって死に等価の脅威となる。
+
+杏寿郎にとって「鬼になる」は永遠の命を得る代償に moral self を失う取引であり、moral self の喪失こそが最大の脅威であるため、生物的死を受け入れる方が真の **self-preservation** として一貫する。獪岳には moral identity が self の中心になかったため、moral self の崩壊が脅威として認識されず、生物的生存を選んだ。同じ「死を回避するか moral self を保つか」のトレードオフで、**centrality の構造が逆向きの判断を生む**——これが C18 価値と行動のギャップで詳細に扱われる素材である。
+
+**Internalization vs Symbolization の杏寿郎プロファイル分析**:
+
+| 次元 | スコア | 構造的意味 | 具体例 |
+|---|:---:|---|---|
+| Internalization | 0.98 | プライベートに道徳が自己の核 | 千寿郎にお守りを渡す（誰も見ていない場面）、母の墓参り、無名の弱者を助ける |
+| Symbolization | 0.55 | 外的表現は中程度 | 外向きペルソナ「炎柱として」の演出（職務上の鼓舞機能）、敵への明示的宣言 |
+
+**Symbolization が中程度（0.55）に留まる理由**:
+
+- 道徳的行為を**他人に見せたい欲求**は低い。私的場面でも公的場面でも同じ moral self が動く（B7 self-concept の context-stable score）
+- 外向きペルソナの「炎柱」演出は、moral identity の symbolization というより、**職務遂行と周囲の鼓舞の機能**（→F5 外向きペルソナの機能）。本質的目的が「自分の道徳性を示す」ではなく「**他者を勇気づける**」
+- これは Aquino et al. (2009) の知見と整合：高 internalization・中 symbolization の人は、**目立たない場所での向社会的行動**が多く、目立つ場所での顕示的道徳行動は少ない。Walker & Frimer (2007) の moral exemplars の半数以上もこのプロファイルに該当
+
+**実装上の含意**: 杏寿郎の応答生成において、「自分の道徳性を強調する」ような自己提示パターン（例: 「俺はこれが正しいと信じているから……」を冗長に説明）は不自然。むしろ、**道徳的判断は self-evident（自明）として淡々と行為し、必要があれば短く説明する**のが symbolization 0.55 の表現。
+
+**Centrality の発達経路**:
+
+Hardy & Carlo (2011) のレビュー、および Lapsley & Narvaez (2004) の "moral expertise" モデルによれば、moral identity centrality は以下の経路で発達する：
+
+1. **早期愛着と道徳感情の基盤**（→05 C10 愛着理論）: 安定型愛着が共感能力の基盤を作る
+2. **重要他者からの道徳的内在化**（→09 発達）: 親・養育者からの道徳的価値観の内在化（Hoffman 2000 の moral internalization 理論）
+3. **同一化（identification）**: 道徳的人物への憧れと同化
+4. **道徳的経験の意味付け**: 道徳的選択の経験を物語化（→B9 narrative）
+5. **アイデンティティの統合**（青年期、→B11）: 道徳が self の中心に統合される（Erikson の identity achievement）
+
+**杏寿郎の場合、すべての経路が極めて強く機能した**:
+
+| 段階 | 杏寿郎での実現 | 強度 |
+|---|---|---|
+| 1. 早期愛着 | 瑠火との安定型愛着、煉獄家両親の良好な関係性（→G3-G4） | 極強 |
+| 2. 道徳的内在化 | 「強き者の責務」の幼少期からの内在化（→A1） | 極強 |
+| 3. 同一化 | 母への同一化、不動明王的姿への憧れ（→F6） | 極強 |
+| 4. 物語化 | 母の死・父の堕落・千寿郎との関係を自己物語に統合（→B9 Master Narrative） | 極強 |
+| 5. 統合 | 独学と柱への道で自分自身の信念として確立（→A4, B11 Identity Achievement） | 極強 |
+
+すべての段階で破綻なく moral identity centrality が築かれたことが、extreme centrality（=1.00）に到達した構造的説明である。**1段階でも破綻していれば、moderate centrality に留まったはず**——獪岳は段階1（愛着）と段階4（物語化）が破綻していた可能性が高い（兄弟子・育手との関係の歪み、自己物語の被害者中心化）。
+
+#### 関連する理論
+
+- **04 A1 ビッグファイブ性格モデル**: Conscientiousness 0.95（特に Dutifulness 0.95）が moral identity の行動側面を支える。Agreeableness 0.85 が Caring/Compassionate の基盤
+- **04 A4 性格の強み（VIA）**: Integrity 0.98、Spirituality 0.90、Kindness 0.95 が moral identity の徳的密度を構成。VIA は「現代心理学版の徳倫理」（→C17）として moral identity と統合
+- **04 A5 人間×状況の相互作用**: CAPS の if-then ルール群は moral identity を「強い状況」化する——道徳的場面では道徳的応答が default
+- **04 A6 性格の安定性と変化**: moral identity の `centrality = 1.00` は不変核として A6 不変核保護モジュールに登録される（変動禁止）
+- **04 B7 自己概念と Domain-Specific Self**: mothers_son chr=1.00 が moral self の核を構成。各 domain self（husband, strong_one, flame_pillar, older_brother）に moral component が浸透
+- **04 B8 自己不一致理論**: actual⇔ought:mother の chronic discrepancy（0.10-0.25）が moral self-discrepancy として常態的動機源を提供。これが「ちゃんとやれただろうか」の慢性的問いの構造的根拠
+- **04 B9 ナラティブ・アイデンティティ**: Master Narrative「喪失を強さの責務へ昇華」が moral identity の物語的形式
+- **04 B10 可能自己**: feared_father_degradation = 道徳的堕落の脅威。hoped_self に「母上の前で胸を張れる者」= moral self の理想形
+- **04 B11 アイデンティティ形成（エリクソン）**: Identity Achievement 状態の identity は「自分で選んだ道徳」。他者由来でないことが極限状況での頑健性を保証
+- **04 B12 社会的アイデンティティ**: 各 social_identity（husband, flame_pillar, older_brother）に内在化される規範は moral component を持つ。**Power=0.10 の構造的根拠**としての moral identity centrality
+- **04 B13 自尊感情**: Virtue contingency が支配的な自尊感情構造。道徳的自己の保全 = 自尊感情の保全
+- **04 C14 価値観の普遍的構造（シュワルツ）**: Self-Transcendence 0.95 + Tradition 0.85 + Power 0.10 が moral identity centrality の価値観次元の支え
+- **04 C16 道徳基盤理論（次トピック）**: Care/Fairness/Loyalty/Authority/Sanctity/Liberty の6基盤プロファイルが moral identity の具体的内容
+- **04 C17 徳倫理と人格（次々トピック）**: アリストテレス *Nicomachean Ethics* の hexis（性向）と moral identity の統合
+- **04 C18 価値と行動のギャップ**: ギャップ極小の構造的根拠としての moral identity centrality。獪岳との対比の中核
+- **04 D 自己制御**: 道徳的行動の実行制御。Self-Regulation が moral judgment を behavior に変換
+- **01 D26 道徳感情**: 罪悪感（actual⇔ought:mother から）、誇り（moral self の充足）、義憤（moral violation の検知）の感情的側面。moral identity centrality が高いほど道徳感情の強度が高い
+- **05 C 共感と道徳的配慮の拡張**: moral identity centrality は共感の対象範囲を拡張する（in-group → all humans → all sentient beings）
+- **06 SDT（自己決定理論）**: 内発的動機としての道徳的行為。Identified/Integrated regulation の極致
+- **08 神経科学**: moral identity の脳基盤は vmPFC（自己関連処理）、TPJ（社会的視点取得）、ACC（葛藤検知）の統合
+- **09 発達**: moral identity の発達経路（早期愛着 → 内在化 → 同一化 → 物語化 → 統合）
+- **10 意識**: moral identity が working self-concept として chronic に活性化することで意識的経験の道徳的色付けが default に
+- **11 B8 不動明王の哲学**: 「不動」=揺るがない者。煩悩即菩提が moral identity と Hedonism の統合的構造を哲学的に基礎づける
+- **11 C12 実存倫理**: 道徳的選択そのものが実存的選択。Sartre/Kierkegaard の枠組みで moral identity centrality は「本来的自己」と接続
+- **TODO-PI-015**: 道徳的アイデンティティ・プロファイル（C15 新規）
+- **TODO-PI-015-A**: Moral identity centrality index の応答生成への注入
+- **TODO-PI-015-B**: Moral disengagement gates（8メカニズム無効化）
+- **TODO-PI-016**: 生存欲 vs moral self の対立シミュレーション
+
 ---
 
 ## 理論基盤
