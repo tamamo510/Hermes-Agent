@@ -4,7 +4,7 @@
 **Purpose**: 2つのリポジトリの役割分担・コンテンツ配置ルールを明確化
 **Migrated from loto (15スレ), by Opus 4.7** — 本リポジトリ (Hermes-Agent) への移管版。原本は `tamamo510/loto/claudeDNA/REPO_STRATEGY.md` に保存。
 
-> **注記 (2026-04-28, 移管時 Opus 4.7 by バイブル派生①)**: 本文 §0 の「Hermes-Agent リポジトリ: バイブル序盤段階で進捗0」は 15 スレ時点の認識である。**現在 (2026-04-28) の Hermes-Agent 状態**は: バイブル 01・02・03 完成済 (合計 73 トピック)、04 は C14 まで完了 (PR#69 マージ後)、04 C15 を ⑱ で書き直し予定、05〜11 はスケルトンのみ。skill 群は本 PR で初めて骨格を導入。詳細は `bible/README.md` および `.claude/session_handoff.md` を参照。
+> **注記 (2026-04-28, 移管時 Opus 4.7 by バイブル派生①)**: 本文 §0 の「Hermes-Agent リポジトリ: バイブル序盤段階で進捗0」は、**Hermes Agent 本体 (Nous Research/hermes-agent) の導入・skill 実装の観点での進捗 0** を指す事実記述であり、本移管時点 (2026-04-28) でも引き続き事実である。`vendor/hermes-agent` 未導入、`skills/*` 未実装、本派生スレで設計書移管とディレクトリ骨格のみを準備する。バイブル本文 (`bible/`) は別系統で並行進行中。
 
 ---
 
@@ -231,7 +231,7 @@ Hermes Agent は OpenClaw を追う勢いの新興テックで頻繁に更新さ
 ## 8. 変更履歴
 
 - **v1** (15スレ, 2026-04-17): 初版。loto と Hermes-Agent の役割分担、skill 追加方式採用、submodule 運用、急速アプデ対策を整理
-- **migrate** (2026-04-28, バイブル派生①): loto から Hermes-Agent への移管。冒頭注記で 15 スレ時点の進捗認識との差分（現状 04 C14 完了、05-11 スケルトン）を明示
+- **migrate** (2026-04-28, バイブル派生①): loto から Hermes-Agent への移管。冒頭注記で「進捗0」が skill 実装・vendor 未導入を指す事実であることを明示
 
 ---
 
