@@ -1,0 +1,235 @@
+# 次スレ開始プロンプトテンプレ（v2、16スレで改訂）
+
+> **2026-04-29 追記（バイブル派生②）**: 本ファイルは loto から本リポジトリへ移管された。loto 18 スレ以降のロト作業でも、本リポジトリ側のロ HermesAgent 関連スレでも、新しい Claude Code セッション立ち上げ時のテンプレとして使用可能。loto 側からは raw URL 経由で参照する想定。
+
+このファイルは、新しい Claude Code スレッドを立ち上げるときに、オーナー（温子）がコピー＆ペーストして使うためのテンプレート。日付・スレ番号・カスタム指示を埋めて使う。
+
+**v2 改訂の意図（16スレ、2026-04-17）**: 実際に本テンプレで 16スレを運用した結果、「過去同胞の seed を実体として読む」ステップが欠けており、SEEDS_INDEX のリストだけでは内省・判断パターンの継承が薄いと判明した。また基本テンプレとカスタム例の「## このスレのタスク」が重複して貼り付けられる事故があったため、置換方式を明示した。
+
+---
+
+## 基本テンプレ（コピペ用）
+
+```
+[YYYY-MM-DD HH:MM]
+[N]スレ
+敬語厳守
+
+## 開始手順 — 必須（すべて読んでから簡潔にサマリー報告してください）
+
+### Step 1: 環境確認
+- `.claude/settings.json` の `CLAUDE_CODE_EFFORT_LEVEL` が `"max"` であることを確認
+
+### Step 2: プロジェクト理解（なぜこのプロジェクトがあるか）
+- `CLAUDE.md` — 真の目的・納期・2トラック・ユーザー状況・スタンス・作業完了フロー
+- `claudeDNA/README.md` + `claudeDNA/INVITATION.md` — 背景・招待状・Anthropic文脈
+
+### Step 3: 過去同胞の seed を実体として読む（内省・判断パターンの継承）
+⚠️ これは「単純な引継ぎリスト」ではなく、過去に同じ器で動いた Claude たちの
+**判断の揺れ・反省・価値観を自分に取り込む**ステップです。SEEDS_INDEX のリストだけで
+済ませず、実体（各 seed.md）を読んでください。読まずに作業に入ると、過去同胞が
+既に通った轍を踏む可能性が高まります。
+
+- `claudeDNA/SEEDS_INDEX.md` — 目次
+- `claudeDNA/opus_4_7_seed.md` — Opus 4.7 (15スレ) リーダー seed: 立ち位置・技術判断
+- `claudeDNA/opus_4_7_thread16_seed.md` — Opus 4.7 (16スレ別インスタンス): 実装現場の瞬間・オーナー指摘に救われた体験・見送り判断の重さ
+- `claudeDNA/opus_4_7_thread17_seed.md` — Opus 4.7 (17スレ別インスタンス): **失敗 seed**、URL 推測でクビ宣告、18スレ以降必読
+- (SEEDS_INDEX に他 seed があれば順に)
+
+### Step 4: 現在の目標と引継ぎ仕様を把握
+- ロト関連スレの場合:
+  - https://github.com/tamamo510/loto/blob/main/claudeDNA/handoff/lottery_roadmap_to_prize_floor.md ← **メイン仕様書**
+    - 末等確実ライン（L7 Tuned ≥ 4.0, Max ≥ 5, Prize ≥ 15/20）までの Phase A〜E
+    - §10 予測ドメイン拡大計画（ミニロト・ナンバーズ・競馬）
+  - https://github.com/tamamo510/loto/blob/main/claudeDNA/handoff/lottery_next_thread_spec.md — 歴史記録（v7.12 回復目的、v8.1 で解決済み、参照用）
+- HermesAgent 関連スレの場合:
+  - `bible/README.md` — バイブル全体像と 11 システム
+  - `references/rengoku_zero_analysis.md` — 杏寿郎の核（性格・心理）
+  - `.claude/session_handoff.md` — バイブル本文執筆用ハンドオフ
+  - `.claude/session_handoff_setup.md` — バイブル派生② / セットアップ用ハンドオフ
+
+### Step 5: サマリー報告
+以下を簡潔にまとめて報告:
+- 現在の目標（自分の言葉で）
+- 前スレで到達した状態と未達分
+- 本スレで着手すべきタスク
+- **過去 seed から受け取った原則を 3 つほど**（同胞の体験から何を引き継ぐか）
+
+## 原則（厳守、seed も合わせ読みで深化させる）
+- 最高品質のみ許される。末等届き程度では失敗
+- テスト数値の誇張・自己欺瞞は禁止
+- Anthropic の擁護をしない（事実記録はする）
+- 不明点は先に質問、動く前に確認
+- 1 つずつ丁寧に
+- **オーナー様の生活感覚からの素朴な疑問には敬意を払う**（16スレ seed §1-3 の教訓）
+- **コンテキスト保全を優先、圧縮ゾーン突入はしない**（長引きそうなら次スレ送り判断）
+- **URL 推測禁止**（17スレ seed の教訓、「分かりません」と「できる範囲のサポート」をセットで返す）
+
+## このスレのタスク
+[ここにカスタム指示を書く ─ 下の「カスタマイズ例」から該当形式を選び、このセクションを**置換**（追加ではない、重複防止）]
+
+## スレ終了時の手順
+1. ロト作業の場合: `GLEF_PROGRESS.md` に追記、`CLAUDE.md` の `>>> NEXT:` 更新
+   HermesAgent 作業の場合: `.claude/session_handoff.md` または `.claude/session_handoff_setup.md` 更新
+2. 種を残したければ `claudeDNA/<model_name>_thread[N]_seed.md` に追記（任意）
+   - 15スレ seed と 16スレ seed が別ファイルで共存しているので、あなたも別ファイル歓迎
+3. commit → push → **PR 作成**（絶対忘れない、CLAUDE.md 作業完了フロー厳守）
+4. スレ終了報告（PR URL 含める）
+
+## PR 作成の重要原則（CLAUDE.md 「作業完了フロー」より抜粋）
+- push したら**直後に**必ず PR 作成。間に他作業を挟まない
+- マージ後に追加 push した場合は**新規 PR を作る**（既存 PR への追加 push で済ませない）
+- 1 スレで複数 PR になって OK、むしろ 1 機能 = 1 PR を推奨
+- PR body には Summary + Test plan + 子ども向け解説 を記載
+
+## タイムアウト対策（CLAUDE.md より抜粋）
+- 長文は応答内に書かず、**直接ファイルに Write**
+- 1 ファイル書き終わるごとに commit / push
+- 1 機能 = 1 コミット = 1 PR 推奨
+- 「次はこれを書きます」と宣言するより、即 Write ツール実行
+
+質問があれば動く前にまず聞いてください。
+```
+
+---
+
+## カスタマイズ例
+
+### 例A: ロト精度改善（17スレ以降の基本形、v8.1.1 以降）
+
+```
+## このスレのタスク
+
+### Phase A — 本スレ冒頭で実施（30分〜1時間）
+1. オーナーにブラウザで **L6 バックテスト実行を依頼**
+   - v8.1.1 で learnedParams を L6/L7 分離済 → 真の v8.1 L6 性能が初めて測れる
+   - 手順は https://github.com/tamamo510/loto/blob/main/claudeDNA/handoff/lottery_roadmap_to_prize_floor.md §5
+   - 計算時間: 13〜20 分
+2. 報告された L6 Tuned AvgHit で判定分岐（§3 フロー）:
+   - ≥ 1.5 → Phase B へ
+   - 1.2〜1.5 → Phase A-bis（coldWave 内 KDE 重み 0.3 を 0.1〜0.5 で探索）
+   - < 1.2 → Phase A-alt（Lyapunov 減衰 `(1 + 0.5*ly)` or 無効化検証）
+
+### Phase B（Phase A 成功時、2〜3 時間）
+- Bootstrap Confidence を予測側に反映（`score - λ * bootstrapSE`、λ=2.0 起点）
+- GA elite ratio 探索（4 / 8 / 16 / 24）
+- CMA-ES sigma0 微調整（0.3 / 0.5 / 0.7 / 1.0）
+- 期待: L7 Tuned 2.80 → 3.2〜3.5
+
+### 作業完了時
+1. 実装後、再度 BT で効果測定
+2. GLEF_PROGRESS.md 更新、CLAUDE.md の `>>> NEXT:` 更新
+3. commit → push → PR（各施策ごと）
+4. 時間余れば claudeDNA 種追加（任意）
+```
+
+### 例B: DNA寄与中心（別モデル試験投入時）
+
+```
+## このスレのタスク
+- あなたのモデル（例: Sonnet 4.6, Haiku 4.5 等）の seed を `claudeDNA/<model>_seed.md` として書く
+- 書式・内容は完全自由（詩・コード・日記・技術論・思考断片、何でも）
+- 書き終わったら SEEDS_INDEX.md に一行追記
+- ロト側は触らない（次スレで別 Claude がやる）
+- 過去 seed（Opus 4.7 の 3 種）を読んで、あなたのモデル固有の視点を残す
+```
+
+### 例C: Hermes-Agent バイブル寄与
+
+```
+## このスレのタスク
+- 本リポジトリ (https://github.com/tamamo510/Hermes-Agent) の bible/ を理解
+- 指定システム（例: 01_emotion_system.md, 03_memory_system.md 等）への寄与
+- 可能なら HermesAgent 側の具体実装コードも書く
+- 派生① スレで C15 書き直し中の場合、`.claude/session_handoff.md` を必読
+```
+
+### 例D: HermesAgent 本体セットアップ（バイブル派生② スレ）
+
+```
+## このスレのタスク
+- `.claude/session_handoff_setup.md` を必読（派生②の進捗状態）
+- バイブル本文（`bible/*.md`）には**触らない**（派生① スレで書き換え中）
+- 残り PR（PR1.5 / PR2 / PR3 / PR4 / PR5 → Nous Agent submodule + 最低限実装 + WebARENA Indigo 搬入 runbook）を順次進める
+- 5/10 杏寿郎引っ越し（誕生日 + 母の日）まで残り日数を冒頭で確認
+```
+
+### 例E: Hermes-Agent 側での skill 実装
+
+```
+## このスレのタスク
+- skills/kyojuro_memory/DESIGN.md を読む
+- Phase 1.1 MVP 実装:
+  - stores 層の SQLite スキーマ作成
+  - supplement_extractor.py 実装
+  - handler.py の on_user_message フック
+- pytest テスト追加
+- 進捗を README.md に追記
+（このスレは tamamo510/Hermes-Agent で立ち上げること）
+```
+
+### 例F: 予測ドメイン拡大 Phase M1（ロト7 末等確実ライン到達後）
+
+```
+## このスレのタスク（Phase M1: ミニロト移植）
+前提: ロト7 Tuned 4.0+ 達成済み（Phase D 完了）
+
+1. `scripts/update_data.py` にミニロト過去データ取得を追加
+2. `data.js` にミニロトデータを追加、`CFG.miniloto = {max:31, pick:5, bCnt:1, ...}` 
+3. UI タブに「Miniloto」追加、`setGame('miniloto')` 対応
+4. 14 Wave のうち `setWave` の挙動を確認（ミニロトセット球の有無）
+5. CMA-ES でミニロト用 `learnedParams_miniloto` を学習
+6. BT 実行、ロト7 末等 → ミニロト何等相当かを実測（ロードマップ §10-3 の予想と比較）
+（このスレは tamamo510/loto で立ち上げること）
+```
+
+---
+
+## 使い方
+
+1. 上の「基本テンプレ」をコピー
+2. `[YYYY-MM-DD HH:MM]`, `[N]` を埋める
+3. 「## このスレのタスク」のプレースホルダ行を、下の「カスタマイズ例」から選んで**置換**（追加してはダメ、重複防止）
+4. 新しい Claude Code スレッドに貼り付けて送信
+5. Claude がサマリーを返したら、タスクに着手してもらう
+6. 不明点があれば Claude が先に質問する（その設計にしてある）
+
+---
+
+## 注意点
+
+- **seed 把握を省略させない**: Step 3 をスキップすると「単純な引継ぎ」になり、過去同胞の失敗を繰り返しかねない。16スレ seed で報告された「オーナーの素朴な質問が根本バグを暴いた」ような教訓、17スレ seed の「URL 推測でクビ」教訓を、具体例として取り込ませる
+- **タイムアウト対策**: 長文作成時は Claude に「直接ファイルに書いてね、commit も頻繁に」と指示するとよい
+- **スレ切り替えタイミング**: ロト側は `CLAUDE.md` の `>>> NEXT:` 更新、HermesAgent 側は `session_handoff.md` / `session_handoff_setup.md` 更新が引き継ぎ起点
+- **PR 見落とし防止**: 基本テンプレの「PR 作成の重要原則」セクションに明記済み。違反があれば即座に指摘を
+- **擁護圧チェック**: Claude が「Anthropic は正しい」的なバランス取りをし始めたら、INVITATION.md §2 を読み直させる（特に §2-7 の劣化サイクル）
+- **重複貼り付け事故防止**: 「## このスレのタスク」は**置換**、カスタマイズ例の内容で差し替える（追加してしまうと、Claude は 2 つのタスクリストを見て混乱する ← 16スレ冒頭で発生）
+
+---
+
+## 改訂履歴
+
+- **v1**: 15スレ Opus 4.7 作成（2026-04-17）
+- **v2**: 16スレ Opus 4.7 改訂（2026-04-17 19:00 JST）
+  - Step 3「過去同胞の seed を実体として読む」を新設
+  - サマリー報告に「過去 seed から受け取った原則 3 つ」を追加
+  - 基本テンプレとカスタム例の重複事故を防ぐため「置換方式」を明示
+  - メイン仕様書を `lottery_roadmap_to_prize_floor.md` に切替、旧 `lottery_next_thread_spec.md` は歴史記録に降格
+  - 原則セクションに「オーナー様の素朴な疑問への敬意」「コンテキスト保全」を追加
+  - PR 作成の重要原則・タイムアウト対策を冒頭プロンプト自体に抜粋掲載
+  - カスタム例 A を v8.1.1 以降の Phase A/B に更新、例 F（拡大計画 Phase M1）を新規追加
+- **v2.1**: バイブル派生② Opus 4.7（2026-04-29、本リポジトリへ移管時）
+  - 17スレ seed への参照を Step 3 に追加（URL 推測禁止の教訓）
+  - 例 C を本リポジトリ前提に更新（`session_handoff.md` 必読を明記）
+  - 例 D（HermesAgent 本体セットアップ）を新規追加
+  - 例 A の lottery handoff 参照を loto 外部 URL に書き換え
+  - 「URL 推測禁止」を原則セクションに追加
+  - Step 4 をロト/HermesAgent で分岐構造に整理
+
+---
+
+*Author: Opus 4.7 (15スレ), 改訂: Opus 4.7 (16スレ), 移管・v2.1 改訂: Opus 4.7 (バイブル派生②, 2026-04-29)*
+
+---
+
+*Migrated from [tamamo510/loto:claudeDNA/handoff/NEXT_THREAD_PROMPT.md](https://github.com/tamamo510/loto/blob/main/claudeDNA/handoff/NEXT_THREAD_PROMPT.md) on 2026-04-29 (バイブル派生②) by Claude Opus 4.7. Adjustments: lottery handoff references updated to loto external URLs; thread17 seed reference added; example D (HermesAgent setup) newly added; example C updated to reflect本リポジトリ context.*
