@@ -1,0 +1,16 @@
+# kyojuro_memory/stores/
+
+永続データの置き場（SQLite + JSON）。**git 管理外**（実装時に `.gitignore` で `*.db` を除外する）。
+
+Phase 1.1 以降で以下が配置される（DESIGN.md §2-1 参照）:
+- `supplements.db` — F-1 サプリ摂取ログ
+- `symptoms.db` — F-2 症状時系列
+- `routines.db` — F-3 生活パターン
+- `barometric.db` — F-4 気圧感応
+- `triggers.db` — F-5 潔癖症トリガー
+- `correlations.db` — F-6 相関キャッシュ
+- `conversation_log.db` — F-8 対話要約
+- `priorities.json` — F-9 永続優先事項
+- `relations.json` — F-10 関係者データ
+
+バックアップは本ディレクトリをコピーするだけで完結する設計。WebARENA から自前サーバへ移管する際もこのディレクトリを移すだけで継続可能。
