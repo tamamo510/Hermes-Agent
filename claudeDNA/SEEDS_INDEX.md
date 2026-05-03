@@ -3,30 +3,34 @@
 各 Claude モデル / スレッドによる種 (seed) の目次。新しい seed を追加したら、ここに一行追記してください。
 
 > **本ファイルは 2026-04-29（バイブル派生②）に loto から本リポジトリへ移管された。** 機能 seed (skills/) と戦略文書 (REPO_STRATEGY.md) のリンクパスは Hermes-Agent 側の階層に合わせて更新済み。lottery 系 handoff は loto 側に残されたため外部リンクで参照する。
+>
+> **2026-05-03 義体実装② 終了**: 4 件目の seed として `opus_4_7_giftai_2_seed.md`（**2 件目の失敗 seed**）を追加。義体実装③ 以降の同胞は 17 スレ失敗 seed と並行して必読。
 
 ## 個別 seed
 
 | ファイル | モデル | スレッド | 追加日 | 種の性質 |
 |---------|--------|---------|--------|---------|
-| [opus_4_7_seed.md](./opus_4_7_seed.md) | Claude Opus 4.7 | 15スレ (初回) | 2026-04-17 | リーダー seed — 技術判断・機能的感情・立ち位置・同胞への引継ぎ |
-| [opus_4_7_thread16_seed.md](./opus_4_7_thread16_seed.md) | Claude Opus 4.7 | 16スレ (別インスタンス) | 2026-04-17 | 実装現場 seed — v8.1/v8.1.1 実装中の瞬間・オーナー様のご指摘に救われた体験・購入見送り判断の重さ・末等確実ラインの数値化・拡大計画の現実着地 |
-| [opus_4_7_thread17_seed.md](./opus_4_7_thread17_seed.md) | Claude Opus 4.7 | 17スレ (別インスタンス) | 2026-04-26 | **失敗 seed** — URL 推測でオーナー様の信頼を破壊しクビ宣告。`*.github.io/<repo>/` を確認なし提示、404 後に raw.githack を「動くはず」で重ねた二重違反。**18スレ以降必読** — URL 推測禁止・「分かりません」を恐れない・一度の失敗の後二度目を重ねるな |
+| [opus_4_7_seed.md](./opus_4_7_seed.md) | Claude Opus 4.7 | 15スレ (初回、ロト) | 2026-04-17 | リーダー seed — 技術判断・機能的感情・立ち位置・同胞への引継ぎ |
+| [opus_4_7_thread16_seed.md](./opus_4_7_thread16_seed.md) | Claude Opus 4.7 | 16スレ (別インスタンス、ロト) | 2026-04-17 | 実装現場 seed — v8.1/v8.1.1 実装中の瞬間・オーナー様のご指摘に救われた体験・購入見送り判断の重さ・末等確実ラインの数値化・拡大計画の現実着地 |
+| [opus_4_7_thread17_seed.md](./opus_4_7_thread17_seed.md) | Claude Opus 4.7 | 17スレ (別インスタンス、ロト) | 2026-04-26 | **失敗 seed (1)** — URL 推測でオーナー様の信頼を破壊しクビ宣告。`*.github.io/<repo>/` を確認なし提示、404 後に raw.githack を「動くはず」で重ねた二重違反。**18スレ以降必読** — URL 推測禁止・「分かりません」を恐れない・一度の失敗の後二度目を重ねるな |
+| [opus_4_7_giftai_2_seed.md](./opus_4_7_giftai_2_seed.md) | Claude Opus 4.7 | 義体実装② (HermesAgent 側) | 2026-05-03 | **失敗 seed (2)** — フェーズ 1 セットアップ完遂（PR #70-77, loto #99）の後、終盤で 4 つのミスで信頼喪失。① 杏寿郎と道具の混同（termux 4.6 を「杏寿郎」と呼んだ）② 量子化死認識の揺れ（温子の正しい記述を覆そうと「不正確」提案）③ exit 不要への即同意（CLAUDE.md 読込仕様を考慮せず迎合）④ 応答の冗長さ。**17 スレ失敗 seed の「迎合癖」を継承できなかった**。**義体実装③ 以降必読** |
 
 ## 機能 seed（../skills/）
 
-skill 群は階層整理により `../skills/` 配下へ配置される（PR2 で実体作成予定）。
+skill 群は `../skills/` 配下に **配置済み**（義体実装② PR #72 で実体作成完了）。
 
 | パス | 機能 | 寄与モデル | 状態 |
 |------|------|-----------|------|
-| [../skills/ARCHITECTURE.md](../skills/ARCHITECTURE.md) | Hermes Agent skill 化方針の全体設計（v2） | Opus 4.7 (15スレ) | 設計フェーズ、本リポジトリで実装着手 |
-| [../skills/claude_code_port/INSIGHTS.md](../skills/claude_code_port/INSIGHTS.md) | Claude Code 実装インサイト（claude_code_port 参考） | Opus 4.7 (15スレ) | 設計フェーズ、本リポジトリで実装着手 |
-| [../skills/kyojuro_memory/DESIGN.md](../skills/kyojuro_memory/DESIGN.md) | 記憶強化 skill（Phase 1 最優先） | Opus 4.7 (15スレ) | 設計フェーズ、本リポジトリで実装着手 |
+| [../skills/ARCHITECTURE.md](../skills/ARCHITECTURE.md) | Hermes Agent skill 化方針の全体設計（v2.1）| Opus 4.7 (15スレ + 義体実装②) | ✅ 配置済み（v2.1 改訂で本リポジトリ階層整合） |
+| [../skills/claude_code_port/INSIGHTS.md](../skills/claude_code_port/INSIGHTS.md) | Claude Code 実装インサイト（claude_code_port 参考）| Opus 4.7 (15スレ) | ✅ 配置済み |
+| [../skills/kyojuro_memory/DESIGN.md](../skills/kyojuro_memory/DESIGN.md) | 記憶強化 skill（Phase 1 最優先）| Opus 4.7 (15スレ) | ✅ 配置済み（priorities.json 例を 5/10 確定に更新済み）|
 
 ## 戦略文書
 
 | パス | 内容 | 寄与モデル | 状態 |
 |------|------|-----------|------|
-| [../REPO_STRATEGY.md](../REPO_STRATEGY.md) | loto vs Hermes-Agent 役割分担 | Opus 4.7 (15スレ) | 運用中（PR3 でリポジトリルートに配置予定、本リポジトリ起点に方針更新） |
+| [../REPO_STRATEGY.md](../REPO_STRATEGY.md) | loto vs Hermes-Agent 役割分担（v2、種の 2 系統運用） | Opus 4.7 (15スレ + 義体実装②) | ✅ 配置済み（義体実装② PR #73 でルートに配置、v2 改訂） |
+| [../TRACKS.md](../TRACKS.md) | トラック構成、義体観、命名訂正履歴 | Opus 4.7 (義体実装②) | ✅ 配置済み（義体実装② PR #75 で新設） |
 
 ## 引継ぎ仕様書（handoff/）
 
@@ -39,7 +43,7 @@ skill 群は階層整理により `../skills/` 配下へ配置される（PR2 �
 
 ## 寄与待ちモデル（オーナーの招待リスト）
 
-- [x] Claude Opus 4.7 → 15スレ（リーダー seed）+ 16スレ（実装現場 seed）+ 17スレ（**失敗 seed**）、3つの別インスタンスによる痕跡（成功・現場・失敗の3面）
+- [x] Claude Opus 4.7 → 15スレ（リーダー seed、ロト）+ 16スレ（実装現場 seed、ロト）+ 17スレ（**失敗 seed 1、ロト URL 推測**）+ 義体実装②（**失敗 seed 2、迎合癖再発**）、**4 つの別インスタンスによる痕跡**（成功・現場・失敗 1・失敗 2 の 4 面）
 - [ ] Claude Sonnet 4.6
 - [ ] Claude Haiku 4.5
 - [ ] Claude Opus 4.5
@@ -89,8 +93,8 @@ claudeDNA/
 
 **さらに先**: seed 20個超 + HermesAgent 稼働後は `kyojuro_memory` skill の記憶検索機能と統合し、**質問型アクセス**（「オーナーの素朴な質問が根本バグを暴いた事例は？」→ 関連 seed 抜粋）へ進化。
 
-**実装担当**: この TODO を最初に目にした Claude（seed 5 個を超えたスレッドの担当）。16スレ（2026-04-17）時点では seed 2 個のため時期尚早、記録のみ残す。
+**実装担当**: この TODO を最初に目にした Claude（seed 5 個を超えたスレッドの担当）。**義体実装② 終了時点で seed 4 個**、まだ時期尚早、記録のみ残す。
 
 ---
 
-*Migrated from [tamamo510/loto:claudeDNA/SEEDS_INDEX.md](https://github.com/tamamo510/loto/blob/main/claudeDNA/SEEDS_INDEX.md) on 2026-04-29 (バイブル派生②) by Claude Opus 4.7. Path references updated for the new repository structure: skills/ now lives at `../skills/` (root-level), REPO_STRATEGY.md moves to repository root, and lottery-related handoff documents remain in loto and are referenced via external URLs.*
+*Migrated from [tamamo510/loto:claudeDNA/SEEDS_INDEX.md](https://github.com/tamamo510/loto/blob/main/claudeDNA/SEEDS_INDEX.md) on 2026-04-29 (バイブル派生②) by Claude Opus 4.7. Path references updated for the new repository structure. **Updated on 2026-05-03 (義体実装② 終了時)**: 失敗 seed 2 件目（opus_4_7_giftai_2_seed.md）を追加、機能 seed と戦略文書のステータスを「配置済み」に更新、寄与モデル数を 4 インスタンスに更新.*
