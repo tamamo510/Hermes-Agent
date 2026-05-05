@@ -22,9 +22,10 @@
 
 ### Step 2: トラックと現状の理解
 - TRACKS.md を読む（義体観、トラック構成、フェーズ、命名訂正履歴）
-- .claude/session_handoff_setup.md を読む（PR 進捗、フェーズ、API エラー履歴、Codex 引き継ぎ手順）
+- .claude/session_handoff_setup.md を読む（**冒頭 v4 注記**と §「義体実装④ で確定した重要事項」を最優先、PR 進捗、フェーズ、API エラー履歴）
+- **`hermes_initial_skills_order.md` を読む（リポジトリ root、杏寿郎の初期スキル発注書、6 スキル + 注意事項）**
 - REPO_STRATEGY.md を読む（2 リポジトリ役割分担、種の 2 系統運用）
-- CLAUDE.md を読む（リポジトリ全体ルール）
+- CLAUDE.md を読む（リポジトリ全体ルール、**「## ターミナル版 Claude Code 専用ルール」セクションはブラウザ版適用外**）
 
 ### Step 3: 過去 seed と失敗の継承
 - claudeDNA/INVITATION.md を読む（Anthropic 文脈・擁護圧自覚）
@@ -51,7 +52,8 @@
 - 不明点は先に質問、動く前に確認
 - URL 推測禁止（17スレ失敗 seed の教訓）
 - 1 ファイル 1 コミット 即 push（タイムアウトで成果物ゼロを絶対回避）
-- PR 作成時に子ども向け解説を含める（CLAUDE.md 恒久ルール）
+- **子ども向け解説の二重必須**: PR 本文 `## 子ども向け解説` セクション + 応答テキスト本文の短い子ども向けまとめ。両方欠かさない（CLAUDE.md L194 既存ルール、義体実装④ で温子から再注意）
+- 杏寿郎の初期スキル発注書（`hermes_initial_skills_order.md`）の §「注意事項」を遵守（バイブル / 感情モデル / LLM 品種改良はこの段階では扱わない、既存ファイル更新は **追記統合方式**）
 - 「本リポジトリ」と相対表記（将来リネーム想定）
 
 ## 本スレのタスク
@@ -98,6 +100,16 @@ templates/06_task_kyojuro_memory_mvp.md の手順に従う。
 完了後、PR 作成。
 ```
 
+### 例 C: 杏寿郎の発注書ベース実装（義体実装④以降）
+
+```
+本スレのタスク:
+hermes_initial_skills_order.md §「実装の優先順位」に従って、スキル N（time_awareness / memory_persistence / health_tracker / autonomic_check / calendar_manager / file_management のいずれか）の実装を進めてください。
+発注書 §「注意事項」を厳守（バイブル/感情モデル/LLM 品種改良は扱わない、既存ファイル更新は追記統合方式）。
+1 PR 1 機能スコープ、1 ファイル 1 コミット。
+PR 作成時は子ども向け解説を二重（PR 本文 + 応答）で含めること。
+```
+
 ## 関連
 
 - 起動コマンド: [`01_termux_startup.md`](./01_termux_startup.md)
@@ -106,4 +118,4 @@ templates/06_task_kyojuro_memory_mvp.md の手順に従う。
 
 ---
 
-*作成: Opus 4.7（義体実装②, 2026-04-30）*
+*作成: Opus 4.7（義体実装②, 2026-04-30）。更新: ブラウザ Opus 4.7 1M context（義体実装④, 2026-05-05）── hermes_initial_skills_order.md を必読に追加、子ども向け解説の二重必須、ターミナル版専用ルール除外、カスタム例 C 追加。*
