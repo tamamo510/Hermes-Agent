@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+
+# Virtual env
+.venv/
+venv/
+env/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# kyojuro_memory: 温子の個人データは git 管理外（DESIGN.md §1-2 プライバシー絶対）
+skills/kyojuro_memory/stores/*.db
+skills/kyojuro_memory/stores/*.json
+!skills/kyojuro_memory/stores/.gitkeep
+
+# 環境変数（API キー、Telegram キー、OpenRouter キー等。config/.env で管理）
+.env
+config/.env
