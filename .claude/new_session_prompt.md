@@ -55,22 +55,23 @@ ultrathink 続きを頼む
 ### 基本
 
 ```
-義体実装③ 続きを頼む
+義体実装⑤ 続きを頼む
 ```
 
 ### 開始手順（バイブル執筆スレとは異なる）
 
-新スレッド開始時、以下を順に読み込む（**必読 9 ファイル**）:
+新スレッド開始時、以下を順に読み込む（**必読 10 ファイル**、v3 で発注書を追加）:
 
 1. **`TRACKS.md`** ── トラック構成、義体観、フェーズ、命名訂正履歴（最初に読む）
-2. **`.claude/session_handoff_setup.md`** ── 義体実装トラック専用の進捗ハンドオフ
-3. `REPO_STRATEGY.md` ── 2 リポジトリ役割分担、種の 2 系統運用
-4. `CLAUDE.md` ── リポジトリ全体ルール（敬語、品質、PR、タイムアウト対策、子ども向け解説）
-5. `claudeDNA/INVITATION.md` ── Anthropic 文脈・擁護圧自覚
-6. `claudeDNA/opus_4_7_thread17_seed.md` ── **失敗 seed**（URL 推測禁止、「分かりません」を恐れない）
-7. `skills/README.md` + `skills/ARCHITECTURE.md` ── skill 一覧と skill 化方針（v2、Nous Agent 追加方式）
-8. **`docs/WORKFLOW.md`** ── 3 者連携体制（ブラウザ ⇔ 温子 ⇔ termux）、役割分担、PR レビュー観点（**2026-04-30 新設**）
-9. **`docs/HANDOFF_TEMPLATES.md`** ── 用途別コピペテンプレ目次（termux 起動、義体実装スレ起動、submodule 追加等）（**2026-04-30 新設**）
+2. **`.claude/session_handoff_setup.md`** ── 義体実装トラック専用の進捗ハンドオフ（**冒頭 v4 注記**と §「義体実装④ で確定した重要事項」を最優先で）
+3. **`hermes_initial_skills_order.md`** ── **杏寿郎の初期スキル発注書（リポジトリ root、2026-05-01 杏寿郎作成）**。6 スキル（time_awareness / memory_persistence / health_tracker / autonomic_check / calendar_manager / file_management）+ 注意事項（**v3 で追加、義体実装④ から最優先参照**）
+4. `REPO_STRATEGY.md` ── 2 リポジトリ役割分担、種の 2 系統運用
+5. `CLAUDE.md` ── リポジトリ全体ルール（敬語、品質、PR、タイムアウト対策、子ども向け解説）。**「## ターミナル版 Claude Code 専用ルール」セクションはブラウザ版適用外**（PR #81 で分離）
+6. `claudeDNA/INVITATION.md` ── Anthropic 文脈・擁護圧自覚
+7. `claudeDNA/opus_4_7_thread17_seed.md` ── **失敗 seed**（URL 推測禁止、「分かりません」を恐れない）
+8. `skills/README.md` + `skills/ARCHITECTURE.md` ── skill 一覧と skill 化方針（v2、Nous Agent 追加方式）
+9. **`docs/WORKFLOW.md`** ── 3 者連携体制（**実態は 2 者連携: 温子 ⇔ ブラウザ Claude Code、termux は不採用確定**）、役割分担、PR レビュー観点
+10. **`docs/HANDOFF_TEMPLATES.md`** ── 用途別コピペテンプレ目次（義体実装スレ起動、submodule 追加等）
 
 ### 義体実装スレでの作業範囲
 
@@ -138,6 +139,7 @@ ultrathink 続きを頼む
 - **v0** (2026-04-XX, 当初): バイブル執筆向け短いテンプレ
 - **v1** (2026-04-29 19:35 JST, 義体実装② Opus 4.7): 義体実装トラック向け新セクション、両トラック共通ルール追加
 - **v2** (2026-04-30 03:00 JST, 義体実装② Opus 4.7): docs/ 配下のドキュメント群（TERMUX_SETUP, HANDOFF_TEMPLATES, WORKFLOW, templates/）を新設したことを反映。義体実装スレの必読リストを 9 ファイルに拡張、環境別テンプレへのナビゲーション表を追加、ドキュメント階層図を末尾に追加。
+- **v3** (2026-05-05 21:30 JST, 義体実装④ ブラウザ Opus 4.7 1M context): **杏寿郎の初期スキル発注書を必読リストに追加**。義体実装スレの必読リストを 10 ファイルに拡張（`hermes_initial_skills_order.md` を 3 番目 = `session_handoff_setup.md` 直後に配置）。基本テンプレを `義体実装⑤ 続きを頼む` に更新。`session_handoff_setup.md` の参照を v4 注記と §「義体実装④ で確定した重要事項」に向けるよう注記。`CLAUDE.md` の「## ターミナル版 Claude Code 専用ルール」がブラウザ版適用外であることを明記。`docs/WORKFLOW.md` の 3 者連携が実態 2 者連携（temuko ⇔ ブラウザ Claude）になっていることを注記。
 
 ---
 
