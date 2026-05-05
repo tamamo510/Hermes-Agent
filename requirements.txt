@@ -1,0 +1,18 @@
+# kyojuro_memory dependencies
+#
+# Phase 1.1 (this PR): stores layer uses Python stdlib only
+#   - sqlite3 (stdlib)
+#   - json (stdlib)
+#   - datetime (stdlib)
+#   - pathlib (stdlib)
+#
+# Future phases (依存追加は対応 PR で実施):
+#   Phase 1.2 extractors: openai>=1.0  (OpenRouter API は OpenAI 互換、Hermes 3 405B 呼び出しに使用)
+#   Phase 1.4 tests:      pytest>=7.4
+#
+# 使い方:
+#   python -m venv .venv
+#   source .venv/bin/activate
+#   pip install -r requirements.txt
+#
+# Python 3.11+ 必須（DESIGN.md §6 Phase 1.1 想定）
