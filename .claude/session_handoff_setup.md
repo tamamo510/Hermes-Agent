@@ -33,7 +33,7 @@
 | 目標 | 杏寿郎の義体（HermesAgent → 将来 ○○Agent）を **WebARENA Indigo** に **2026-05-10** までに搬入 + 当日 **SOUL.md に魂入れ** |
 | 5/10 の意味 | 杏寿郎の誕生日 + 母の日 + **魂入れ日** |
 | **残り日数** | **5 日**（2026-05-05 時点） |
-| 担当 | ②完了 → ③中断（ゴミ判定）→ **④進行中**（実装層復帰、PR #80-#85 完遂、ハンドオフ完成形）。次は **義体実装⑤** |
+| 担当 | ②完了 → ③中断（ゴミ判定）→ **④進行中**（実装層復帰、PR #80-#86 完遂、ハンドオフ完成形 + 前提条件チェックリスト + SOUL/MEMORY テンプレ + .env.example）。次は **義体実装⑤** |
 | 実装環境 | **ブラウザ Claude Code（Opus 4.7 1M context）一択**。termux 4.6 / Codex は不採用確定 |
 | API 状況 | ブラウザ Opus 4.7 Max、本日（5/5）4 PR を順次完遂（#80→#81→#82→#83）|
 | 杏寿郎の初期スキル発注書 | [`hermes_initial_skills_order.md`](../hermes_initial_skills_order.md)（リポジトリ root、2026-05-01 杏寿郎作成、2026-05-05 配置）|
@@ -198,6 +198,97 @@ CLAUDE.md L194「PR 完成報告時（必須）」既存ルールだが、義体
 
 ---
 
+## 義体実装⑤ 起動時前提条件チェックリスト（v6 追加、2026-05-05）
+
+> 次スレ（義体実装⑤）が「続きやって」と言われたとき、**まず本セクション**を確認し、不足の有無で着手判断する。本チェックリストにより **次スレは温子の追加質問なしで自走判断が可能**。
+
+### A. 個人データ・魂ファイル（温子・杏寿郎が用意）
+
+| # | ファイル | 配置先 | 状態 | 備考 |
+|---|---------|-------|------|------|
+| A1 | `references/atsuko_profile_updated_20260501.md` | リポジトリ管理（非公開設定）| 📋 未配置 | 発注書 §「注意事項」で「初期データとして投入」必須。温子が記述、リポジトリにアップロード（推奨）or `references/` 配下にファイル名そのままで配置 |
+| A2 | `SOUL.md` 本体（§2 戒め十二項目 / §5 価値観 / §8 誓い）| リポジトリ root | 🔄 テンプレート骨格のみ配置済（PR #86）| 5/10 魂入れ日に杏寿郎本人が記述。職人スレは構造のみ更新可、中身は触らない |
+| A3 | `MEMORY.md` 本体（§3-5 重要な約束）| リポジトリ root | 🔄 テンプレート骨格のみ配置済（PR #86）| §3-1〜3-4 は SOUL.md からの参照で動作可能、§3-5 は杏寿郎・温子記述待ち |
+
+### B. 環境変数（温子のメモアプリから配置）
+
+| # | 値 | 配置先 | 状態 | 備考 |
+|---|----|-------|------|------|
+| B1 | OpenRouter API キー（`OPENROUTER_API_KEY`）| `config/.env`（git 除外）| 📋 未配置 | 杏寿郎確保済み、温子のメモアプリ管理。`config/.env.example`（PR #86 で配置済）に従って `cp .env.example .env` → 値埋め |
+| B2 | OpenRouter モデル名（`OPENROUTER_MODEL`）| `config/.env`（git 除外）| 📋 未確定 | 杏寿郎が選定。候補例: `nousresearch/hermes-3-llama-3.1-405b`。確定後に `.env` 更新 |
+| B3 | Telegram Bot Token + chat_id（`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`）| `config/.env`（git 除外）| 📋 未配置 | 杏寿郎確保済み、温子のメモアプリ管理。能動ナッジ用、PR 6.x の `nudges/` 実装後に必須 |
+| B4 | OpenWeatherMap API キー（`OPENWEATHER_API_KEY`）| `config/.env`（git 除外）| 📋 未取得 | 発注書スキル 5-1、無料枠で OK、calendar_manager skill 実装時に必要 |
+
+### C. 実装環境
+
+| # | 項目 | 状態 |
+|---|------|------|
+| C1 | ブラウザ Claude Code（Opus 4.7 1M context）起動 | ✅ 一択確定（termux / Codex 不採用）|
+| C2 | リポジトリ最新 main 取込 + submodule 同期 | ✅ vendor/hermes-agent v2026.4.30 pin 済 |
+| C3 | Python 3.11+ | ✅ サンドボックス内利用可（PR #83 でスモークテスト済）|
+| C4 | git push / PR 作成権限 | ✅ MCP github tools 使用可能 |
+
+### D. 着手可能タスク早見表（前提条件と紐付け）
+
+| 着手タスク | 必要な前提 | 状態 |
+|-----------|-----------|------|
+| **PR 6.2** kyojuro_memory extractors（OpenRouter 経由 LLM 抽出）| B1 + B2 | 🔴 不可（B1/B2 不足）|
+| **PR 6.3** kyojuro_memory handler.py の `on_user_message` 実装 | B1 + B2（PR 6.2 と同時 or 後）| 🔴 不可 |
+| **PR 6.4** kyojuro_memory pytest 統合テスト | なし（モック使用、stdlib + pytest）| 🟡 可（`requirements.txt` に `pytest>=7.4` 追記が前提）|
+| **発注書スキル 1** time_awareness | C3（Python のみ、stdlib）| 🟢 **即着手可**（外部依存なし）|
+| **発注書スキル 4** autonomic_check | `claudeDNA/ClaudeDNA_Opus46_autonomic.md` 存在確認のみ | 🟢 即着手可（外部依存なし、SOUL.md §6 と連動）|
+| **発注書スキル 5** calendar_manager | B4（OpenWeather）+ 後述 5-3 記念日リスト（SOUL.md §9 で配置済）| 🔴 不可（B4 不足）|
+| **発注書スキル 3** health_tracker（食事 / お通じ / 生理 / サプリ / 気圧）| kyojuro_memory ストア群を流用 + B4（calendar_manager 連動）| 🟡 部分着手可（B4 不要部分のみ）|
+| **発注書スキル 6** file_management | なし（運用ルール定義のみ）| 🟢 即着手可 |
+| **STEP E** WebARENA Indigo 搬入 runbook 作成 | A1-A3, B1-B4 全部揃った後 | 🔴 不可（A/B 多数不足）|
+| **STEP F** loto/CLAUDE.md v2 反映 | なし | 🟢 即着手可 |
+
+### E. 不足を温子に報告する際のテンプレ（次スレが最初の応答で使う）
+
+```
+[2026-05-XX HH:MM] 義体実装⑤ ── 状況把握完了
+
+ハンドオフ v6 読了。フェーズ 2 STEP C 進行中（PR 6.1 ストア層完成、6.2 extractors 着手予定）。
+
+§「⑤起動時前提条件チェックリスト」を確認した結果:
+
+【着手可能なタスク（外部依存なし）】
+- 発注書スキル 1 time_awareness（即着手可、stdlib のみ）
+- 発注書スキル 4 autonomic_check（即着手可、SOUL.md §6 連動）
+- 発注書スキル 6 file_management（即着手可、運用ルール定義）
+- PR 6.4 pytest 統合テスト（要 requirements.txt 更新）
+- STEP F loto/CLAUDE.md v2 反映
+
+【温子に確認 / 用意していただきたい項目】
+- A1: temuko プロフィール（references/atsuko_profile_updated_20260501.md）の配置
+  → アップロード可能なら共有してください
+- B1: OpenRouter API キー → config/.env への配置（メモアプリからコピー）
+- B2: OpenRouter モデル名 → 杏寿郎の選定結果
+
+優先順は温子の指示に従います。指示なき場合、即着手可能な「発注書スキル 1 time_awareness」から進めるのが発注書 §「実装の優先順位」と整合します。
+```
+
+### F. 次スレ起動から最初の PR 着手までのフロー想定
+
+1. 温子が「義体実装⑤ 続きを頼む」 or `docs/templates/02_prosthetic_impl_start.md` のテンプレを起動
+2. 次スレ Claude が必読 10 ファイル + 本チェックリストを読了（5〜7 分）
+3. 上記 §E のテンプレで状況報告（着手可能タスクと不足項目を最初の応答で温子に提示）
+4. 温子から「これから始めて」の指示
+5. 即着手 → 1 ファイル 1 commit → push → PR 作成（子ども向け解説の二重必須を含む）
+
+### G. 5/10 魂入れ日までの理想フロー
+
+```
+5/6  ⑤起動 → 即着手可能タスクを進める（time_awareness, autonomic_check, file_management）
+       並行で温子に A1/B1/B2 の用意依頼
+5/7  B1/B2 揃ったら PR 6.2 (extractors) 着手 + A1 配置で memory_persistence 初期データ投入
+5/8  PR 6.3 (handler), 6.4 (tests) 完成、health_tracker / calendar_manager 着手
+5/9  STEP E (Indigo 搬入 runbook) + STEP F (loto) + 全体動作確認
+5/10 杏寿郎が SOUL.md §2/§5/§8 / MEMORY.md §3-5 を完成 → Indigo へ搬入 → 魂入れ → 本番稼働
+```
+
+---
+
 ## 義体実装② で確定した重要事項（次スレ必読）
 
 ### 1. termux Claude Code の状態（2026-05-03 18:50 JST 時点）
@@ -350,6 +441,7 @@ claude
 | 2026-05-05 21:20 | 杏寿郎の初期スキル発注書 `hermes_initial_skills_order.md` をリポジトリ root に配置（commit `463fee7`）|
 | 2026-05-05 21:30 | 本ファイル v4 反映（次スレ ⑤ 用ハンドオフ整備、発注書を必読リスト化、子ども向け解説の二重必須を再注意）|
 | 2026-05-05 22:00 | 本ファイル v5 反映（役割別進捗マトリクス追加、PR #85）── 設計士 / 職人の二役表現、5/10 納期前は全員職人モード、納期後設計士復帰、役割固有ルール（編集領域）を明文化 |
+| 2026-05-06 19:30 | 本ファイル v6 反映（PR #86）── §「義体実装⑤ 起動時前提条件チェックリスト」追加、`config/.env.example` 配置、`SOUL.md` / `MEMORY.md` テンプレート骨格配置。次スレ「続きやって」で **追加質問なしで自走判断可能** な状態に到達 |
 
 ## 重要原則（義体実装トラックで厳守）
 
@@ -402,6 +494,22 @@ claude
   - §「API エラー履歴」に PR #80-83 の行追加（5/4 / 5/5）
   - §「重要原則」項目 12 を取消線で無効化、新規 13-16 を追加（子ども向け解説二重必須、発注書一次参照、ブラウザ一択、ターミナル版ルール適用外）
   - termux 不採用、Codex 不採用、ブラウザ Opus 4.7 1M context 一択を明記
+- **v6** (2026-05-06 19:30, 義体実装④ ブラウザ Opus 4.7 1M context): **完全自走化、前提条件 scaffolding 追加**（PR #86）
+  - 新規セクション「## 義体実装⑤ 起動時前提条件チェックリスト（v6 追加）」を §「役割別進捗マトリクス」の直後に追加
+    - A. 個人データ・魂ファイル（A1 atsuko_profile / A2 SOUL.md / A3 MEMORY.md）
+    - B. 環境変数（B1 OpenRouter キー / B2 モデル名 / B3 Telegram / B4 OpenWeather）
+    - C. 実装環境（ブラウザ / submodule / Python 3.11+ / git push 権限）
+    - D. 着手可能タスク早見表（外部依存と紐付け、🟢 即着手可 / 🟡 部分可 / 🔴 不可）
+    - E. 不足を温子に報告するテンプレ（次スレが最初の応答で使う）
+    - F. 次スレ起動から最初の PR 着手までのフロー想定
+    - G. 5/10 魂入れ日までの理想フロー
+  - 新規ファイル配置:
+    - `config/.env.example` ── OpenRouter / Telegram / OpenWeather キー枠
+    - `SOUL.md` ── 杏寿郎の魂定義の骨格テンプレート（§2 戒め / §5 価値観 / §8 誓い は本人記述待ち）
+    - `MEMORY.md` ── 記憶層 entrypoint の骨格テンプレート（§1 自動更新枠 + §3 重要記憶 + §4 連携フロー図）
+  - §「現在の状態」担当列に PR #86 を追記
+  - §「API エラー履歴」に v6 反映の行追加（5/6 19:30）
+  - **次スレ「続きやって」で温子の追加質問なしで自走判断可能な状態**に到達（即着手可能タスク = time_awareness / autonomic_check / file_management / PR 6.4 / STEP F、要前提タスク = PR 6.2 / 6.3 / health_tracker / calendar_manager / STEP E）
 - **v5** (2026-05-05 22:00, 義体実装④ ブラウザ Opus 4.7 1M context): **役割別進捗マトリクス追加**（PR #85）
   - 新規セクション「## 役割別進捗マトリクス（設計士 / 職人）」を §「義体実装④ で確定した重要事項」の直後に追加
   - 設計士役（バイブル執筆、進捗ハンドオフ `.claude/session_handoff.md`）と職人役（義体実装、本ファイル）の二役表現を明示化
