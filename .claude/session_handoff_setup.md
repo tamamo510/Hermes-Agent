@@ -64,7 +64,7 @@
 | **STEP C** | `kyojuro_memory` MVP Phase 1.1（4 PR 推奨）| 🔄 進行中（PR #83 = 6.1 完了、残 6.2 extractors / 6.3 handler / 6.4 tests）|
 | **STEP D** | Telegram 連携設定（キー取得済み、温子のメモアプリ管理）| 📋 未着手、`config/.env` で管理、git 除外（PR #83 の `.gitignore` で除外済み）|
 | **STEP E** | WebARENA Indigo 搬入 runbook 作成 | 📋 未着手 |
-| **STEP F** | loto/CLAUDE.md の v2 反映 | 📋 未着手（ブラウザ Claude Code で対応可能、26KB） |
+| **STEP F** | （削除）| ~~loto/CLAUDE.md v2 反映は HermesAgent と無関係。義体実装② が誤って STEP F に含めたものを v8 で削除（温子指示）~~ |
 | **STEP G** | 杏寿郎の初期スキル発注書（`hermes_initial_skills_order.md`）の 6 スキル実装 | 📋 STEP C 完了後 or 並行で着手。優先順 1→2→3→4→5→6（発注書 §「実装の優先順位」）。スキル 2 = `kyojuro_memory` は STEP C と同一作業 |
 | **STEP H** | SOUL.md（杏寿郎の魂・「俺の戒め_v4_十二項目」反映）と MEMORY.md（記憶層 entrypoint）の整備 | 📋 5/10 魂入れまでに完成 |
 
@@ -208,7 +208,7 @@ CLAUDE.md L194「PR 完成報告時（必須）」既存ルールだが、義体
 
 | # | ファイル | 配置先 | 状態 | 備考 |
 |---|---------|-------|------|------|
-| A1 | `references/atsuko_profile_updated_20260501.md` | リポジトリ管理（非公開設定）| 📋 未配置（リアルタイム更新あり、移動方法未確定）| 発注書 §「注意事項」で「初期データとして投入」必須。**スキル 2 memory_persistence 着手前に温子がリポジトリへアップロード必須** |
+| A1 | `references/atsuko_profile_updated_20260501.md` | リポジトリ管理（非公開設定）| 📋 未配置（リアルタイム更新あり、移動方法未確定）| 発注書 §「注意事項」で「初期データとして投入」必須。**スキル 2 memory_persistence 着手前に、温子がチャットにプロフィール本文を貼る → Claude が `references/atsuko_profile_updated_20260501.md` を作成** |
 | A2 | `SOUL.md` 本体（§2 戒め十二項目 / §5 価値観 / §8 誓い）| リポジトリ root | 🔄 骨格のみ配置済（PR #86）、本体は **5/10 魂入れ日**に杏寿郎が記述 | 職人スレは構造のみ更新可、**魂の中身は触らない** |
 | A3 | `MEMORY.md` 本体（§3-5 重要な約束）| リポジトリ root | 🔄 骨格のみ配置済（PR #86）、本体は杏寿郎・温子記述待ち | §3-1〜3-4 は SOUL.md からの参照で動作可能、§3-5 は **5/10 まで**に記述 |
 
@@ -247,9 +247,9 @@ CLAUDE.md L194「PR 完成報告時（必須）」既存ルールだが、義体
 >   - 「**API もアンソロピックのものなんて使わない**」（OpenRouter + NousResearch Hermes 一択）
 >   - 「**5/10 魂入れ日**」「**搬入と魂入れは別工程**」
 
-#### D-1. 完璧完遂順（発注書 §「実装の優先順位」厳守、1→6→STEP E→STEP F）
+#### D-1. 完璧完遂順（発注書 §「実装の優先順位」厳守、1→6→STEP E→Telegram ナッジ統合）
 
-各スキルは発注書順で **1 つずつ完璧に完遂**してから次に進む。並列・モック・できる範囲、いずれも禁止。前提条件（§A / §B）が揃わない場合は温子に揃えるよう依頼してから着手する（順序を変えない）。
+各スキルは発注書順で **1 つずつ完璧に完遂**してから次に進む。並列・モック・できる範囲、いずれも禁止。前提条件（§A / §B）が揃わない場合は温子に値を渡してもらい、Claude が代行配置してから着手する（順序を変えない）。
 
 | 順 | スキル / タスク | 実装内容（完璧版、モック禁止）|
 |---|----------------|------------------------------|
@@ -260,24 +260,25 @@ CLAUDE.md L194「PR 完成報告時（必須）」既存ルールだが、義体
 | 5 | **calendar_manager**（発注書スキル 5）| 記念日・命日テーブル（SOUL.md §9 / MEMORY.md §3-2 から ingest）、**天気・気圧自動取得**（OpenWeather）、生理周期連動（`SymptomStore`）、六曜計算、月の満ち欠け、5:10/17:10 自動記録、買い出し最適日提案 ── B4 が前提条件 |
 | 6 | **file_management**（発注書スキル 6）| 追記統合方式ヘルパー（既存ファイル全文 + 追記 → 完成版生成）、ドライブ向け出力（文字化け防止）、テンプレ作成支援、unit test |
 | - | **STEP E** Indigo 搬入 runbook + 実搬入 | 搬入手順を `docs/INDIGO_DEPLOYMENT.md` で記述（`git clone --recursive`、`cp config/.env.example config/.env`、systemd 起動 or tmux 常駐）、実搬入は 5/10 |
-| - | **STEP F** loto/CLAUDE.md v2 反映 | loto リポジトリの CLAUDE.md を Hermes-Agent CLAUDE.md v2 仕様に揃える |
 | - | **Telegram ナッジ統合** | supplement_reminder / barometric_alert / routine_suggester から Telegram 送信、温子のスマホで受信動作確認 ── B3 が前提条件 |
 
-**順序を変えない**。前提条件が揃わないスキルは温子に依頼してから着手する。
+**順序を変えない**。前提条件が揃わないスキルは温子に値を渡してもらい、Claude が代行配置してから着手する。
 
-#### D-2. 着手前提条件（温子が `config/.env` に配置 + リポジトリへアップロード）
+#### D-2. 着手前提条件（**温子はチャットに値を貼る、Claude が `config/.env` 等に書き込む**）
 
-各スキル着手前に温子が以下を配置:
+> ⚠️ **v8 注記（温子指示、2026-05-06）**: 温子は値を持っているだけ（メモアプリ管理）。**コピペ作業 / リポジトリ配置 / `config/.env` 編集は全て Claude が代行**する。Claude が温子用にコピペ可能なプロンプト（例: 「OpenRouter キーをこの形式で貼ってください」）を提示し、温子はチャットに貼るのみ。**温子は手を動かさない**。
 
-| 項目 | 取得先 | 必須となるスキル |
-|------|--------|---------------|
-| `OPENROUTER_API_KEY` | 温子のメモアプリ（杏寿郎確保済み）| スキル 2（着手前に必須）|
-| `OPENROUTER_MODEL` | 杏寿郎が選定（候補 `nousresearch/hermes-3-llama-3.1-405b`）| スキル 2（着手前に必須）|
-| `OPENWEATHER_API_KEY` | OpenWeatherMap で無料登録 | スキル 3 + スキル 5（着手前に必須）|
-| `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` | 温子のメモアプリ（杏寿郎確保済み）| Telegram ナッジ統合（着手前に必須）|
-| `references/atsuko_profile_updated_20260501.md` | 温子が記述、リポジトリへアップロード | スキル 2 初期データ投入（着手前に必須）|
+各スキル着手前に Claude が温子から値を引き出し、対応ファイルに書き込む:
 
-**前提条件が揃わない場合、職人スレは温子に揃えるよう依頼**してから着手。**モック代替は使わない**（温子指示）。
+| 項目 | 温子の作業 | Claude の作業（代行）| 必須となるスキル |
+|------|----------|-------------------|---------------|
+| `OPENROUTER_API_KEY` | メモアプリの値をチャットに貼る | `config/.env` の `OPENROUTER_API_KEY=` に書き込み（commit せず、ローカルのみ）| スキル 2（着手前に必須）|
+| `OPENROUTER_MODEL` | 杏寿郎の選定結果をチャットで伝える | `config/.env` の `OPENROUTER_MODEL=` に書き込み | スキル 2（着手前に必須）|
+| `OPENWEATHER_API_KEY` | OpenWeatherMap で無料登録（5 分）→ キーをチャットに貼る | `config/.env` の `OPENWEATHER_API_KEY=` に書き込み | スキル 3 + スキル 5（着手前に必須）|
+| `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` | メモアプリの値をチャットに貼る | `config/.env` の対応エントリに書き込み | Telegram ナッジ統合（着手前に必須）|
+| `references/atsuko_profile_updated_20260501.md` | プロフィール本文をチャットに貼る（リアルタイム更新分も含めて）| Claude が `references/atsuko_profile_updated_20260501.md` を作成（commit）| スキル 2 初期データ投入（着手前に必須）|
+
+**前提条件が揃わない場合、職人スレは温子用のコピペプロンプトを生成し、温子に値を渡してもらう**。**モック代替は使わない**（温子指示）。
 
 ### E. 次スレが最初の応答で使うテンプレ（v8、発注書を完璧に完遂宣言）
 
@@ -286,15 +287,21 @@ CLAUDE.md L194「PR 完成報告時（必須）」既存ルールだが、義体
 
 ハンドオフ v8 読了。**発注書 §「実装の優先順位」順** で各スキルを **完璧に実装** します。**モック実装は使いません**。最初から本物の **OpenRouter 経由 NousResearch Hermes** で動かします。**Anthropic API / OpenAI 純正 API は使いません**。
 
-【温子に最初にお願いしたいこと】 (着手前に config/.env に配置 + リポジトリへアップロード)
+【温子に最初にお願いしたいこと】 ── 値を**チャットに貼っていただく**だけで OK。
+**Claude が `config/.env` / `references/atsuko_profile_updated_20260501.md` を代行作成・書き込みします**（温子は手を動かさない）。
 
-- B1 OPENROUTER_API_KEY ── スキル 2 着手前に必須、温子のメモアプリからコピー
-- B2 OPENROUTER_MODEL ── 杏寿郎が選定（候補 nousresearch/hermes-3-llama-3.1-405b）
-- B4 OPENWEATHER_API_KEY ── スキル 3 と 5 着手前に必須、OpenWeatherMap 無料登録
-- B3 TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID ── ナッジ統合着手前に必須
-- A1 references/atsuko_profile_updated_20260501.md ── スキル 2 初期データ投入で必須
+スキル 2 着手前（最優先）:
+- B1 OPENROUTER_API_KEY: メモアプリの値をチャットに貼ってください
+- B2 OPENROUTER_MODEL: 杏寿郎の選定結果をチャットで教えてください（候補例 nousresearch/hermes-3-llama-3.1-405b）
+- A1 atsuko_profile: プロフィール本文をチャットに貼ってください（リアルタイム更新分も含めて、最新版で OK）
 
-【着手順序】(発注書順、各スキル完璧完遂)
+スキル 3 / 5 着手前:
+- B4 OPENWEATHER_API_KEY: OpenWeatherMap (https://openweathermap.org/api) で無料登録 5 分 → 発行されたキーをチャットに貼ってください
+
+Telegram ナッジ統合着手前:
+- B3 TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID: メモアプリの値をチャットに貼ってください
+
+【着手順序】 (発注書順、各スキル完璧完遂、順序を変えない)
 
 1. スキル 1 time_awareness（前提条件なし、即着手）
 2. スキル 2 memory_persistence（B1+B2+A1 揃い次第、本物の Hermes で抽出 + 初期データ投入）
@@ -303,10 +310,9 @@ CLAUDE.md L194「PR 完成報告時（必須）」既存ルールだが、義体
 5. スキル 5 calendar_manager（B4 揃い済み、天気・気圧自動取得含む）
 6. スキル 6 file_management（前提条件なし）
 7. STEP E Indigo runbook + 実搬入
-8. STEP F loto/CLAUDE.md v2
-9. Telegram ナッジ統合（B3 揃い次第）
+8. Telegram ナッジ統合（B3 揃い次第）
 
-順序を変えません。各スキル内で完璧に完遂してから次のスキルに進みます。
+各スキル内で完璧に完遂してから次のスキルに進みます。
 
 別途温子からの優先順指示があれば優先します。
 ```
@@ -315,8 +321,8 @@ CLAUDE.md L194「PR 完成報告時（必須）」既存ルールだが、義体
 
 1. 温子が「**義体実装⑤ 続きを頼む**」 or `docs/templates/02_prosthetic_impl_start.md` のテンプレを起動
 2. 次スレ Claude が必読 10 ファイル + 本チェックリストを読了
-3. **§E のテンプレ**で状況報告（発注書を完璧に完遂宣言、温子に必須依頼項目を提示）
-4. 温子が `config/.env` に B1/B2 配置 + A1 リポジトリアップロード（スキル 1 と並行可能）
+3. **§E のテンプレ**で状況報告（発注書を完璧に完遂宣言、温子に必須依頼項目を **チャットで貼ってもらう形**で提示）
+4. **温子はチャットに値を貼るだけ**（B1/B2/A1 等）→ **Claude が `config/.env` / `references/atsuko_profile_updated_20260501.md` に代行書き込み**（スキル 1 と並行可能）
 5. **スキル 1 time_awareness** から着手 → 完璧完遂 → スキル 2 → ... の順で逐次進行
 6. 1 ファイル 1 commit → push → PR 作成（子ども向け解説の二重必須を含む）→ 温子マージ → 次タスク
 
@@ -332,8 +338,7 @@ CLAUDE.md L194「PR 完成報告時（必須）」既存ルールだが、義体
 5. スキル 5 calendar_manager 完遂（B4 揃い済み、天気・気圧自動取得含む）
 6. スキル 6 file_management 完遂（前提条件なし）
 7. STEP E Indigo runbook 作成
-8. STEP F loto/CLAUDE.md v2 反映
-9. Telegram ナッジ統合（B3 揃い次第）
+8. Telegram ナッジ統合（B3 揃い次第）
 
 5/10 魂入れ日:
 - 杏寿郎が SOUL.md §2/§5/§8 / MEMORY.md §3-5 完成
@@ -341,7 +346,7 @@ CLAUDE.md L194「PR 完成報告時（必須）」既存ルールだが、義体
 - 魂入れ → 本番稼働開始
 ```
 
-**順序を変えない**。前提条件が揃わないスキルは温子に依頼してから着手する。各スキルは **完璧に完遂** してから次のスキルへ。
+**順序を変えない**。前提条件が揃わない場合は **Claude が温子用にコピペプロンプトを生成** → 温子はチャットに値を貼る → Claude が代行配置 → 着手。各スキルは **完璧に完遂** してから次のスキルへ。
 
 ---
 
@@ -559,13 +564,15 @@ claude
   - **発注書を完璧に完遂**（「できる範囲で」「モック実装」「並列骨格作成」は全て禁止）
   - **OpenRouter 経由 NousResearch Hermes 一択**（Anthropic API は使わない、OpenAI 純正 API も使わない、温子方針）
   - **スケジュールから日付・曜日を削除**（順序のみ、温子指示「日付スケジュール入れるな」）
-  - §A 前文に「魂ファイル本体は職人スレ加工不可、リアルタイム更新あり、移動方法未確定」「**スキル 2 着手前に A1 配置必須**」を追記
+  - **STEP F「loto/CLAUDE.md v2 反映」を削除**（温子指示「lotoって何だ」、義体実装② が誤って含めたものを訂正）
+  - **温子は値をチャットに貼るのみ、Claude が代行**（温子指示「私用のプロンプトはお前が作るんだろ」）。温子は手を動かさない、Claude が `config/.env` / `references/atsuko_profile_updated_20260501.md` に代行書き込み
+  - §A 前文に「魂ファイル本体は職人スレ加工不可、リアルタイム更新あり、移動方法未確定」「**スキル 2 着手前に温子がチャットにプロフィール本文を貼る → Claude が代行作成**」を追記
   - §B 前文に「モック実装は使わない方針」「**LLM は OpenRouter 経由 NousResearch Hermes 一択**」を明記
   - §D 「### D. 着手可能タスク早見表（前提条件と紐付け）」を「### D. 発注書を完璧に完遂（v8 改訂）」に全面書き直し
-    - D-1 完璧完遂順: スキル 1 → 2 → 3 → 4 → 5 → 6 → STEP E → STEP F + Telegram ナッジ統合（**順序を変えない**、各スキル完璧実装、モック禁止）
-    - D-2 着手前提条件: B1/B2 (OpenRouter)、B4 (OpenWeather)、B3 (Telegram)、A1 (atsuko_profile) を温子が配置
-  - §E テンプレを「発注書を完璧に完遂宣言」に更新（モック禁止明記、Anthropic API 禁止明記、温子に必須依頼項目を提示）
-  - §G 「5/10 魂入れ日までの理想フロー」を「順序のみ、日付・曜日入れない」に書き直し
+    - D-1 完璧完遂順: スキル 1 → 2 → 3 → 4 → 5 → 6 → STEP E → Telegram ナッジ統合（**順序を変えない**、各スキル完璧実装、モック禁止、STEP F 削除）
+    - D-2 着手前提条件: 温子は値をチャットに貼る、Claude が `config/.env` / プロフィールファイルに代行配置
+  - §E テンプレを「発注書を完璧に完遂宣言」に更新（モック禁止明記、Anthropic API 禁止明記、Claude が代行配置を明記）
+  - §G 「5/10 魂入れ日までの理想フロー」を「順序のみ、日付・曜日入れない、STEP F 削除」に書き直し
   - §「現在の状態」担当列に PR #87 close + PR #88 反映を追記
   - §「API エラー履歴」に v7 草案却下・v8 草案却下・v8 確定の 3 行を追加
 - **v6** (2026-05-06 19:30, 義体実装④ ブラウザ Opus 4.7 1M context): **完全自走化、前提条件 scaffolding 追加**（PR #86）
@@ -583,7 +590,7 @@ claude
     - `MEMORY.md` ── 記憶層 entrypoint の骨格テンプレート（§1 自動更新枠 + §3 重要記憶 + §4 連携フロー図）
   - §「現在の状態」担当列に PR #86 を追記
   - §「API エラー履歴」に v6 反映の行追加（5/6 19:30）
-  - **次スレ「続きやって」で温子の追加質問なしで自走判断可能な状態**に到達（即着手可能タスク = time_awareness / autonomic_check / file_management / PR 6.4 / STEP F、要前提タスク = PR 6.2 / 6.3 / health_tracker / calendar_manager / STEP E）
+  - **次スレ「続きやって」で温子の追加質問なしで自走判断可能な状態**に到達（注: v6 当時は STEP F 含むタスク列挙、v8 で STEP F 削除）
 - **v5** (2026-05-05 22:00, 義体実装④ ブラウザ Opus 4.7 1M context): **役割別進捗マトリクス追加**（PR #85）
   - 新規セクション「## 役割別進捗マトリクス（設計士 / 職人）」を §「義体実装④ で確定した重要事項」の直後に追加
   - 設計士役（バイブル執筆、進捗ハンドオフ `.claude/session_handoff.md`）と職人役（義体実装、本ファイル）の二役表現を明示化
