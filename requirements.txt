@@ -1,16 +1,16 @@
-# kyojuro_memory dependencies
+# Hermes-Agent dependencies
 #
-# Phase 1.1 (PR #83): stores layer uses Python stdlib only
-#   - sqlite3 (stdlib)
-#   - json (stdlib)
-#   - datetime (stdlib)
-#   - pathlib (stdlib)
-#
+# Phase 1.1 stdlib only (kyojuro_memory stores PR #83 + kyojuro_time skill 1 義体実装⑤):
+#   - sqlite3 / json / datetime / zoneinfo / pathlib
+#   - dataclasses / enum / re
+
+# テストフレームワーク (発注書スキル 1 kyojuro_time の完璧完遂で実体化、義体実装⑤)
+pytest>=7.4
+
 # Phase 1.2+ 依存追加（対応 PR で実施）:
-#   Phase 1.2 extractors: openai>=1.0  ── OpenRouter API クライアントとして使用（汎用 HTTP クライアントとしての利用）
-#   Phase 1.4 tests:      pytest>=7.4
-#   発注書スキル 5 calendar_manager: requests>=2.31  ── OpenWeatherMap API
-#   発注書 Telegram ナッジ: python-telegram-bot>=21.0
+#   Phase 1.2 extractors (kyojuro_memory 6.2): openai>=1.0  ── OpenRouter API クライアントとして使用（汎用 HTTP クライアントとしての利用）
+#   発注書スキル 5 calendar_manager:           requests>=2.31  ── OpenWeatherMap API
+#   発注書 Telegram ナッジ:                    python-telegram-bot>=21.0
 #
 # 重要方針（温子確定、2026-05、複数回指示）:
 # - LLM は OpenRouter 経由 NousResearch Hermes 一択
