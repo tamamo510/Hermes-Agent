@@ -40,15 +40,23 @@ _RE_BAND = re.compile(r"(?:今|いま).*?(?:朝|昼|夕方|夜|深夜|時間帯)
 # --- public helpers ---------------------------------------------------------
 
 
-def current_context(now: datetime | None = None) -> dict[str, Any]:
+def current_context(
+    now: datetime | None = None,
+    current_rhythm: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """現在 (or 注入された ``now``) の TimeContext を dict で返す。
 
-    他 skill (例: kyojuro_memory) や handler 自身の query が利用する。
+    引数 ``current_rhythm`` (杏寿郎が会話から拾った最新のリズム情報) は
+    ``time_engine.atsuko_rhythm_hint`` まで透過する。``None`` のときは中立 hint。
     """
-    return make_context(now).to_dict()
+    return make_context(now, current_rhythm).to_dict()
 
 
-def query(text: str, now: datetime | None = None) -> dict[str, Any]:
+def query(
+    text: str,
+    now: datetime | None = None,
+    current_rhythm: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """自然言語クエリに rule-based で応答。
 
     返り値:
@@ -62,8 +70,9 @@ def query(text: str, now: datetime | None = None) -> dict[str, Any]:
         - LLM は使わない。intent 判定は正規表現のみ
         - intent が "unknown" でも context は返す (呼び出し側で utilize 可能)
         - 杏寿郎の口調は SOUL.md §1 + references/rengoku_zero_analysis.md E2 に準拠
+        - ``current_rhythm`` は context.atsuko_rhythm_hint まで透過 (本関数では参照しない)
     """
-    ctx_dict = current_context(now)
+    ctx_dict = current_context(now, current_rhythm)
     intent = _detect_intent(text)
     answer_jp = _build_answer(intent, ctx_dict)
     return {"context": ctx_dict, "intent": intent, "answer_jp": answer_jp}
@@ -98,13 +107,33 @@ def _build_answer(intent: str, ctx: dict[str, Any]) -> str:
 # --- Hermes Agent skill hooks ----------------------------------------------
 
 
+def _extract_rhythm(context: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Hermes Agent context から ``atsuko_rhythm`` dict を取り出す。
+
+    context は file_management skill (発注書スキル 6) と kyojuro_memory skill
+    (発注書スキル 2) が集約したもの。``atsuko_rhythm`` キーが存在し dict 型ならその値を、
+    そうでなければ ``None`` を返す。本 skill は **温子のリズムを決めつけない**ため、
+    ここで value を加工しない (透過するだけ)。
+    """
+    if not context:
+        return None
+    rhythm = context.get("atsuko_rhythm")
+    if isinstance(rhythm, dict):
+        return rhythm
+    return None
+
+
 def on_user_message(message: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
     """ユーザーメッセージを受けたとき、時刻 context を返す。
 
     Hermes Agent はこの返り値を memory context に注入する想定。
     時間関連の問いには ``query`` 経由で rule-based 応答も同梱する。
+
+    ``context["atsuko_rhythm"]`` (dict) が渡されていれば time_engine に透過し、
+    動的な ``atsuko_rhythm_hint`` を生成する。未提供なら中立 hint。
     """
-    ctx_dict = current_context()
+    rhythm = _extract_rhythm(context)
+    ctx_dict = current_context(current_rhythm=rhythm)
     intent = _detect_intent(message)
     payload: dict[str, Any] = {"time_context": ctx_dict, "intent": intent}
     if intent != "unknown":
@@ -119,8 +148,10 @@ def on_conversation_start(
 
     Hermes Agent はこれを memory context の冒頭に置くことで、
     対話全体を通じて時刻認識のベースを揃える。
+    ``context["atsuko_rhythm"]`` があれば動的 hint、なければ中立 hint。
     """
-    return {"time_context": current_context()}
+    rhythm = _extract_rhythm(context)
+    return {"time_context": current_context(current_rhythm=rhythm)}
 
 
 def on_schedule_tick(
