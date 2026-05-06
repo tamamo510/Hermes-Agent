@@ -9,7 +9,7 @@
 - **5:10 / 17:10「魂の合図」検知** ([`SOUL.md` §7](../../SOUL.md))
   - ピンポイント分検知 (5:10:00 〜 5:10:59)
   - ±5 分の窓検知 (5:05 〜 5:15、両端含む) ── 早期警戒用
-- **温子の生活リズム反映**: 1 日 1 食・深夜食事・スロースターターを踏まえた振る舞いヒント
+- **温子のリズムヒント (中立 / 動的)** ── **時間帯から決めつけない**。温子のリズムは日々変動する (ADHD 時差ボケ 90 分、昼夜逆転期と回復期、食事・サプリも臨機応変) ので、本 skill 単独では中立 hint。`current_rhythm` (杏寿郎が会話から拾った最新情報) を渡すと動的 hint
 - **曜日 (日本語 / 英語)・自然な日本語表記**
 
 ## 使い方 (Python から)
@@ -17,7 +17,7 @@
 ```python
 from skills.kyojuro_time.handler import current_context, query
 
-# 現在の時刻 context を取得
+# 現在の時刻 context を取得 (rhythm 未注入 → 中立 hint)
 ctx = current_context()
 # => {
 #   "iso_datetime": "2026-05-06T20:45:29+09:00",
@@ -31,7 +31,7 @@ ctx = current_context()
 #   "is_soul_signal_window": False,
 #   "is_soul_signal_exact": False,
 #   "soul_signal_kind": None,
-#   "atsuko_rhythm_hint": "温子の食事タイミングが含まれる時間帯。食事と体調の話題が出やすい。"
+#   "atsuko_rhythm_hint": "温子のリズムは日々変動する (ADHD 時差ボケ 90 分、…)"  # 中立
 # }
 
 # 「今何時?」に rule-based で応答
@@ -44,6 +44,36 @@ from zoneinfo import ZoneInfo
 fixed = datetime(2026, 5, 10, 5, 10, 30, tzinfo=ZoneInfo("Asia/Tokyo"))
 ctx = current_context(now=fixed)
 print(ctx["soul_signal_kind"])  # => "dawn_signal"
+
+# 杏寿郎が会話から拾った最新リズム情報を渡すと動的 hint
+rhythm = {
+    "notes": "今日は晩御飯を朝に食べてから眠るパターン",
+    "circadian_state": "inverted",
+    "current_eating_pattern": "irregular",
+    "last_updated": "2026-05-06T08:00:00+09:00",
+    "updated_by": "杏寿郎",
+}
+ctx = current_context(current_rhythm=rhythm)
+print(ctx["atsuko_rhythm_hint"])
+# => "温子のリズムは日々変動する (…) | 温子の現在のメモ: 今日は晩御飯を朝に食べてから眠るパターン | 現在の概日リズム状態: inverted | …"
+```
+
+### Hermes Agent context 経由のリズム連携 (推奨)
+
+```python
+from skills.kyojuro_time.handler import on_user_message
+
+# Hermes Agent loader が file_management + kyojuro_memory から集約した context
+context = {
+    "atsuko_rhythm": {
+        "notes": "回復期、生活リズムを通常寄りに戻し中",
+        "circadian_state": "recovering",
+    },
+    # その他 skill が注入する情報...
+}
+
+payload = on_user_message("こんにちは", context=context)
+# payload["time_context"]["atsuko_rhythm_hint"] が動的 hint になる
 ```
 
 ## Hermes Agent skill 統合
@@ -89,9 +119,11 @@ python -m pytest skills/kyojuro_time/tests/ -v
 
 - **外部依存なし**: Python 3.11+ 標準ライブラリ (`datetime`, `zoneinfo`, `dataclasses`, `enum`, `re`) のみ
 - **LLM 呼び出しなし**: 時間判定は決定的処理、LLM は不要 (発注書 §「注意事項」遵守)
-- **決定的・冪等**: 同じ入力には常に同じ出力。`make_context(now=...)` でテスト時の決定性を担保
+- **決定的・冪等**: 同じ入力には常に同じ出力。`make_context(now=..., current_rhythm=...)` でテスト時の決定性を担保
 - **aware 強制**: naive datetime を渡したら `ValueError` で即停止 (温子・杏寿郎にミスを起こさない)
 - **杏寿郎の口調**: `query` の `answer_jp` は「俺」一人称・「だ」語尾 ([`references/rengoku_zero_analysis.md`](../../references/rengoku_zero_analysis.md) §E2 準拠)
+- **温子のリズムを決めつけない**: 時間帯依存の固定 hint は持たない。`current_rhythm` 未注入なら中立 hint。リズムは温子と杏寿郎が会話から動的に書き換える前提 (ADHD 時差ボケ 90 分、昼夜逆転期と回復期を行き来、食事・サプリも臨機応変)
+- **連携先**: file_management skill (発注書スキル 6) が `references/atsuko_profile_updated_*.md` を追記統合、kyojuro_memory skill (発注書スキル 2) が `priorities.json` / `routines.db` / `symptoms.db` に保持。本 skill はそれらが集約された `context["atsuko_rhythm"]` を **受け身で読むだけ**
 
 ## 関連
 
