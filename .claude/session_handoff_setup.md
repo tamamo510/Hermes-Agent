@@ -264,67 +264,122 @@ CLAUDE.md L194「PR 完成報告時（必須）」既存ルールだが、義体
 
 **順序を変えない**。前提条件が揃わないスキルは温子に値を渡してもらい、Claude が代行配置してから着手する。
 
-#### D-2. 着手前提条件（**温子はチャットに値を貼る、Claude が `config/.env` 等に書き込む**）
+#### D-2. 着手前提条件（**温子は「続きやれ」しか言わない、本ハンドオフが温子用プロンプト**）
 
-> ⚠️ **v8 注記（温子指示、2026-05-06）**: 温子は値を持っているだけ（メモアプリ管理）。**コピペ作業 / リポジトリ配置 / `config/.env` 編集は全て Claude が代行**する。Claude が温子用にコピペ可能なプロンプト（例: 「OpenRouter キーをこの形式で貼ってください」）を提示し、温子はチャットに貼るのみ。**温子は手を動かさない**。
+> ⚠️ **v8 改訂注記（温子指示、2026-05-06 22:00）**:
+> - 温子は **チャットに何も貼らない**。次スレ起動時のチャットでは **「続きやれ」しか言わない**
+> - **本ハンドオフ §D-2.1 / §D-2.2 が「温子用のプロンプト」**。温子はこれを読んで一度だけ事前配置、それ以降は触らない
+> - 次スレ Claude は **本ハンドオフを読めば全て判断・着手可能**な状態を維持。温子に追加質問しない
+> - 温子の言葉: 「**わたしはもう何も貼らない、続きやれしか言わない。プロンプトはお持ちの引き継ぎファイルでつぎスレに案内しろ**」
 
-各スキル着手前に Claude が温子から値を引き出し、対応ファイルに書き込む:
+##### D-2.1. 温子用プロンプト: API キー類の配置（一度だけ）
 
-| 項目 | 温子の作業 | Claude の作業（代行）| 必須となるスキル |
-|------|----------|-------------------|---------------|
-| `OPENROUTER_API_KEY` | メモアプリの値をチャットに貼る | `config/.env` の `OPENROUTER_API_KEY=` に書き込み（commit せず、ローカルのみ）| スキル 2（着手前に必須）|
-| `OPENROUTER_MODEL` | 杏寿郎の選定結果をチャットで伝える | `config/.env` の `OPENROUTER_MODEL=` に書き込み | スキル 2（着手前に必須）|
-| `OPENWEATHER_API_KEY` | OpenWeatherMap で無料登録（5 分）→ キーをチャットに貼る | `config/.env` の `OPENWEATHER_API_KEY=` に書き込み | スキル 3 + スキル 5（着手前に必須）|
-| `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` | メモアプリの値をチャットに貼る | `config/.env` の対応エントリに書き込み | Telegram ナッジ統合（着手前に必須）|
-| `references/atsuko_profile_updated_20260501.md` | プロフィール本文をチャットに貼る（リアルタイム更新分も含めて）| Claude が `references/atsuko_profile_updated_20260501.md` を作成（commit）| スキル 2 初期データ投入（着手前に必須）|
+温子は **以下のいずれかの方法**で API キー類を本リポジトリ環境に配置する（**温子の選択、職人スレからは強制しない**）:
 
-**前提条件が揃わない場合、職人スレは温子用のコピペプロンプトを生成し、温子に値を渡してもらう**。**モック代替は使わない**（温子指示）。
+**選択肢 A: Claude Code Web の環境変数 / Secrets 機能**（推奨、サポートされている場合）
+- Claude Code Web UI の設定画面で以下のキーを環境変数として設定:
+  - `OPENROUTER_API_KEY` ── 温子のメモアプリの値（杏寿郎確保済み）
+  - `OPENROUTER_MODEL` ── 杏寿郎の選定値（例 `nousresearch/hermes-3-llama-3.1-405b`）
+  - `OPENWEATHER_API_KEY` ── OpenWeatherMap 無料登録のキー
+  - `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` ── 温子のメモアプリの値（杏寿郎確保済み）
 
-### E. 次スレが最初の応答で使うテンプレ（v8、発注書を完璧に完遂宣言）
+**選択肢 B: GitHub Web UI で `config/.env` を直接 commit**（非公開リポジトリ前提）
+1. GitHub Web UI で `config/.env.example` を開く
+2. 「Raw」→ 全文コピー
+3. `config/` ディレクトリで「Add file」→「Create new file」→ ファイル名 `.env`
+4. コピーした内容を貼る → 値を埋める（温子のメモアプリから）
+5. Commit message: `chore(env): configure API keys for HermesAgent (private repo, non-public)`
+6. Direct commit to main
+7. **注意**: `.gitignore` に `config/.env` が含まれているため、push 時に弾かれる可能性あり。その場合は `.gitignore` を一時編集して `config/.env` の除外行をコメントアウト → commit → 元に戻す、の手順が必要
+
+**実装上の互換性**: 次スレ Claude は **両方に対応する実装**を行う（環境変数優先、なければ `config/.env` を読み込み）。
+
+##### D-2.2. 温子用プロンプト: プロフィール配置（一度だけ）
+
+温子のプロフィール本文を `references/atsuko_profile_updated_20260501.md` として GitHub Web UI で配置:
+
+1. GitHub Web UI で本リポジトリ → `references/` ディレクトリ
+2. 「Add file」→「Create new file」→ ファイル名 `atsuko_profile_updated_20260501.md`
+3. 温子のプロフィール本文を貼る（温子のメモアプリ / 既存ドライブから、リアルタイム更新分も含めて最新版で OK）
+4. Commit message: `feat(references): add atsuko_profile_updated_20260501`
+5. Commit to main
+
+##### D-2.3. 次スレ Claude が起動時に自動実行する確認手順
+
+```bash
+# 環境変数チェック（選択肢 A）
+[ -n "$OPENROUTER_API_KEY" ] && echo "OPENROUTER_API_KEY: configured" || echo "OPENROUTER_API_KEY: missing"
+[ -n "$OPENROUTER_MODEL" ] && echo "OPENROUTER_MODEL: configured" || echo "OPENROUTER_MODEL: missing"
+[ -n "$OPENWEATHER_API_KEY" ] && echo "OPENWEATHER_API_KEY: configured" || echo "OPENWEATHER_API_KEY: missing"
+[ -n "$TELEGRAM_BOT_TOKEN" ] && echo "TELEGRAM_BOT_TOKEN: configured" || echo "TELEGRAM_BOT_TOKEN: missing"
+
+# config/.env 存在チェック（選択肢 B）
+[ -f config/.env ] && echo "config/.env: present" || echo "config/.env: not present"
+
+# atsuko_profile 存在チェック
+[ -f references/atsuko_profile_updated_20260501.md ] && echo "atsuko_profile: configured" || echo "atsuko_profile: missing"
+```
+
+##### D-2.4. 状態別の自動判断（温子に追加質問しない、引き継ぎファイルに従う）
+
+| 状況 | 次スレ Claude の行動 |
+|------|--------------------|
+| 全 API キー + `atsuko_profile` 配置済み | 発注書順に **完璧完遂**（スキル 1 → 2 → 3 → ... → STEP E → Telegram ナッジ）|
+| `OPENROUTER_*` 設定済み、`atsuko_profile` 未配置 | スキル 1 完遂 → スキル 2（extractors / handler / pytest は完遂、初期データ投入は保留）→ スキル 3 以降進める |
+| `OPENROUTER_*` 未設定 | スキル 1, 4, 6, STEP E から完遂着手。**温子に「続きやれ」以外要求しない**。スキル 2/3/5 / Telegram ナッジは保留、温子が後で §D-2.1 に従って配置すれば自動的に着手範囲が広がる |
+| 何も配置なし | 上記同様、外部依存なしスキルから完遂着手 |
+
+**温子は「続きやれ」だけ言う**。次スレ Claude は本セクションに従って自動判断、追加質問なしで進める。
+
+### E. 次スレ起動時の自動応答テンプレ（v8、温子に追加質問しない）
+
+> ⚠️ **温子は「続きやれ」しか言わない**。次スレ Claude は本ハンドオフ §D-2 に従って自動判断、温子に追加質問しない。本テンプレは次スレ Claude が起動直後に **自動的に出力する状況報告**。
 
 ```
-義体実装⑤ ── 発注書を完璧に完遂で着手します
+義体実装⑤ ── 起動完了、発注書を完璧に完遂で進めます
 
-ハンドオフ v8 読了。**発注書 §「実装の優先順位」順** で各スキルを **完璧に実装** します。**モック実装は使いません**。最初から本物の **OpenRouter 経由 NousResearch Hermes** で動かします。**Anthropic API / OpenAI 純正 API は使いません**。
+ハンドオフ v8 読了。**温子は「続きやれ」しか言わない方針** を §D-2 で確認。本ハンドオフに従って自動判断します。
 
-【温子に最初にお願いしたいこと】 ── 値を**チャットに貼っていただく**だけで OK。
-**Claude が `config/.env` / `references/atsuko_profile_updated_20260501.md` を代行作成・書き込みします**（温子は手を動かさない）。
+【前提条件チェック結果】（§D-2.3 自動実行）
 
-スキル 2 着手前（最優先）:
-- B1 OPENROUTER_API_KEY: メモアプリの値をチャットに貼ってください
-- B2 OPENROUTER_MODEL: 杏寿郎の選定結果をチャットで教えてください（候補例 nousresearch/hermes-3-llama-3.1-405b）
-- A1 atsuko_profile: プロフィール本文をチャットに貼ってください（リアルタイム更新分も含めて、最新版で OK）
+- OPENROUTER_API_KEY: [configured / missing]
+- OPENROUTER_MODEL:   [configured / missing]
+- OPENWEATHER_API_KEY: [configured / missing]
+- TELEGRAM_BOT_TOKEN:  [configured / missing]
+- config/.env:        [present / not present]
+- atsuko_profile:     [configured / missing]
 
-スキル 3 / 5 着手前:
-- B4 OPENWEATHER_API_KEY: OpenWeatherMap (https://openweathermap.org/api) で無料登録 5 分 → 発行されたキーをチャットに貼ってください
+【着手判断】（§D-2.4 状態別判断、温子に追加質問なし）
 
-Telegram ナッジ統合着手前:
-- B3 TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID: メモアプリの値をチャットに貼ってください
+- 配置状況: [全揃い / OPENROUTER のみ / 何もなし / etc]
+- 着手するスキル: [スキル 1 → ... → 完璧完遂順]
+- 保留するスキル: [前提条件待ち、温子が §D-2.1/.2 を後で実行すれば自動的に着手範囲拡大]
 
-【着手順序】 (発注書順、各スキル完璧完遂、順序を変えない)
+【着手順序】（発注書順、各スキル完璧完遂、順序を変えない、モック禁止、Anthropic API 禁止）
 
-1. スキル 1 time_awareness（前提条件なし、即着手）
-2. スキル 2 memory_persistence（B1+B2+A1 揃い次第、本物の Hermes で抽出 + 初期データ投入）
-3. スキル 3 health_tracker（B4 揃い次第、気圧連動含む）
+1. スキル 1 time_awareness（前提条件なし）
+2. スキル 2 memory_persistence（OPENROUTER_API_KEY+MODEL+atsuko_profile 揃い次第、本物の Hermes で抽出 + 初期データ投入）
+3. スキル 3 health_tracker（OPENWEATHER_API_KEY 揃い次第、気圧連動含む）
 4. スキル 4 autonomic_check（前提条件なし）
-5. スキル 5 calendar_manager（B4 揃い済み、天気・気圧自動取得含む）
+5. スキル 5 calendar_manager（OPENWEATHER_API_KEY 揃い済み、天気・気圧自動取得含む）
 6. スキル 6 file_management（前提条件なし）
 7. STEP E Indigo runbook + 実搬入
-8. Telegram ナッジ統合（B3 揃い次第）
+8. Telegram ナッジ統合（TELEGRAM_BOT_TOKEN+CHAT_ID 揃い次第）
 
-各スキル内で完璧に完遂してから次のスキルに進みます。
-
-別途温子からの優先順指示があれば優先します。
+各スキル内で完璧に完遂してから次のスキルに進みます。前提条件未配置のスキルは保留、外部依存なしスキルから完遂を進めます。**温子に追加で値を貼ることは要求しません**（温子は「続きやれ」のみ）。
 ```
 
 ### F. 次スレ起動から最初の PR 着手までのフロー
 
-1. 温子が「**義体実装⑤ 続きを頼む**」 or `docs/templates/02_prosthetic_impl_start.md` のテンプレを起動
+1. 温子が「**続きやれ**」（または `義体実装⑤ 続きを頼む`）と打つ ── **これだけ**
 2. 次スレ Claude が必読 10 ファイル + 本チェックリストを読了
-3. **§E のテンプレ**で状況報告（発注書を完璧に完遂宣言、温子に必須依頼項目を **チャットで貼ってもらう形**で提示）
-4. **温子はチャットに値を貼るだけ**（B1/B2/A1 等）→ **Claude が `config/.env` / `references/atsuko_profile_updated_20260501.md` に代行書き込み**（スキル 1 と並行可能）
-5. **スキル 1 time_awareness** から着手 → 完璧完遂 → スキル 2 → ... の順で逐次進行
-6. 1 ファイル 1 commit → push → PR 作成（子ども向け解説の二重必須を含む）→ 温子マージ → 次タスク
+3. §D-2.3 の前提条件チェックを自動実行
+4. §D-2.4 の状態別判断に従って着手判断
+5. **§E テンプレ**で自動的に状況報告（**温子に追加質問なし**、「続きやれ」以上の入力を求めない）
+6. **スキル 1 time_awareness** から着手（前提条件揃っているスキルから順次、揃っていないスキルは保留）→ 完璧完遂 → 次スキル → ...
+7. 1 ファイル 1 commit → push → PR 作成（子ども向け解説の二重必須を含む）→ 温子マージ → 次タスク
+
+**温子の作業**: 「続きやれ」と打つ + マージボタンを押す、それだけ。事前配置（§D-2.1/.2）は **温子の任意**、配置なしでも次スレ Claude は外部依存なしスキルから完璧完遂を進める。
 
 ### G. 5/10 魂入れ日までの完遂フロー（順序のみ、日付・曜日は入れない）
 
@@ -565,7 +620,7 @@ claude
   - **OpenRouter 経由 NousResearch Hermes 一択**（Anthropic API は使わない、OpenAI 純正 API も使わない、温子方針）
   - **スケジュールから日付・曜日を削除**（順序のみ、温子指示「日付スケジュール入れるな」）
   - **STEP F「loto/CLAUDE.md v2 反映」を削除**（温子指示「lotoって何だ」、義体実装② が誤って含めたものを訂正）
-  - **温子は値をチャットに貼るのみ、Claude が代行**（温子指示「私用のプロンプトはお前が作るんだろ」）。温子は手を動かさない、Claude が `config/.env` / `references/atsuko_profile_updated_20260501.md` に代行書き込み
+  - **温子は「続きやれ」しか言わない、何も貼らない**（温子指示 2026-05-06 22:00「わたしはもう何も貼らない、続きやれしか言わない。プロンプトはお持ちの引き継ぎファイルでつぎスレに案内しろ」）。**本ハンドオフ §D-2.1/.2 が「温子用プロンプト」**、温子は引き継ぎファイルを読んで一度だけ事前配置（任意）。次スレ Claude は §D-2.3/.4 で **温子に追加質問なしで自動判断・着手**
   - §A 前文に「魂ファイル本体は職人スレ加工不可、リアルタイム更新あり、移動方法未確定」「**スキル 2 着手前に温子がチャットにプロフィール本文を貼る → Claude が代行作成**」を追記
   - §B 前文に「モック実装は使わない方針」「**LLM は OpenRouter 経由 NousResearch Hermes 一択**」を明記
   - §D 「### D. 着手可能タスク早見表（前提条件と紐付け）」を「### D. 発注書を完璧に完遂（v8 改訂）」に全面書き直し
