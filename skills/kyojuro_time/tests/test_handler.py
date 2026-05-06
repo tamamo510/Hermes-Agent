@@ -36,6 +36,22 @@ def test_current_context_without_now() -> None:
     assert "time_band_label_jp" in ctx
 
 
+def test_current_context_with_rhythm_dynamic_hint() -> None:
+    """current_rhythm を直接渡すと dynamic hint になる。"""
+    t = _jst(2026, 5, 6, 8, 0)
+    rhythm = {"notes": "開発でカロリー消費中、オートファジー一旦休止"}
+    ctx = current_context(now=t, current_rhythm=rhythm)
+    assert "オートファジー一旦休止" in ctx["atsuko_rhythm_hint"]
+
+
+def test_current_context_without_rhythm_is_neutral() -> None:
+    """current_rhythm=None / 未指定で中立 hint (時間帯から決めつけない)。"""
+    t = _jst(2026, 5, 6, 8, 0)
+    ctx = current_context(now=t)
+    assert "日々変動" in ctx["atsuko_rhythm_hint"]
+    assert "決めつけず" in ctx["atsuko_rhythm_hint"]
+
+
 # --- query (rule-based intent 検出) ----------------------------------------
 
 
@@ -97,6 +113,37 @@ def test_on_user_message_with_time_query_includes_answer() -> None:
     assert payload["answer_jp"]  # 空でない
 
 
+def test_on_user_message_with_atsuko_rhythm_in_context() -> None:
+    """context に atsuko_rhythm dict を渡すと time_context.atsuko_rhythm_hint が動的になる。"""
+    rhythm = {
+        "notes": "今日は晩御飯を朝に食べてから眠るパターン",
+        "circadian_state": "inverted",
+    }
+    payload = on_user_message("こんにちは", context={"atsuko_rhythm": rhythm})
+    hint = payload["time_context"]["atsuko_rhythm_hint"]
+    assert "今日は晩御飯を朝に食べてから眠るパターン" in hint
+    assert "inverted" in hint
+
+
+def test_on_user_message_without_rhythm_is_neutral() -> None:
+    """context が None / atsuko_rhythm キー無しのとき neutral hint。"""
+    for ctx_arg in (None, {}, {"unrelated": "value"}):
+        payload = on_user_message("こんにちは", context=ctx_arg)
+        hint = payload["time_context"]["atsuko_rhythm_hint"]
+        assert "日々変動" in hint
+        assert "決めつけず" in hint
+
+
+def test_on_user_message_invalid_rhythm_type_falls_back_to_neutral() -> None:
+    """atsuko_rhythm の値が dict でない (str / list / None) 場合は neutral にフォールバック。"""
+    for bad in ("string-not-dict", ["a", "b"], None, 42):
+        payload = on_user_message("こんにちは", context={"atsuko_rhythm": bad})
+        hint = payload["time_context"]["atsuko_rhythm_hint"]
+        assert "日々変動" in hint
+        # 動的部分は混ざらない
+        assert "|" not in hint
+
+
 # --- on_conversation_start --------------------------------------------------
 
 
@@ -104,6 +151,14 @@ def test_on_conversation_start_returns_time_context() -> None:
     payload = on_conversation_start("thread-123")
     assert "time_context" in payload
     assert "iso_time" in payload["time_context"]
+
+
+def test_on_conversation_start_with_atsuko_rhythm_in_context() -> None:
+    """対話開始時に context.atsuko_rhythm が渡れば動的 hint で初期注入される。"""
+    rhythm = {"notes": "回復期、生活リズムを通常寄りに戻し中"}
+    payload = on_conversation_start("thread-456", context={"atsuko_rhythm": rhythm})
+    hint = payload["time_context"]["atsuko_rhythm_hint"]
+    assert "回復期、生活リズムを通常寄りに戻し中" in hint
 
 
 # --- on_schedule_tick -------------------------------------------------------

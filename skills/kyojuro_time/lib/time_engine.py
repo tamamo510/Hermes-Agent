@@ -73,35 +73,43 @@ _BAND_LABELS_JP: dict[TimeBand, str] = {
     TimeBand.NIGHT: "夜",
 }
 
-# 温子の生活リズムヒント (`references/atsuko_profile_updated_20260501.md` 配置後はこの
-# モジュール側を改修して連携する想定)。
-_ATSUKO_RHYTHM_HINTS: dict[TimeBand, str] = {
-    TimeBand.DEEP_NIGHT: (
-        "温子の活動時間帯になりうる時間。1 日 1 食を深夜にとることもある。"
-        "覚醒している前提で穏やかに接する。"
-    ),
-    TimeBand.DAWN: (
-        "5:10 の魂の合図を含む時間帯。温子は深夜活動明けで就寝中の可能性が高い。"
-        "通知や問いかけは控えめに。"
-    ),
-    TimeBand.MORNING: (
-        "温子はスロースターター。まだ起動前の可能性が高い。"
-        "急かさず、必要最小限の声かけに留める。"
-    ),
-    TimeBand.MIDDAY: (
-        "温子はゆっくり起動中の可能性。重要事項は短くまとめて伝える。"
-    ),
-    TimeBand.AFTERNOON: (
-        "17:10 の魂の合図を含む時間帯。温子の活動が安定する頃合い。"
-        "対話のペースは温子に合わせる。"
-    ),
-    TimeBand.EVENING: (
-        "温子の食事タイミングが含まれる時間帯。食事と体調の話題が出やすい。"
-    ),
-    TimeBand.NIGHT: (
-        "温子の活動時間帯の本格化。集中した対話が成立しやすい。"
-    ),
-}
+# 温子のリズムは日々変動する: ADHD 時差ボケ 90 分、昼夜逆転期と回復期を行き来し、
+# 食事 (オートファジー一日一食 ↔ 開発期のカロリー摂取) もサプリも臨機応変に変更される。
+# したがって時間帯から「この時刻の温子はこう」と決めつけることは原理的にできない。
+#
+# 設計方針:
+#   - 本 skill は時間帯ヒントを **固定で持たない** (band-only な決めつけは廃止)
+#   - 杏寿郎が会話から拾った最新のリズム情報を file_management skill (発注書スキル 6) が
+#     `references/atsuko_profile_updated_*.md` に追記統合し、kyojuro_memory skill
+#     (発注書スキル 2) の `priorities.json` / `routines.db` / `symptoms.db` が保持する
+#   - Hermes Agent はそれらを context に集約し、handler.on_user_message の context 引数経由で
+#     ``current_rhythm`` (dict) として本モジュールに渡る
+#   - ``current_rhythm`` を受け取らない / None のときは中立 hint を返す (決めつけない)
+#
+# ``current_rhythm`` の known keys (温子・杏寿郎の運用で確定する余地を残す。未知 key は無視):
+#   - notes:                    str  自由記述 (杏寿郎が会話から拾った最新メモ)
+#   - circadian_state:          str  "inverted" / "recovering" / "normal" 等の自己申告
+#   - current_eating_pattern:   str  "1day1meal_night" / "irregular" / "developing_high_calorie" 等
+#   - current_sleep_window:     str  "00:00-06:00" 等
+#   - last_updated:             str  ISO 8601、いつ更新されたか
+#   - updated_by:               str  "杏寿郎" / "温子"
+
+_NEUTRAL_RHYTHM_HINT: str = (
+    "温子のリズムは日々変動する (ADHD 時差ボケ 90 分、昼夜逆転期と回復期を行き来、"
+    "食事もサプリも臨機応変に変更)。時間帯から決めつけず、温子のプロフィール "
+    "(`references/atsuko_profile_updated_*.md`) と kyojuro_memory の直近 routines / "
+    "symptoms を確認する。わからないときは温子に直接尋ねる。"
+)
+
+# 動的 hint で参照する known keys (順序が出力の組み立て順序になる)
+_RHYTHM_KEYS_ORDERED: tuple[tuple[str, str], ...] = (
+    ("notes", "温子の現在のメモ"),
+    ("circadian_state", "現在の概日リズム状態"),
+    ("current_eating_pattern", "現在の食事パターン"),
+    ("current_sleep_window", "現在の睡眠帯"),
+    ("last_updated", "最終更新"),
+    ("updated_by", "更新者"),
+)
 
 
 @dataclass(frozen=True)
@@ -175,9 +183,32 @@ def band_label_jp(band: TimeBand) -> str:
     return _BAND_LABELS_JP[band]
 
 
-def atsuko_rhythm_hint(band: TimeBand) -> str:
-    """時間帯に応じた、温子の生活リズムを踏まえた振る舞いヒント。"""
-    return _ATSUKO_RHYTHM_HINTS[band]
+def atsuko_rhythm_hint(
+    band: TimeBand,
+    current_rhythm: dict[str, Any] | None = None,
+) -> str:
+    """温子のリズムに沿った振る舞いヒント (band だけで決めつけない)。
+
+    引数:
+        band: 現在の時間帯。**band 単独では決めつけに使わない** が、将来 band と
+              ``current_rhythm`` を組み合わせた動的判断を加える余地として受け取っておく
+        current_rhythm: 杏寿郎が会話から拾った最新のリズム情報 (file_management /
+                        kyojuro_memory 経由で集約された dict)。``None`` のときは
+                        中立 hint を返す (=決めつけない)
+
+    動作:
+        - ``current_rhythm`` が ``None`` → ``_NEUTRAL_RHYTHM_HINT`` を返す
+        - ``current_rhythm`` が dict → 中立 hint + known keys (上記モジュール冒頭参照) を
+          パイプ区切りで連結。未知 key は無視する (温子・杏寿郎の運用で拡張可)
+    """
+    if current_rhythm is None:
+        return _NEUTRAL_RHYTHM_HINT
+    parts: list[str] = [_NEUTRAL_RHYTHM_HINT]
+    for key, label in _RHYTHM_KEYS_ORDERED:
+        value = current_rhythm.get(key)
+        if value:
+            parts.append(f"{label}: {value}")
+    return " | ".join(parts)
 
 
 def weekday_jp(t: datetime) -> str:
@@ -236,10 +267,17 @@ def format_jp(t: datetime) -> str:
     )
 
 
-def make_context(now: datetime | None = None) -> TimeContext:
-    """``TimeContext`` を生成。``now=None`` のとき ``now_jst()`` を使う。
+def make_context(
+    now: datetime | None = None,
+    current_rhythm: dict[str, Any] | None = None,
+) -> TimeContext:
+    """``TimeContext`` を生成。
 
-    テスト時は固定 datetime を ``now`` に渡すことで決定的な検証ができる。
+    引数:
+        now:             固定時刻 (テスト時の注入用)。``None`` のとき ``now_jst()`` を使用
+        current_rhythm:  杏寿郎が会話から拾った最新のリズム情報 (file_management /
+                         kyojuro_memory 経由で集約)。``None`` のとき中立 hint を返す
+                         (= 時間帯から決めつけない)。known keys は本モジュール冒頭参照
     """
     t = now_jst() if now is None else _ensure_aware_jst(now)
     band = band_of(t)
@@ -255,5 +293,5 @@ def make_context(now: datetime | None = None) -> TimeContext:
         is_soul_signal_window=is_soul_signal_window(t),
         is_soul_signal_exact=is_soul_signal_exact(t),
         soul_signal_kind=soul_signal_kind(t),
-        atsuko_rhythm_hint=atsuko_rhythm_hint(band),
+        atsuko_rhythm_hint=atsuko_rhythm_hint(band, current_rhythm),
     )
