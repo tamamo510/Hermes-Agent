@@ -97,11 +97,69 @@ def test_band_label_jp_full() -> None:
         assert band_label_jp(band) == label
 
 
-def test_atsuko_rhythm_hint_all_bands() -> None:
-    """全 7 種類でヒントが空でなく、それぞれ異なる文字列であること。"""
+def test_atsuko_rhythm_hint_neutral_default() -> None:
+    """``current_rhythm=None`` のとき中立 hint (時間帯から決めつけない)。"""
+    hint = atsuko_rhythm_hint(TimeBand.MORNING)
+    assert "日々変動" in hint
+    assert "決めつけず" in hint
+    assert "温子に直接尋ねる" in hint
+    assert "ADHD" in hint  # 時差ボケ 90 分の言及
+
+
+def test_atsuko_rhythm_hint_neutral_is_band_independent() -> None:
+    """neutral hint は band を変えても同じ ── 「時間帯で決めつけない」ことの保証。"""
     hints = {band: atsuko_rhythm_hint(band) for band in TimeBand}
-    assert all(hints[band] for band in TimeBand)
-    assert len(set(hints.values())) == len(TimeBand)
+    # 全 band で同じ中立 hint が返る (band 依存の決めつけ廃止)
+    assert len(set(hints.values())) == 1
+
+
+def test_atsuko_rhythm_hint_dynamic_with_full_profile() -> None:
+    """known keys を全部渡したとき、それらが末尾に統合されること。"""
+    rhythm = {
+        "notes": "開発でカロリー使うのでオートファジー一旦休止",
+        "circadian_state": "inverted",
+        "current_eating_pattern": "developing_high_calorie",
+        "current_sleep_window": "06:00-12:00",
+        "last_updated": "2026-05-06T21:00:00+09:00",
+        "updated_by": "杏寿郎",
+    }
+    hint = atsuko_rhythm_hint(TimeBand.MORNING, rhythm)
+    # 中立 hint は前置として保持
+    assert "日々変動" in hint
+    # 動的部分
+    assert "開発でカロリー使うのでオートファジー一旦休止" in hint
+    assert "inverted" in hint
+    assert "developing_high_calorie" in hint
+    assert "06:00-12:00" in hint
+    assert "2026-05-06T21:00:00+09:00" in hint
+    assert "杏寿郎" in hint
+
+
+def test_atsuko_rhythm_hint_dynamic_partial_profile() -> None:
+    """空 / 欠落 key は無視 (None や "" は出さない)。"""
+    rhythm = {"notes": "今日は晩御飯を朝に食べた"}
+    hint = atsuko_rhythm_hint(TimeBand.MORNING, rhythm)
+    assert "今日は晩御飯を朝に食べた" in hint
+    # 渡していない key の label は出ない
+    assert "現在の概日リズム状態" not in hint
+    assert "現在の食事パターン" not in hint
+
+
+def test_atsuko_rhythm_hint_unknown_keys_ignored() -> None:
+    """未知の key は無視されて出力に出ない (温子・杏寿郎の運用拡張に耐える)。"""
+    rhythm = {"notes": "メモ", "future_extension_key": "あとで増えるかもしれない"}
+    hint = atsuko_rhythm_hint(TimeBand.NIGHT, rhythm)
+    assert "メモ" in hint
+    assert "あとで増えるかもしれない" not in hint
+    assert "future_extension_key" not in hint
+
+
+def test_atsuko_rhythm_hint_empty_dict_returns_neutral_only() -> None:
+    """空 dict は known keys ゼロ件相当 (パイプ追加なし、中立 hint のみ)。"""
+    hint = atsuko_rhythm_hint(TimeBand.NIGHT, {})
+    # 中立 hint のみ (パイプ区切り部分がない)
+    neutral = atsuko_rhythm_hint(TimeBand.NIGHT, None)
+    assert hint == neutral
 
 
 # --- 曜日 -------------------------------------------------------------------
@@ -230,7 +288,7 @@ def test_format_jp() -> None:
 
 
 def test_make_context_kyojuro_birthday_signal() -> None:
-    """5/10 5:10:00 = 魂入れ日の魂の合図。全フィールドを検証。"""
+    """5/10 5:10:00 = 魂入れ日の魂の合図。全フィールドを検証 (rhythm 未注入なので中立)。"""
     t = _jst(2026, 5, 10, 5, 10, 0)
     ctx = make_context(now=t)
     assert isinstance(ctx, TimeContext)
@@ -244,7 +302,30 @@ def test_make_context_kyojuro_birthday_signal() -> None:
     assert ctx.is_soul_signal_window is True
     assert ctx.is_soul_signal_exact is True
     assert ctx.soul_signal_kind == "dawn_signal"
-    assert "5:10" in ctx.atsuko_rhythm_hint or "深夜活動明け" in ctx.atsuko_rhythm_hint
+    # rhythm を渡していないので中立 hint
+    assert "日々変動" in ctx.atsuko_rhythm_hint
+    assert "決めつけず" in ctx.atsuko_rhythm_hint
+
+
+def test_make_context_with_current_rhythm() -> None:
+    """make_context に current_rhythm を渡すと dynamic hint になる。"""
+    t = _jst(2026, 5, 6, 8, 0)
+    rhythm = {
+        "notes": "今日は晩御飯を朝に食べた",
+        "circadian_state": "inverted",
+    }
+    ctx = make_context(now=t, current_rhythm=rhythm)
+    assert "日々変動" in ctx.atsuko_rhythm_hint  # neutral 部分
+    assert "今日は晩御飯を朝に食べた" in ctx.atsuko_rhythm_hint
+    assert "inverted" in ctx.atsuko_rhythm_hint
+
+
+def test_make_context_with_none_rhythm_equals_default() -> None:
+    """current_rhythm=None と未指定の振る舞いが等価。"""
+    t = _jst(2026, 5, 6, 12, 0)
+    a = make_context(now=t)
+    b = make_context(now=t, current_rhythm=None)
+    assert a.atsuko_rhythm_hint == b.atsuko_rhythm_hint
 
 
 def test_make_context_to_dict_serializable() -> None:
