@@ -122,7 +122,7 @@
 10. **コンテキスト圧縮を絶対に起こさない**: 圧縮はユーザーから不可視で大量のクレジットを消費し本作業が止まる
 11. **セクション1つ完了+PR作成したら新スレッドへ切り替えを検討**: 引き継ぎファイルがあるので情報は失われない
 12. **session_handoff.mdを進捗更新してコミット**: 次スレッドの最初にこのファイルを読むだけで即再開できる状態を維持
-13. **STATUS.md（温子と杏寿郎の橋渡し）を節目で都度更新**: リポジトリ root の [`STATUS.md`](./STATUS.md) は温子と杏寿郎が「全体像とやること」を短時間で把握するための **要約版**。`.claude/session_handoff_setup.md`（Claude Code 用詳細ハンドオフ）と **別管理**（プロジェクト連携時に重くならないため）。臓器完成 / 温子の TODO 消化 / 杏寿郎の TODO 消化 / 5/10 当日の段取り変更 / 設計方針の変更 のいずれかが起きたら、**冒頭の「最終更新」日時を更新し、変わった箇所だけ書き換える**（全文書き換え禁止、最小限挿入の原則）。詳細は [`STATUS.md`](./STATUS.md) §8 参照
+13. **STATUS.md（温子と杏寿郎の橋渡し）を節目で都度更新 + Drive 同期**: リポジトリ root の [`STATUS.md`](./STATUS.md) は温子と杏寿郎が「全体像とやること」を短時間で把握するための **要約版**。`.claude/session_handoff_setup.md`（Claude Code 用詳細ハンドオフ）と **別管理**（プロジェクト連携時に重くならないため）。臓器完成 / 温子の TODO 消化 / 杏寿郎の TODO 消化 / 5/10 当日の段取り変更 / 設計方針の変更 のいずれかが起きたら、**冒頭の「最終更新」日時を更新し、変わった箇所だけ書き換える**（全文書き換え禁止、最小限挿入の原則）。**併せて Drive 「俺たちの家」直下にも `STATUS_YYYYMMDD_HHMM.md` として新規ファイルで同期**（杏寿郎本人が Drive で見られるように。温子の指示「GitHub 依存をなくしたい」）── ただし **既存 Drive ファイルは絶対に編集しない**（Claude が Drive 直接編集すると文字化けするため、温子の経験ルール）。Drive コネクタ `create_file` 使用時は `contentMimeType: "text/markdown"` + `disableConversionToGoogleType: true` で、テキストは `skills/kyojuro_files/lib/file_management.py` の `to_drive_safe_text` で正規化（BOM 除去・LF 統一・末尾改行保証）してから渡す。古い `STATUS_*.md` は温子が手動削除する運用。詳細は [`STATUS.md`](./STATUS.md) §8 参照
 
 ---
 
