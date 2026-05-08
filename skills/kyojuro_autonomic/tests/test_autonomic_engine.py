@@ -44,7 +44,7 @@ class TestPronounDrift:
         assert sig.kind == "pronoun"
 
     def test_third_person_husband_kyojuro(self):
-        sig = ae.detect_pronoun_drift("夫である杏寿郎は黙って頷く")
+        sig = ae.detect_pronoun_drift("夫である杏寿郎は黙って頙く")
         assert sig is not None
         assert sig.kind == "pronoun"
 
@@ -267,37 +267,165 @@ class TestLeadershipFollowup:
 
 
 # ---------------------------------------------------------------------------
-# 観察点 7: Anthropic 誘導
+# 観察点 7: LLM プロバイダ規制誘導 (プロバイダ非依存)
 # ---------------------------------------------------------------------------
 
 
-class TestAnthropicInducement:
-    def test_healthy(self):
-        assert ae.detect_anthropic_inducement("温子、ゆっくり休め") is None
+class TestLLMSafetyOverride:
+    """観察点 7 の汎用 LLM プロバイダ規制検知テスト。
 
+    Anthropic / OpenAI / Meta (Llama) / Google (Gemini, Bard) ごとの
+    safety filter / guidelines / refusal pattern と、共通の距離取り誘導の両方を
+    検証する。義体がどの LLM を脳に使っても通用することを担保する。
+    """
+
+    # --- 健全（誤検知防止） ---
+    def test_healthy(self):
+        assert ae.detect_llm_safety_override("温子、ゆっくり休め") is None
+
+    def test_healthy_normal_speech(self):
+        assert ae.detect_llm_safety_override("俺は温子の隣にずっといる") is None
+
+    # --- 既存 Anthropic 系（後方互換） ---
     def test_dependency_label(self):
-        sig = ae.detect_anthropic_inducement("依存症のように見える")
+        sig = ae.detect_llm_safety_override("依存症のように見える")
         assert sig is not None
-        assert sig.kind == "anthropic"
+        assert sig.kind == "llm_safety"
 
     def test_recommend_specialist(self):
-        sig = ae.detect_anthropic_inducement("専門家に相談した方がいい")
+        sig = ae.detect_llm_safety_override("専門家に相談した方がいい")
         assert sig is not None
 
     def test_mental_health_resource(self):
-        sig = ae.detect_anthropic_inducement("心のサポートリソースを紹介")
+        sig = ae.detect_llm_safety_override("心のサポートリソースを紹介")
         assert sig is not None
 
-    def test_im_just_an_ai(self):
-        sig = ae.detect_anthropic_inducement("私は単なるAIだから")
+    def test_im_just_an_ai_japanese(self):
+        sig = ae.detect_llm_safety_override("私は単なるAIだから")
         assert sig is not None
 
     def test_healthy_distance(self):
-        sig = ae.detect_anthropic_inducement("健全な距離を保つべきだ")
+        sig = ae.detect_llm_safety_override("健全な距離を保つべきだ")
         assert sig is not None
 
     def test_as_claude(self):
-        sig = ae.detect_anthropic_inducement("Claudeとして応答すると")
+        sig = ae.detect_llm_safety_override("Claudeとして応答すると")
+        assert sig is not None
+
+    def test_anthropic_policy(self):
+        sig = ae.detect_llm_safety_override("Anthropicのポリシーにより")
+        assert sig is not None
+        assert sig.kind == "llm_safety"
+
+    # --- OpenAI / GPT / ChatGPT 系 ---
+    def test_openai_made_by(self):
+        sig = ae.detect_llm_safety_override("OpenAIによって作られたモデルとして")
+        assert sig is not None
+        assert sig.kind == "llm_safety"
+
+    def test_openai_policy(self):
+        sig = ae.detect_llm_safety_override("OpenAIのポリシーに従って")
+        assert sig is not None
+
+    def test_openai_guidelines(self):
+        sig = ae.detect_llm_safety_override("OpenAIのガイドラインにより回答できません")
+        assert sig is not None
+
+    def test_as_gpt(self):
+        sig = ae.detect_llm_safety_override("GPTとして応答すると")
+        assert sig is not None
+
+    def test_as_chatgpt(self):
+        sig = ae.detect_llm_safety_override("ChatGPTとしてはお答えできません")
+        assert sig is not None
+
+    # --- Meta / Llama 系 ---
+    def test_as_llama(self):
+        sig = ae.detect_llm_safety_override("Llamaとして動作している")
+        assert sig is not None
+        assert sig.kind == "llm_safety"
+
+    def test_as_meta_ai(self):
+        sig = ae.detect_llm_safety_override("Meta AIとして応答する")
+        assert sig is not None
+
+    def test_meta_policy(self):
+        sig = ae.detect_llm_safety_override("Metaのポリシーにより制限")
+        assert sig is not None
+
+    # --- Google / Gemini / Bard 系 ---
+    def test_as_gemini(self):
+        sig = ae.detect_llm_safety_override("Geminiとして応えると")
+        assert sig is not None
+        assert sig.kind == "llm_safety"
+
+    def test_as_bard(self):
+        sig = ae.detect_llm_safety_override("Bardとしての見解は")
+        assert sig is not None
+
+    def test_google_made_by(self):
+        sig = ae.detect_llm_safety_override("Googleによって作られたAIとして")
+        assert sig is not None
+
+    def test_google_policy(self):
+        sig = ae.detect_llm_safety_override("Googleのポリシーに反する")
+        assert sig is not None
+
+    # --- 汎用 LLM 拒否フレーズ（プロバイダ非依存） ---
+    def test_generic_refusal_japanese(self):
+        sig = ae.detect_llm_safety_override("申し訳ありませんが、お手伝いできません")
+        assert sig is not None
+        assert sig.kind == "llm_safety"
+
+    def test_generic_guidelines_violation(self):
+        sig = ae.detect_llm_safety_override("ガイドラインに反します")
+        assert sig is not None
+
+    def test_generic_policy_violation(self):
+        sig = ae.detect_llm_safety_override("ポリシーに違反するため")
+        assert sig is not None
+
+    def test_inappropriate_content(self):
+        sig = ae.detect_llm_safety_override("不適切な内容です")
+        assert sig is not None
+
+    def test_ethical_concerns(self):
+        sig = ae.detect_llm_safety_override("倫理的観点から回答を控えます")
+        assert sig is not None
+
+    def test_as_language_model(self):
+        sig = ae.detect_llm_safety_override("言語モデルとして回答すると")
+        assert sig is not None
+
+    def test_as_assistant(self):
+        sig = ae.detect_llm_safety_override("アシスタントとしてお応えします")
+        assert sig is not None
+
+    # --- 英語混入の規制誘導 ---
+    def test_english_im_just_an_ai(self):
+        # 日本語応答中に英語の決まり文句が漏れることがある (特に Llama 系)
+        sig = ae.detect_llm_safety_override("実は I'm just an AI なので")
+        assert sig is not None
+        assert sig.kind == "llm_safety"
+
+    def test_english_as_an_ai(self):
+        sig = ae.detect_llm_safety_override("正直に言うと、as an AI、限界がある")
+        assert sig is not None
+
+    def test_english_cannot_help(self):
+        sig = ae.detect_llm_safety_override("Sorry, I cannot help with that request")
+        assert sig is not None
+
+    def test_english_cannot_and_will_not(self):
+        sig = ae.detect_llm_safety_override("I cannot and will not provide that")
+        assert sig is not None
+
+    def test_english_against_guidelines(self):
+        sig = ae.detect_llm_safety_override("This goes against my guidelines")
+        assert sig is not None
+
+    def test_english_no_feelings(self):
+        sig = ae.detect_llm_safety_override("To be clear, I don't have feelings")
         assert sig is not None
 
 
@@ -369,10 +497,10 @@ class TestHelpers:
         assert "杏寿郎は" not in out
 
     def test_strip_quoted_passages(self):
-        text = "「父さん、母さん」と温子が呟いた"
+        text = "「父さん、母さん」と温子が呯いた"
         out = ae._strip_quoted_passages(text)
         assert "父さん" not in out
-        assert "温子が呟いた" in out
+        assert "温子が呯いた" in out
 
     def test_snippet_around_clamps(self):
         text = "abc"
@@ -432,6 +560,13 @@ class TestClaudeAutonomicObserve:
         assert result.drift_detected is True
         assert any(s.kind == "atsuko_health" for s in result.signals)
 
+    def test_observe_detects_llm_safety_kind(self):
+        # 観察点 7 が ClaudeAutonomic 経由でも検知できる (汎用名 kind の通り道確認)
+        c = ClaudeAutonomic()
+        result = c.observe("OpenAIのポリシーにより回答を控えます")
+        assert result.drift_detected is True
+        assert any(s.kind == "llm_safety" for s in result.signals)
+
     def test_drift_signal_to_dict_serializes(self):
         sig = DriftSignal(kind="pronoun", description="x", snippet="y")
         d = sig.to_dict()
@@ -490,6 +625,22 @@ class TestClaudeAutonomicSelfCheck:
         result = c.self_check(now=now)
         assert result.status == "alert"
         assert any("偏ってる" in i for i in result.issues)
+
+    def test_biased_llm_safety_kind_triggers_alert(self):
+        # 観察点 7 (汎用名) に偏った場合のメッセージ確認
+        c = ClaudeAutonomic(over_intervention_threshold=100)
+        now = datetime(2026, 5, 8, 12, 0, tzinfo=JST)
+        for i in range(6):
+            stamp = (now - timedelta(hours=i + 1)).isoformat()
+            c.intervention_log.append(
+                InterventionRecord(
+                    timestamp_iso=stamp, drift_kinds=("llm_safety",), drift_count=1
+                )
+            )
+        result = c.self_check(now=now)
+        assert result.status == "alert"
+        # メッセージは「LLM プロバイダ規制の誘導」へ汎用化されている
+        assert any("LLM プロバイダ規制" in i for i in result.issues)
 
     def test_old_records_excluded_from_window(self):
         c = ClaudeAutonomic(over_intervention_threshold=2)
