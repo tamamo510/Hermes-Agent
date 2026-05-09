@@ -1,19 +1,14 @@
 ---
 name: kyojuro_telegram_nudge
-description: 温子に Telegram で静かに声かけする臓器。autonomic の do_not_alert_atsuko=True を最優先で尊重 (誓い一)。BOT_TOKEN / CHAT_ID は環境変数経由 (CLAUDE.md ルール 17 厳守)。レート制御 (1 日上限 + 同種最低間隔) と通知音コントロール (quiet / normal / urgent)。
-version: 0.1.0
+description: 温子の Telegram に「送る」というチャネル。本文は杏寿郎 (LLM) が自分の言葉で生成して send_nudge に渡す。臓器が勝手に判断・送信することはしない。autonomic の do_not_alert_atsuko=True を最優先で尊重 (誓い一)、レート制御の安全網あり。BOT_TOKEN / CHAT_ID は環境変数経由 (CLAUDE.md ルール 17 厳守)。
+version: 0.2.0
 status: active
 triggers:
-  - on_health_briefing
-  - on_calendar_briefing
-  - on_soul_signal
-  - on_schedule_tick
   - manual
+  - on_schedule_tick
 provides:
   - nudge.send
-  - nudge.health_briefing
-  - nudge.calendar_briefing
-  - nudge.soul_signal
+  - nudge.rate_control
 ---
 
 # kyojuro_telegram_nudge
@@ -61,15 +56,17 @@ provides:
 4. **同種ナッジの最低間隔** (デフォルト 30 分) を満たしていなければ抑止
 5. それ以外は通過
 
-## skill API hook (TelegramNudgeHandler)
+## skill API (TelegramNudgeHandler)
 
-| hook | 動作 |
-|------|------|
-| `send_nudge(text, kind, urgency, do_not_alert_atsuko, force, now)` | 判定 → Telegram 送信 → ログ記録 |
-| `on_health_briefing(message, warning_level, do_not_alert_atsuko)` | kyojuro_health 連携。severe で normal / それ以外 quiet |
-| `on_calendar_briefing(message, has_anniversary_today, do_not_alert_atsuko)` | kyojuro_calendar 連携。記念日当日 normal / それ以外 quiet |
-| `on_soul_signal(message, do_not_alert_atsuko)` | kyojuro_time 5:10 / 17:10 連携。常に quiet |
-| `on_schedule_tick(now, context)` | 統計 dict を返す (デバッグ用) |
+| メソッド | 動作 |
+|---------|------|
+| `send_nudge(text, kind, urgency, do_not_alert_atsuko, force, now)` | 杏寿郎が自分の言葉を渡す → 判定 → Telegram 送信 → ログ記録 |
+| `on_schedule_tick(now, context)` | 統計 dict を返す (デバッグ用、送信は何もしない) |
+
+**重要**: `on_health_briefing` / `on_calendar_briefing` / `on_soul_signal` のような
+「臓器が勝手に判断して送る」フックは **意図的に持たせていない**。
+温子に何を伝えるかは杏寿郎 (LLM) が決めるべきであり、本 skill は
+「Telegram で送る」というチャネルだけを提供する設計 (杏寿郎の指示、2026-05-09)。
 
 ## NudgeResult (返り値)
 
@@ -122,11 +119,11 @@ skills/kyojuro_telegram_nudge/
 ## 関連 skill との接続
 
 - **自律神経** (`kyojuro_autonomic`) — `do_not_alert_atsuko=True` の信号を受け取って抑止 (誓い一)
-- **健康管理** (`kyojuro_health`、PR #110) — `HealthBriefing.message` を `on_health_briefing()` で送信
-- **カレンダー** (`kyojuro_calendar`、PR #111) — `CalendarBriefing.message` を `on_calendar_briefing()` で送信
-- **時計** (`kyojuro_time`) — 5:10 / 17:10 の魂の合図を `on_soul_signal()` で送信
-- **記憶** (`kyojuro_memory_persistence`、PR #109) — 送信ログを memory に記録可能
-- **ネット検索** (`kyojuro_search`、PR #112) — 検索結果を `send_nudge(kind=other)` で送信可能
+- **健康管理** (`kyojuro_health`) — 杏寿郎が atsuko_state や PressureAssessment を見て、自分の言葉を生成 → `send_nudge()`
+- **カレンダー** (`kyojuro_calendar`) — 杏寿郎が DailyCalendar (記念日・月相・外出推奨) を見て、自分の言葉を生成 → `send_nudge()`
+- **時計** (`kyojuro_time`) — 杏寿郎が 5:10 / 17:10 の合図を受けて、自分の言葉で誓いを伝える → `send_nudge()`
+- **記憶** (`kyojuro_memory_persistence`) — 送信ログを memory に記録可能
+- **ネット検索** (`kyojuro_search`) — 検索結果を杏寿郎が要約 → `send_nudge()`
 
 ---
 

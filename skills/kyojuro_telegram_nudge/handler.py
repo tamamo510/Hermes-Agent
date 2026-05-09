@@ -1,15 +1,19 @@
 """kyojuro_telegram_nudge — Hermes Agent skill handler。
 
-skill API hook:
-- send_nudge: NudgeEngine の判定 → 通れば Telegram で送信 → ログ記録
-- on_schedule_tick: 定期実行 (朝の briefing 送信等)
-- on_health_briefing: kyojuro_health の HealthBriefing を受け取って送信
-- on_calendar_briefing: kyojuro_calendar の CalendarBriefing を受け取って送信
+設計の根本原則:
+  **温子に何を伝えるかは杏寿郎 (LLM) が決める。臓器は声かけしない。**
+  本 skill は「Telegram で送る」というチャネルだけを提供する。
+  メッセージ本文は呼び出し側 (杏寿郎本人) が自分の言葉で生成して send_nudge に渡す。
+  臓器が「気圧低下時に自動で温子に通知」のように勝手に判断・送信することはしない。
 
-設計原則:
+skill API:
+- send_nudge: 杏寿郎が自分の言葉を渡して送信 (NudgeEngine 判定 → Telegram 送信 → ログ)
+- on_schedule_tick: 定期実行で統計のみ返す (送信は何もしない)
+
+NudgeEngine の役割は「送信頻度の安全網」:
 - autonomic の do_not_alert_atsuko=True を最優先 (誓い一)
 - レート制御 (1 日上限 + 同種最低間隔)
-- urgent は super-pass
+- urgent は super-pass (do_not_alert は尊重)
 - 失敗時はログに記録、例外を上げない (送信失敗はビジネスエラーとして扱う)
 """
 
@@ -22,15 +26,8 @@ from typing import Any, Optional
 
 from .lib.env_loader import MissingEnvVarError
 from .lib.nudge_engine import (
-    NUDGE_KIND_CALENDAR,
-    NUDGE_KIND_CONVERSATION,
-    NUDGE_KIND_HEALTH,
     NUDGE_KIND_OTHER,
-    NUDGE_KIND_REMINDER,
-    NUDGE_KIND_SOUL_SIGNAL,
-    URGENCY_NORMAL,
     URGENCY_QUIET,
-    URGENCY_URGENT,
     NudgeDecision,
     NudgeEngine,
     NudgeStore,
@@ -205,62 +202,6 @@ class TelegramNudgeHandler:
             urgency=urgency,
             message_id=send_result.message_id,
             log_id=log_id,
-        )
-
-    # -- 他 skill 連携 -----------------------------------------------------
-
-    def on_health_briefing(
-        self,
-        message: str,
-        warning_level: str = "none",
-        do_not_alert_atsuko: bool = False,
-    ) -> NudgeResult:
-        """kyojuro_health の HealthBriefing.message を受け取って送信。
-
-        warning が severe なら urgent、mild なら normal、それ以外は quiet。
-        """
-        if warning_level == "severe":
-            urgency = URGENCY_NORMAL  # urgent ほどではない、温子の体調事案
-        elif warning_level == "mild":
-            urgency = URGENCY_QUIET
-        else:
-            urgency = URGENCY_QUIET
-        return self.send_nudge(
-            text=message,
-            kind=NUDGE_KIND_HEALTH,
-            urgency=urgency,
-            do_not_alert_atsuko=do_not_alert_atsuko,
-        )
-
-    def on_calendar_briefing(
-        self,
-        message: str,
-        has_anniversary_today: bool = False,
-        do_not_alert_atsuko: bool = False,
-    ) -> NudgeResult:
-        """kyojuro_calendar の CalendarBriefing.message を受け取って送信。
-
-        記念日当日は normal、それ以外は quiet。
-        """
-        urgency = URGENCY_NORMAL if has_anniversary_today else URGENCY_QUIET
-        return self.send_nudge(
-            text=message,
-            kind=NUDGE_KIND_CALENDAR,
-            urgency=urgency,
-            do_not_alert_atsuko=do_not_alert_atsuko,
-        )
-
-    def on_soul_signal(
-        self,
-        message: str,
-        do_not_alert_atsuko: bool = False,
-    ) -> NudgeResult:
-        """5:10 / 17:10 の魂の合図を送信 (kyojuro_time 連携)。"""
-        return self.send_nudge(
-            text=message,
-            kind=NUDGE_KIND_SOUL_SIGNAL,
-            urgency=URGENCY_QUIET,
-            do_not_alert_atsuko=do_not_alert_atsuko,
         )
 
     # -- スケジュール tick --------------------------------------------------

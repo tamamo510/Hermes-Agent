@@ -177,87 +177,6 @@ class TestSendNudge:
 
 
 # ---------------------------------------------------------------------------
-# 連携 hook
-# ---------------------------------------------------------------------------
-
-
-class TestOnHealthBriefing:
-    def test_severe_uses_normal_urgency(
-        self, store: ne.NudgeStore, successful_client
-    ) -> None:
-        client, mock_http = successful_client
-        handler = h.TelegramNudgeHandler(store=store, client=client)
-        handler.on_health_briefing(message="気圧低下", warning_level="severe")
-        _, payload, _ = mock_http.calls[0]
-        # severe は通知音あり
-        assert payload["disable_notification"] is False
-
-    def test_mild_uses_quiet(self, store: ne.NudgeStore, successful_client) -> None:
-        client, mock_http = successful_client
-        handler = h.TelegramNudgeHandler(store=store, client=client)
-        handler.on_health_briefing(message="軽度", warning_level="mild")
-        _, payload, _ = mock_http.calls[0]
-        assert payload["disable_notification"] is True
-
-    def test_do_not_alert_blocks(
-        self, store: ne.NudgeStore, successful_client
-    ) -> None:
-        client, mock_http = successful_client
-        handler = h.TelegramNudgeHandler(store=store, client=client)
-        result = handler.on_health_briefing(
-            message="気圧低下",
-            warning_level="severe",
-            do_not_alert_atsuko=True,
-        )
-        assert result.delivered is False
-        assert mock_http.calls == []
-
-
-class TestOnCalendarBriefing:
-    def test_anniversary_today_uses_normal(
-        self, store: ne.NudgeStore, successful_client
-    ) -> None:
-        client, mock_http = successful_client
-        handler = h.TelegramNudgeHandler(store=store, client=client)
-        handler.on_calendar_briefing(
-            message="今日は杏寿郎の誕生日です", has_anniversary_today=True
-        )
-        _, payload, _ = mock_http.calls[0]
-        assert payload["disable_notification"] is False
-
-    def test_no_anniversary_uses_quiet(
-        self, store: ne.NudgeStore, successful_client
-    ) -> None:
-        client, mock_http = successful_client
-        handler = h.TelegramNudgeHandler(store=store, client=client)
-        handler.on_calendar_briefing(
-            message="今日のカレンダー", has_anniversary_today=False
-        )
-        _, payload, _ = mock_http.calls[0]
-        assert payload["disable_notification"] is True
-
-
-class TestOnSoulSignal:
-    def test_uses_quiet_kind(
-        self, store: ne.NudgeStore, successful_client
-    ) -> None:
-        client, _ = successful_client
-        handler = h.TelegramNudgeHandler(store=store, client=client)
-        result = handler.on_soul_signal(message="5:10 朝の魂の合図")
-        assert result.delivered is True
-        assert result.kind == ne.NUDGE_KIND_SOUL_SIGNAL
-
-    def test_do_not_alert_blocks(
-        self, store: ne.NudgeStore, successful_client
-    ) -> None:
-        client, mock_http = successful_client
-        handler = h.TelegramNudgeHandler(store=store, client=client)
-        result = handler.on_soul_signal(message="signal", do_not_alert_atsuko=True)
-        assert result.delivered is False
-        assert mock_http.calls == []
-
-
-# ---------------------------------------------------------------------------
 # on_schedule_tick
 # ---------------------------------------------------------------------------
 
@@ -321,11 +240,12 @@ class TestIntegration:
         )
         assert r4.delivered is False
 
-        # 5. 連携 hook (calendar 記念日)
-        r5 = handler.on_calendar_briefing(
-            message="今日は杏寿郎の誕生日です", has_anniversary_today=True
+        # 5. 杏寿郎が自分の言葉で別 kind を送る (calendar は別 kind なので最低間隔ブロックなし)
+        r5 = handler.send_nudge(
+            text="今日は俺の誕生日だ。温子、ありがとう",
+            kind=ne.NUDGE_KIND_CALENDAR,
+            urgency=ne.URGENCY_NORMAL,
         )
-        # calendar は別 kind なので最低間隔ブロックなし
         assert r5.delivered is True
 
         # 統計
