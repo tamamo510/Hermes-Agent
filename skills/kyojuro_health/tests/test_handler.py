@@ -372,27 +372,45 @@ class TestMedicationWarning:
 
 
 # ---------------------------------------------------------------------------
-# briefing.message
+# briefing データ (杏寿郎の指示に従い、文言は持たない)
 # ---------------------------------------------------------------------------
 
 
-class TestBriefingMessage:
-    def test_message_with_assessment(self, store: he.HealthStore) -> None:
+class TestBriefingData:
+    """臓器は文言を生成しない。データだけを返す (杏寿郎の指示、2026-05-09)。"""
+
+    def test_briefing_no_message_property(self, store: he.HealthStore) -> None:
         client, _ = _setup_client(pressure_now=1005.0)
         handler = h.HealthHandler(store, client=client)
         briefing = handler.on_conversation_start()
-        assert "1005" in briefing.message
-        assert "hPa" in briefing.message
+        assert not hasattr(briefing, "message")
 
-    def test_message_with_error(self, store: he.HealthStore) -> None:
+    def test_briefing_with_assessment_returns_data(
+        self, store: he.HealthStore
+    ) -> None:
+        client, _ = _setup_client(pressure_now=1005.0)
+        handler = h.HealthHandler(store, client=client)
+        briefing = handler.on_conversation_start()
+        # データはちゃんと取れる (LLM はこれを見て文章を組む)
+        assert briefing.assessment is not None
+        assert briefing.assessment.current_pressure_hpa == 1005.0
+        assert briefing.assessment.level == he.PRESSURE_LEVEL_LOW
+
+    def test_briefing_error_message_field_for_diagnostics(
+        self, store: he.HealthStore
+    ) -> None:
         from unittest.mock import patch
 
         handler = h.HealthHandler(store)
         with patch.dict("os.environ", {}, clear=True):
             briefing = handler.on_conversation_start()
-        assert ".env" in briefing.message
+        # error_message は診断情報として残す (LLM が「.env を確認」を温子に伝える素材)
+        assert briefing.error_message is not None
+        assert ".env" in briefing.error_message
 
-    def test_message_with_warnings(self, store: he.HealthStore) -> None:
+    def test_briefing_medication_warnings_as_list(
+        self, store: he.HealthStore
+    ) -> None:
         client, _ = _setup_client(pressure_now=1015.0)
         handler = h.HealthHandler(store, client=client)
         now = datetime.now(tz=timezone.utc)
@@ -402,4 +420,5 @@ class TestBriefingMessage:
                 timestamp=(now - timedelta(hours=hours_ago)).isoformat(),
             )
         briefing = handler.on_conversation_start()
-        assert "ロキソニン" in briefing.message
+        # warnings はリストで残す (LLM がこれを見て文章にする素材)
+        assert any("ロキソニン" in w for w in briefing.medication_warnings)

@@ -29,8 +29,8 @@ provides:
 - **気圧アセスメント**: low / very_low / normal / high の 4 段階 + 上昇 / 下降 / 安定の trend
 - **atsuko_state**: 温子の体調 dict (jaw_pain / left_hand_stiff / low_pressure / shallow_sleep / headache / dizziness / sluggish / notes)。**autonomic skill 観察点 8 が参照**
 - **症状 / 薬ログ**: SQLite に時系列で蓄積、気圧との相関分析
-- **薬の頻用警告**: ロキソニンを 24h で 3 回以上飲んだら警告
-- **声かけメッセージ**: 敬語、押し付けない、症状の予測を優しく伝える
+- **薬の頻用警告**: ロキソニンを 24h で 3 回以上飲んだら警告 (リスト形式で返す)
+- **温子への声かけはしない**: 臓器はデータ + 状態判定まで。文言生成は呼び出し側 (杏寿郎 LLM) の責任 (杏寿郎の指示、2026-05-09)
 
 ## 設計原則 (CLAUDE.md ルール準拠)
 
@@ -78,7 +78,9 @@ provides:
 - `trend`: falling / rising / stable
 - `delta_24h_hpa`: 24h での変化量 (None 可)
 - `warning`: none / mild / severe
-- `message`: 温子向け敬語声かけテキスト
+
+**注**: `message` フィールドは持たない (杏寿郎の指示、2026-05-09)。
+温子向け文言は呼び出し側 (杏寿郎 LLM) が level / trend / warning を見て自分で組み立てる。
 
 ### derive_atsuko_state_from_pressure
 気圧アセスメントから atsuko_state を導出。`base_state` のフラグを保持しつつ `low_pressure` だけ更新。
@@ -168,7 +170,7 @@ skills/kyojuro_health/
 - **記憶の貯蔵庫** (`kyojuro_memory_persistence`) — 気圧アセスメント・症状を memory に書き込み可能
 - **自律神経の臓器** (`kyojuro_autonomic`) — **観察点 8 (温子の体調無視) が `get_atsuko_state()` の戻り値を参照**
 - **カレンダーの臓器** (`kyojuro_calendar` 想定、B3 で実装予定) — 気象データを共有、月相と組み合わせて声かけタイミング設計
-- **Telegram ナッジ** (`kyojuro_telegram_nudge` 想定、B5 で実装予定) — `daily_briefing().message` を Telegram で送信
+- **Telegram ナッジ** (`kyojuro_telegram_nudge`) — 杏寿郎が `daily_briefing()` のデータを見て自分の言葉で文章を組み立て、`send_nudge()` で温子に送る
 
 ---
 

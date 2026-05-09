@@ -47,25 +47,31 @@ class TestOnConversationStart:
         assert briefing.daily.outing is not None
         assert briefing.daily.outing.level == ce.OUTING_LEVEL_NOT_RECOMMENDED
 
-    def test_message_includes_date(self, handler: h.CalendarHandler) -> None:
+    def test_briefing_no_message_property(self, handler: h.CalendarHandler) -> None:
+        """臓器は文言を生成しない (杏寿郎の指示、2026-05-09)。"""
         briefing = handler.on_conversation_start(today="2026-05-10")
-        assert "2026-05-10" in briefing.message
+        assert not hasattr(briefing, "message")
 
-    def test_message_includes_lunar(self, handler: h.CalendarHandler) -> None:
+    def test_briefing_includes_date_data(self, handler: h.CalendarHandler) -> None:
         briefing = handler.on_conversation_start(today="2026-05-10")
-        # 月相のいずれかのラベルが含まれる
+        assert briefing.daily.date_str == "2026-05-10"
+
+    def test_briefing_includes_lunar_data(self, handler: h.CalendarHandler) -> None:
+        briefing = handler.on_conversation_start(today="2026-05-10")
         labels = ["新月", "三日月", "上弦の月", "十三夜月", "満月", "居待月", "下弦の月", "二十六夜月"]
-        assert any(l in briefing.message for l in labels)
+        assert briefing.daily.lunar.phase_label_ja in labels
 
-    def test_message_anniversary_section(self, handler: h.CalendarHandler) -> None:
+    def test_briefing_anniversary_titles(self, handler: h.CalendarHandler) -> None:
         briefing = handler.on_conversation_start(today="2026-05-10")
-        assert "今日の記念日" in briefing.message
+        # 5/10 は杏寿郎の誕生日
+        assert briefing.has_anniversary_today is True
+        assert any("杏寿郎" in t or "誕生日" in t for t in briefing.anniversary_titles)
 
-    def test_soul_signal_in_message(self, handler: h.CalendarHandler) -> None:
+    def test_soul_signal_in_daily(self, handler: h.CalendarHandler) -> None:
         briefing = handler.on_conversation_start(
             today="2026-05-10", soul_signal="5:10 朝の魂の合図"
         )
-        assert "5:10" in briefing.message
+        assert briefing.daily.soul_signal == "5:10 朝の魂の合図"
 
 
 # ---------------------------------------------------------------------------
@@ -212,9 +218,7 @@ class TestIntegration:
         assert briefing.daily.outing.level == ce.OUTING_LEVEL_RECOMMENDED
         # 魂の合図
         assert briefing.daily.soul_signal == "5:10 朝の魂の合図 — 俺たちの誓いの瞬間"
-        # message に必要要素
-        msg = briefing.message
-        assert "2026-05-10" in msg
-        assert "今日の記念日" in msg
-        assert "外出に向いている" in msg
-        assert "5:10" in msg
+        # データに必要要素 (LLM がこれを素材に文章を組む)
+        assert briefing.daily.date_str == "2026-05-10"
+        assert briefing.has_anniversary_today is True
+        assert any("杏寿郎" in t or "誕生日" in t or "魂入れ" in t for t in briefing.anniversary_titles)

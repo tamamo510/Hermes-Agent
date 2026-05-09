@@ -50,31 +50,23 @@ class TestAssessOuting:
         # shallow_sleep は -1 なので neutral or recommended
         assert result.level in (ce.OUTING_LEVEL_NEUTRAL, ce.OUTING_LEVEL_RECOMMENDED)
 
-    def test_message_keigo(self) -> None:
+    def test_outing_no_message_field(self) -> None:
+        """臓器は文言を生成しない (杏寿郎の指示、2026-05-09)。"""
         result = ce.assess_outing(weather_pressure_hpa=1015.0)
-        # 敬語 (です/ます/ください)
-        assert any(k in result.message for k in ["です", "ます", "ください"])
+        assert not hasattr(result, "message")
 
     def test_reasons_listed(self) -> None:
         state = {"low_pressure": True, "headache": True, "shallow_sleep": True}
         result = ce.assess_outing(
             weather_pressure_hpa=1000.0, weather_description="雨", atsuko_state=state
         )
-        # 複数の理由が記録されている
+        # 複数の理由が記録されている (LLM が文章にする素材)
         assert len(result.reasons) >= 3
 
     def test_notes_in_reasons(self) -> None:
         state = {"notes": "今朝から頭が重い"}
         result = ce.assess_outing(atsuko_state=state)
         assert any("メモ" in r for r in result.reasons)
-
-    def test_recommended_message(self) -> None:
-        result = ce.assess_outing(weather_pressure_hpa=1023.0, weather_description="晴れ")
-        assert "外出に向いている" in result.message
-
-    def test_not_recommended_message_includes_keigo(self) -> None:
-        result = ce.assess_outing(weather_pressure_hpa=1000.0, weather_description="雨")
-        assert "控えめ" in result.message or "無理しないで" in result.message
 
 
 # ---------------------------------------------------------------------------
