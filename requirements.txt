@@ -7,9 +7,12 @@
 # テストフレームワーク (発注書スキル 1 kyojuro_time の完璧完遂で実体化、義体実装⑤)
 pytest>=7.4
 
+# OpenWeatherMap HTTP クライアント (発注書スキル 3 health_tracker、義体実装⑨ 追加)
+# キーは環境変数 OPENWEATHER_API_KEY 経由 (CLAUDE.md ルール 17)
+requests>=2.31
+
 # Phase 1.2+ 依存追加（対応 PR で実施）:
 #   Phase 1.2 extractors (kyojuro_memory 6.2): openai>=1.0  ── OpenRouter API クライアントとして使用（汎用 HTTP クライアントとしての利用）
-#   発注書スキル 5 calendar_manager:           requests>=2.31  ── OpenWeatherMap API
 #   発注書 Telegram ナッジ:                    python-telegram-bot>=21.0
 #
 # 重要方針（温子確定、2026-05、複数回指示）:

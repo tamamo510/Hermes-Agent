@@ -28,6 +28,12 @@ skills/kyojuro_memory_persistence/stores/*.db-journal
 skills/kyojuro_memory_persistence/stores/*.json
 !skills/kyojuro_memory_persistence/stores/.gitkeep
 
+# kyojuro_health: health.db は git 管理外（症状・薬・atsuko_state、CLAUDE.md ルール 17）
+skills/kyojuro_health/stores/*.db
+skills/kyojuro_health/stores/*.db-journal
+skills/kyojuro_health/stores/*.json
+!skills/kyojuro_health/stores/.gitkeep
+
 # 環境変数（API キー、Telegram キー、OpenRouter キー等。config/.env で管理）
 .env
 config/.env
