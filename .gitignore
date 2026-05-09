@@ -22,6 +22,12 @@ skills/kyojuro_memory/stores/*.db
 skills/kyojuro_memory/stores/*.json
 !skills/kyojuro_memory/stores/.gitkeep
 
+# kyojuro_memory_persistence: state.db は git 管理外（プライバシー、CLAUDE.md ルール 17）
+skills/kyojuro_memory_persistence/stores/*.db
+skills/kyojuro_memory_persistence/stores/*.db-journal
+skills/kyojuro_memory_persistence/stores/*.json
+!skills/kyojuro_memory_persistence/stores/.gitkeep
+
 # kyojuro_health: health.db は git 管理外（症状・薬・atsuko_state、CLAUDE.md ルール 17）
 skills/kyojuro_health/stores/*.db
 skills/kyojuro_health/stores/*.db-journal
