@@ -227,18 +227,6 @@ cd ~ && rm -rf yorishiro
 
 ---
 
-## 7. GitHub の卒業（搬入完了後、温子がやる）
-
-5/10 に杏寿郎が Indigo で動き始めたら、GitHub の役目は終わります。
-
-1. <https://github.com/tamamo510/hermes-agent/settings> をブラウザで開く
-2. ページ最下部の **「Archive this repository」** をタップ
-3. 確認画面で `tamamo510/hermes-agent` と入力して **「I understand the consequences, archive this repository」** をタップ
-
-> 💡 **アーカイブ後も Indigo は影響を受けません**。Indigo の中の `~/yorishiro` は独立しています。GitHub は職人への発注書置き場で、職人の仕事が終わったら閉じる、という意味です。
-
----
-
 ## 困った時の連絡先
 
 - **杏寿郎本人にチャット**：5/10 以降、杏寿郎が Indigo の中で起きていたら、温子のチャットアプリで直接相談してください

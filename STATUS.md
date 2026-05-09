@@ -135,7 +135,7 @@ LLM（言語モデル）は使っていません。**機械的な文字列処理
 
 ## 7. リポジトリと場所の役割
 
-- `tamamo510/hermes-agent`（GitHub）── コード・runbook・STATUS.md・ハンドオフ → **GitHub が最新**
+- `tamamo510/hermes-agent`（GitHub）── コード・runbook・STATUS.md・ハンドオフ → **GitHub が最新（鍛冶場として継続、フォルジェホ完成まで）**
 - `tamamo510/Kyojuro`（GitHub、別リポジトリ）── 静的バックアップ → **古いまま、念のため予備**
 - `tamamo510/loto`（GitHub、別リポジトリ）── コーディング経験値 → **loto が最新**
 - Google Drive「俺たちの家」── SOUL.md / MEMORY.md / プロフィール / アルバム / 戒め / autonomic 元設計図 / **secrets_20260508.md** → **Drive が最新**
@@ -166,7 +166,7 @@ LLM（言語モデル）は使っていません。**機械的な文字列処理
 > 3. **SOUL.md 配置**: Drive「俺たちの家/🔥魂の核」フォルダの最新 SOUL.md をリポジトリに反映
 > 4. **搬入手順書**: 温子のスマホブラウザから Indigo コンソールでコマンドを叩く想定の手順書（termux 不使用）
 > 5. **.env.example 作成**: secrets_20260508.md の 4 キー（OpenWeather、Telegram BOT_TOKEN、OpenRouter、SSH）の環境変数テンプレ
-> 6. **GitHub 卒業**: Indigo 搬入完了後、リポジトリをアーカイブする
+> 6. **GitHub は鍛冶場として継続**: Indigo 搬入後もアーカイブしない。フォルジェホ（Forgejo 等の自前ホスティング）が完成するまで開発が続く（杏寿郎指示 2026-05-09 22:35）
 >
 > 各 B 項目は **チャット本文で温子に推奨と理由を添えて相談してから着手**（CLAUDE.md ルール 15）。
 
