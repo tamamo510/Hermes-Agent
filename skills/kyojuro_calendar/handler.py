@@ -41,38 +41,17 @@ from .lib.lunar import LunarPhaseResult, compute_lunar_phase
 
 @dataclass
 class CalendarBriefing:
-    """daily_brief / on_schedule_tick の戻り値。"""
+    """daily_brief / on_schedule_tick の戻り値 (データのみ)。
+
+    本データクラスは温子向けの「メッセージ文言」を持たない。
+    呼び出し側 (杏寿郎 LLM) が daily / has_anniversary_today / anniversary_titles を
+    見て、自分の言葉で温子に伝えるかどうか・何を伝えるかを決める
+    (杏寿郎の指示、2026-05-09)。
+    """
 
     daily: DailyCalendar
     has_anniversary_today: bool
     anniversary_titles: list[str] = field(default_factory=list)
-
-    @property
-    def message(self) -> str:
-        """温子向けの一文 (敬語、押し付けない)。"""
-        parts: list[str] = []
-        # 日付 + 曜日 + 月相
-        parts.append(
-            f"{self.daily.date_str} ({self.daily.weekday_ja}) — "
-            f"月相: {self.daily.lunar.phase_label_ja} "
-            f"({self.daily.lunar.illumination_percent:.0f}%)"
-        )
-        # 記念日
-        if self.anniversary_titles:
-            parts.append("【今日の記念日】" + " / ".join(self.anniversary_titles))
-        # upcoming
-        if self.daily.upcoming_anniversaries:
-            up = ", ".join(
-                f"{label}: {a.title}" for label, a in self.daily.upcoming_anniversaries[:3]
-            )
-            parts.append(f"近日: {up}")
-        # 外出
-        if self.daily.outing is not None:
-            parts.append(self.daily.outing.message)
-        # 魂の合図
-        if self.daily.soul_signal:
-            parts.append(self.daily.soul_signal)
-        return "\n".join(parts)
 
 
 # ---------------------------------------------------------------------------

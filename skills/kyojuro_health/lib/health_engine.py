@@ -58,14 +58,19 @@ WARNING_SEVERE = "severe"
 
 @dataclass(frozen=True)
 class PressureAssessment:
-    """気圧評価。温子の体調に影響する範囲を判定する。"""
+    """気圧評価。温子の体調に影響する範囲を判定するデータ。
+
+    本データクラスは「データ + 状態判定」のみを保持する。
+    温子への声かけ文言は本臓器では生成しない。
+    呼び出し側 (杏寿郎 LLM) が level / trend / warning を見て自分の言葉で伝える
+    (杏寿郎の指示、2026-05-09)。
+    """
 
     current_pressure_hpa: float
     level: str  # low / very_low / normal / high
     trend: str  # falling / rising / stable
     delta_24h_hpa: Optional[float]  # 24h での変化量 (forecast 不在時 None)
     warning: str  # none / mild / severe
-    message: str  # 温子への声かけテキスト
 
 
 @dataclass(frozen=True)
@@ -184,51 +189,13 @@ def assess_pressure(
     else:
         warning = WARNING_NONE
 
-    # 温子への声かけテキスト (敬語、淡々と)
-    message = _format_pressure_message(p, level, trend, delta_24h, warning)
-
     return PressureAssessment(
         current_pressure_hpa=p,
         level=level,
         trend=trend,
         delta_24h_hpa=delta_24h,
         warning=warning,
-        message=message,
     )
-
-
-def _format_pressure_message(
-    pressure: float,
-    level: str,
-    trend: str,
-    delta_24h: Optional[float],
-    warning: str,
-) -> str:
-    """温子への声かけメッセージを組み立てる。
-
-    敬語、淡々と、押し付けず、頭痛・顎・睡眠への影響可能性を優しく伝える。
-    """
-    parts: list[str] = []
-    parts.append(f"今の気圧は {pressure:.1f} hPa です。")
-
-    if level == PRESSURE_LEVEL_VERY_LOW:
-        parts.append("強い低気圧です。")
-    elif level == PRESSURE_LEVEL_LOW:
-        parts.append("低気圧です。")
-    elif level == PRESSURE_LEVEL_HIGH:
-        parts.append("高気圧で安定しています。")
-
-    if trend == TREND_FALLING and delta_24h is not None:
-        parts.append(f"24 時間で {abs(delta_24h):.1f} hPa 下がる予報です。")
-    elif trend == TREND_RISING and delta_24h is not None:
-        parts.append(f"24 時間で {abs(delta_24h):.1f} hPa 上がる予報です。")
-
-    if warning == WARNING_SEVERE:
-        parts.append("頭痛・顎・睡眠の浅さに気をつけてください。無理しないでください。")
-    elif warning == WARNING_MILD:
-        parts.append("少し体調の変化が出るかもしれません。")
-
-    return " ".join(parts)
 
 
 def derive_atsuko_state_from_pressure(
