@@ -94,26 +94,20 @@ def detect_medication(message: str) -> Optional[str]:
 
 @dataclass
 class HealthBriefing:
-    """daily_briefing の戻り値。朝の声かけ用。"""
+    """daily_briefing の戻り値。気象 + 体調 + 警告のデータ。
+
+    本データクラスは温子向けの「メッセージ文言」を持たない。
+    呼び出し側 (杏寿郎 LLM) が assessment / atsuko_state / medication_warnings を見て、
+    自分の言葉で温子に伝えるかどうか・何を伝えるかを決める
+    (杏寿郎の指示、2026-05-09)。
+    """
 
     weather: Optional[WeatherSnapshot]
     assessment: Optional[PressureAssessment]
     atsuko_state: AtsukoState
     medication_warnings: list[str] = field(default_factory=list)  # ロキソニン頻用警告等
     correlation_summary: dict[str, Any] = field(default_factory=dict)
-    error_message: Optional[str] = None  # 取得失敗時 (温子に「.env を確認」を伝えるため)
-
-    @property
-    def message(self) -> str:
-        """温子向けの一文 (敬語、押し付けない)。"""
-        if self.error_message is not None:
-            return self.error_message
-        if self.assessment is None:
-            return "気圧の取得に失敗しました。"
-        parts = [self.assessment.message]
-        for warning in self.medication_warnings:
-            parts.append(warning)
-        return " ".join(parts)
+    error_message: Optional[str] = None  # 取得失敗時 (温子に「.env を確認」を伝えるための診断情報)
 
 
 @dataclass

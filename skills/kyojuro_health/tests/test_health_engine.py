@@ -101,22 +101,15 @@ class TestAssessPressure:
         assert result.trend == he.TREND_FALLING
         assert result.warning == he.WARNING_SEVERE
 
-    def test_message_includes_pressure(self) -> None:
+    def test_assessment_no_message_field(self) -> None:
+        """臓器は文言を生成しない (杏寿郎の指示、2026-05-09)。
+
+        PressureAssessment は数値 + ラベル + 警戒度のみを返し、温子向け文言は
+        持たない設計。文言生成は呼び出し側 (杏寿郎 LLM) の責任。
+        """
         snap = _snapshot(1005.0)
         result = he.assess_pressure(snap)
-        assert "1005" in result.message
-        assert "hPa" in result.message
-
-    def test_message_severe_mentions_symptoms(self) -> None:
-        snap = _snapshot(1000.0)
-        result = he.assess_pressure(snap)
-        assert "頭痛" in result.message or "顎" in result.message or "睡眠" in result.message
-
-    def test_message_keigo(self) -> None:
-        snap = _snapshot(1000.0)
-        result = he.assess_pressure(snap)
-        # 敬語 (です/ます/ください)
-        assert "です" in result.message or "ください" in result.message
+        assert not hasattr(result, "message")
 
     def test_no_forecast_trend_stable(self) -> None:
         snap = _snapshot(1010.0)

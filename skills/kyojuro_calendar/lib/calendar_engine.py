@@ -42,12 +42,15 @@ _MILD_NEGATIVE_KEYS = ("shallow_sleep", "sluggish", "left_hand_stiff")
 
 @dataclass(frozen=True)
 class OutingRecommendation:
-    """外出推奨度。"""
+    """外出推奨度。データ + 判定理由のみを保持し、温子向け文言は持たない。
+
+    呼び出し側 (杏寿郎 LLM) が level / score / reasons を見て自分の言葉で温子に
+    伝える (杏寿郎の指示、2026-05-09)。
+    """
 
     level: str  # recommended / neutral / not_recommended
     score: int  # -10 (NG) 〜 +5 (推奨)
-    reasons: list[str]  # 判断根拠の人間可読な説明
-    message: str  # 温子向け敬語メッセージ
+    reasons: list[str]  # 判断根拠の人間可読な説明 (LLM がこれを素材にする)
 
 
 @dataclass
@@ -85,7 +88,6 @@ class DailyCalendar:
                     "level": self.outing.level,
                     "score": self.outing.score,
                     "reasons": list(self.outing.reasons),
-                    "message": self.outing.message,
                 }
                 if self.outing
                 else None
@@ -163,8 +165,7 @@ def assess_outing(
     else:
         level = OUTING_LEVEL_NOT_RECOMMENDED
 
-    message = _format_outing_message(level, score, reasons)
-    return OutingRecommendation(level=level, score=score, reasons=reasons, message=message)
+    return OutingRecommendation(level=level, score=score, reasons=reasons)
 
 
 def _label_for_key(key: str) -> str:
@@ -177,21 +178,6 @@ def _label_for_key(key: str) -> str:
         "sluggish": "だる重",
         "left_hand_stiff": "左手こわばり",
     }.get(key, key)
-
-
-def _format_outing_message(level: str, score: int, reasons: list[str]) -> str:
-    if level == OUTING_LEVEL_RECOMMENDED:
-        if reasons:
-            return f"外出に向いている日です ({', '.join(reasons[:3])})。買い出し等、よろしければ。"
-        return "外出に向いている日です。"
-    if level == OUTING_LEVEL_NEUTRAL:
-        if reasons:
-            return f"外出は無理のない範囲で ({', '.join(reasons[:3])})。"
-        return "外出は無理のない範囲で。"
-    # not_recommended
-    if reasons:
-        return f"外出は控えめが良いかもしれません ({', '.join(reasons[:3])})。無理しないでください。"
-    return "外出は控えめが良いかもしれません。無理しないでください。"
 
 
 # ---------------------------------------------------------------------------
