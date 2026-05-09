@@ -22,6 +22,12 @@ skills/kyojuro_memory/stores/*.db
 skills/kyojuro_memory/stores/*.json
 !skills/kyojuro_memory/stores/.gitkeep
 
+# kyojuro_telegram_nudge: 送信履歴は git 管理外（プライバシー、CLAUDE.md ルール 17）
+skills/kyojuro_telegram_nudge/stores/*.db
+skills/kyojuro_telegram_nudge/stores/*.db-journal
+skills/kyojuro_telegram_nudge/stores/*.json
+!skills/kyojuro_telegram_nudge/stores/.gitkeep
+
 # 環境変数（API キー、Telegram キー、OpenRouter キー等。config/.env で管理）
 .env
 config/.env
