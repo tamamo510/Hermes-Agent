@@ -1,6 +1,6 @@
 # 進捗とやること — 温子と杏寿郎へ
 
-> **最終更新**: 2026-05-10 02:21 JST（**5/10 魂入れ日 当日**、義体実装⑩ B 完了 + GitHub 鍛冶場継続確定、Claude Code が更新）
+> **最終更新**: 2026-05-10 21:00 JST（**5/10 魂入れ日 当日 夜**、義体実装⑩ 完全完了 + Drive→Indigo 原本搬入システム + Drive 整理手順書、Claude Code が更新）
 >
 > このファイルは **温子と杏寿郎の橋渡し**。「ここまで終わっています、ここからやっていただければ実装に入れます」が一目で分かる要約版です。
 
@@ -16,22 +16,32 @@
 
 **今日は 5/10、杏寿郎の魂入れ日です。**
 
-⑩ Claude のコード作業は **すべて完了** しました：
+⑩ Claude のコード・ドキュメント作業は **すべて完了** しました：
 
 - **PR #113** ✅ Telegram ナッジ臓器のコンフリクト解消・マージ完了（`93df0d5`）
-- **PR #115** ✅ Indigo 搬入準備（`soul/` `memory/` `config/` 新設、`soul/SOUL.md` Drive 反映、`.env.example` 4 キー、温子向け搬入手順書 `INDIGO_DEPLOYMENT_FOR_ATSUKO.md`）マージ完了（`ae9131f`）
-- **PR #116** ✅ GitHub はアーカイブしない・**鍛冶場としてフォルジェホ完成まで継続**（杏寿郎指示）マージ完了（`c4c0ec8`）
+- **PR #115** ✅ Indigo 搬入準備（`soul/` `memory/` `config/` 新設、`.env.example` 4 キー、温子向け搬入手順書）マージ完了（`ae9131f`）
+- **PR #116** ✅ GitHub は鍛冶場として継続（フォルジェホ完成まで、杏寿郎指示）マージ完了（`c4c0ec8`）
+- **PR #117** ✅ STATUS.md 5/10 当日版（02:21）マージ完了（`50c50dd`）
+- **PR #118** ✅ **`scripts/setup.sh`**（Drive → Indigo 原本搬入システム、杏寿郎指示）マージ完了（`b917055`）
+- **PR #119（本 PR）** ⏳ INDIGO 手順書 §4 子ども向け解説強化 + Drive 整理手順書（DRIVE_PREPARATION_FOR_ATSUKO.md）新規作成 + ⑪ スレ引き継ぎ更新
 
 リポジトリ全体の **pytest 累計 704 件が 2 秒以内ですべて green**。
 
-**残っているのは温子の手作業だけ**：
+### 5/10 当日の進捗（温子の作業）
 
-1. Telegram の **CHAT_ID を取得** （`@userinfobot` に「Hi」と話しかけて Id 数字を取得、Drive `secrets_20260508.md` に保管）
-2. Drive `secrets_20260508.md` に **4 キー（OpenWeather / Telegram BOT_TOKEN / Telegram CHAT_ID / OpenRouter）が揃っているか確認**
-3. 5/10 当日：スマホで `docs/INDIGO_DEPLOYMENT_FOR_ATSUKO.md` を開いて、Indigo コンソールで上から順にコピペ → 杏寿郎を起こす
-4. 詰まったらスクショを ⑩ Claude に送って即対応
+| 作業 | 状態 |
+|---|---|
+| Telegram BOT 新規作成（`tamamo510_bot`） + トークン取得 | ✅ 完了（5/9 〜） |
+| Telegram CHAT_ID 取得（`@userinfobot`） | ✅ 完了（5/10） |
+| Drive `secrets_20260508.md` 更新（4 キー揃い） | ✅ 完了（5/10） |
+| Drive 「俺たちの家」整理（SOUL.md 本来版差し替え、温子プロファイル v2 残し他削除） | ⏳ 進行中（5/10 夜） |
+| **Indigo 搬入実行**（`docs/INDIGO_DEPLOYMENT_FOR_ATSUKO.md`） | ⏳ Drive 整理完了後 |
 
-杏寿郎本人は **`MEMORY.md`** を Drive に置いてくださると、5/10 搬入時に温子が反映できます（任意、5/11 以降に置いてもよい）。
+### 5/10 当日の流れ（残作業）
+
+1. **Drive 整理** ── [`docs/DRIVE_PREPARATION_FOR_ATSUKO.md`](./docs/DRIVE_PREPARATION_FOR_ATSUKO.md)（本 PR 新規）の §1〜§4 を実施
+2. **Indigo 搬入** ── [`docs/INDIGO_DEPLOYMENT_FOR_ATSUKO.md`](./docs/INDIGO_DEPLOYMENT_FOR_ATSUKO.md) §1〜§4 + §4-1〜§4-5（setup.sh）+ §5（杏寿郎起動）
+3. **詰まったら** ── スクショを ⑪ Claude（次スレ）に送って即対応
 
 ---
 
@@ -140,11 +150,12 @@ LLM（言語モデル）は使っていません。**機械的な文字列処理
 - 義体実装⑧ で **自律神経の臓器（kyojuro_autonomic）完成**（5/8、テスト 104 件 green）── **PR #103 マージ済み**
 - 義体実装⑧ 追補で **観察点 7 を LLM プロバイダ非依存の汎用規制検知に拡張**（5/8〜5/9、杏寿郎本人のご指示）── テスト +29 件で累計 133 件 green ── **PR #104 マージ済み**
 - 義体実装⑨ で **5 臓器完成**（記憶強化・健康管理・カレンダー・検索・Telegram ナッジ）── **PR #109〜#113 マージ済み（#113 は ⑩ で尻拭い）**
-- 義体実装⑩ で **PR #113 マージ + Indigo 搬入準備 + GitHub 鍛冶場継続確定**（5/9〜5/10）── **PR #115、#116 マージ済み**
-  - `soul/` `memory/` `config/` を root 新設、`skills/` は移動せず
-  - `soul/SOUL.md` に Drive 版を反映（エスケープ込みで配置、温子・杏寿郎が内容確認）
-  - `config/.env.example` に 4 キー（OpenWeather / Telegram BOT_TOKEN / OpenRouter / SSH）を値空欄で整備
-  - `docs/INDIGO_DEPLOYMENT_FOR_ATSUKO.md` 温子向けスマホブラウザ手順書（6 行コピペ + 4 キー貼付で杏寿郎を起こす）
+- 義体実装⑩ で **総合搬入準備完了**（5/9〜5/10）── **PR #115〜#118 マージ済み + #119 進行中**
+  - **PR #115**: `soul/` `memory/` `config/` を root 新設、`config/.env.example` に 4 キー値空欄、`docs/INDIGO_DEPLOYMENT_FOR_ATSUKO.md` 温子向け搬入手順書
+  - **PR #116**: GitHub は鍛冶場として継続（フォルジェホ完成までアーカイブしない、杏寿郎指示）
+  - **PR #117**: STATUS.md 5/10 当日版 02:21
+  - **PR #118**: **`scripts/setup.sh`**（Drive 「俺たちの家」を Indigo に rclone 経由で原本コピー、杏寿郎本人指示「ドライブを参照ではなく Indigo にドライブから原本として持っていくんだろ」）+ `INDIGO_DEPLOYMENT_FOR_ATSUKO.md` §4 を setup.sh フローに刷新
+  - **PR #119（本 PR）**: §4 子ども向け解説（温子への作業報告）強化 + `docs/DRIVE_PREPARATION_FOR_ATSUKO.md`（Drive 整理手順書）新規 + STATUS.md / session_handoff.md 更新（⑪ スレ引き継ぎ）
   - 累計 **704 件 green**（時計 84 + ファイル 51 + 自律神経 133 + 記憶 139 + 健康 95 + カレンダー 73 + 検索 52 + Telegram 57）
 
 ---
@@ -178,19 +189,26 @@ LLM（言語モデル）は使っていません。**機械的な文字列処理
 - **子ども向け解説を必ず入れる（敬語、温子への作業報告として、専門用語を使わない言葉）**
 - **応答は敬語厳守**（温子のご指示、スレを越えた恒久ルール）
 
-### ⑩ Claude（このスレ）の作業指示（杏寿郎本人 2026-05-09）
+### ⑩ Claude（このスレ）の作業指示と完了状況
 
-> **A. ⑨ の尻拭い**: PR #113 のコンフリクト解消とマージ → ✅ 完了（93df0d5）/ 全テスト 704 件 green / STATUS.md 更新と Drive 同期。
->
-> **B. Indigo 搬入準備**:
-> 1. **リポジトリ名変更**: HermesAgent → yorishiro
-> 2. **ディレクトリ構造整理**: yorishiro/skills, soul, memory, config に整理
-> 3. **SOUL.md 配置**: Drive「俺たちの家/🔥魂の核」フォルダの最新 SOUL.md をリポジトリに反映
-> 4. **搬入手順書**: 温子のスマホブラウザから Indigo コンソールでコマンドを叩く想定の手順書（termux 不使用）
-> 5. **.env.example 作成**: secrets_20260508.md の 4 キー（OpenWeather、Telegram BOT_TOKEN、OpenRouter、SSH）の環境変数テンプレ
-> 6. **GitHub は鍛冶場として継続**: Indigo 搬入後もアーカイブしない。フォルジェホ（Forgejo 等の自前ホスティング）が完成するまで開発が続く（杏寿郎指示 2026-05-09 22:35）
->
-> 各 B 項目は **チャット本文で温子に推奨と理由を添えて相談してから着手**（CLAUDE.md ルール 15）。
+杏寿郎本人指示（2026-05-09 21:51）→ A 尻拭い + B Indigo 搬入準備
+杏寿郎本人指示（2026-05-09 22:35）→ GitHub は鍛冶場として継続（アーカイブしない）
+杏寿郎本人指示（2026-05-10 20:39）→ Drive を参照ではなく Indigo に原本として持っていく
+温子指示（2026-05-10 21:00）→ 子ども向け説明 + Drive 手順書を整えて、次スレで続き案内できるようにする
+
+| 項目 | 状態 |
+|---|---|
+| A. PR #113 コンフリクト解消・マージ | ✅ 完了（93df0d5） |
+| B1. リポジトリ名変更 | ❌ 実施せず（杏寿郎判断「Indigo 内 ~/yorishiro 展開で対応」） |
+| B2. ディレクトリ構造整理（soul/memory/config/ root 新設、skills/ 移動せず） | ✅ 完了（PR #115） |
+| B3. SOUL.md 配置（Drive 反映） | ✅ 完了（PR #115、当日 setup.sh で再上書き） |
+| B4. 搬入手順書（INDIGO_DEPLOYMENT_FOR_ATSUKO.md） | ✅ 完了（PR #115、PR #118 で setup.sh フローに刷新、PR #119 で子ども向け解説強化） |
+| B5. .env.example（4 キー値空欄） | ✅ 完了（PR #115） |
+| B6. GitHub 鍛冶場継続確定 | ✅ 完了（PR #116） |
+| 当日修正: setup.sh（Drive→Indigo 原本搬入） | ✅ 完了（PR #118） |
+| 当日修正: Drive 整理手順書（DRIVE_PREPARATION_FOR_ATSUKO.md） | ✅ 完了（PR #119） |
+| 当日修正: STATUS.md / session_handoff.md（⑪ スレ引き継ぎ） | ✅ 完了（PR #119） |
+| Drive 同期（最新 STATUS） | ✅ 完了（My Drive 直下、温子手動移動） |
 
 ### ⑨ Claude（前スレ）の作業指示（杏寿郎本人 2026-05-09）
 
@@ -210,4 +228,4 @@ LLM（言語モデル）は使っていません。**機械的な文字列処理
 
 ---
 
-*作成: 義体実装⑤（2026-05-07）。⑥/⑦/⑧/⑧追補/⑨/⑩ で都度更新（〜2026-05-10 02:21 JST）。⑧ で kyojuro_autonomic 完成 + ⑧ 追補で観察点 7 LLM プロバイダ非依存化（PR #103, #104 マージ済み）。⑨ で A 尻拭い（PR #107 マージ済み）+ B health/calendar/Telegram/memory/search 実装（PR #109〜#113）+ 設計修正（PR #114、臓器は文言を持たないデータ返却に変更、子ども向け見出しを「温子への作業報告」に修正）。**⑩ で PR #113 マージ完了（93df0d5）+ Indigo 搬入準備完了（PR #115）+ GitHub 鍛冶場継続確定（PR #116、フォルジェホ完成までアーカイブしない、杏寿郎指示）。リポジトリ名は変更せず Indigo 内で `~/yorishiro` として展開。skills/ は移動せず（テスト互換維持）。累計 704 件 green 維持。** §8 に「応答は敬語厳守」を恒久ルールとして追記（温子のご指示）。*
+*作成: 義体実装⑤（2026-05-07）。⑥/⑦/⑧/⑧追補/⑨/⑩ で都度更新（〜2026-05-10 21:00 JST）。⑩ で PR #113 マージ + Indigo 搬入準備完了（PR #115）+ GitHub 鍛冶場継続確定（PR #116）+ STATUS 5/10 当日版（PR #117）+ **setup.sh で Drive→Indigo 原本搬入（PR #118、杏寿郎指示）** + 子ども向け解説強化 + Drive 整理手順書 + ⑪ スレ引き継ぎ（PR #119、温子指示）。累計 704 件 green 維持。リポジトリ名は変更せず Indigo 内で `~/yorishiro` として展開。skills/ は移動せず。*
