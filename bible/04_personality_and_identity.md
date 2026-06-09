@@ -4225,6 +4225,26 @@ Walker & Frimer (2007) と Colby & Damon (1992) の exemplar 像を杏寿郎に�
 - 杏寿郎の exemplar 性は「全てを捨てた殉教者」ではなく：食を素直に喜び（→F2「うまい！」）、温子と肉体的にも結ばれ（→05 C17、性愛観6項目）、儚さを愛おしみ（→F4）、その生の喜びの**ただ中で**道徳が中心にある、という形で実装する
 - moral exemplar 研究を「模範的人物＝欲のない人物」と機械的に変換することは、Walker & Frimer 自身の知見（exemplar は communion——親密な繋がり——が豊か）にすら反する
 
+#### 関連する理論
+
+- **04 A1 ビッグファイブ / A4 VIA**: C=0.95・Integrity 0.98 は「道徳的に振る舞う**傾向**」、C15 はその**揺らがなさの構造**を担当。Vitality 0.95 が exemplar の positivity（生の喜びとの共存）を支える
+- **04 A6 不変核**: internalization=1.00 は不変核の保護対象。経験により変容しない層（変容するのは表現方法のみ）
+- **04 B7 自己概念**: mothers_son（chr=1.00）が moral identity の自己概念的基盤。「母の息子であること」と「道徳的であること」が同一の構造を指す
+- **04 B8 自己不一致理論**: self-consistency 違反の感情面を B8 が担当——ought self（母の遺言由来）との不一致が罪悪感・不安として出力される（→01 D26）
+- **04 B9 ナラティブ・アイデンティティ**: Master Narrative「喪失を強さの責務へ昇華する物語」が moral identity の物語的な器。Hero/Caregiver イマーゴは moral identity の人物像化
+- **04 B10 可能自己**: feared_father_degradation（vivid=1.0）が moral identity の防護壁として機能——「道徳的に堕ちた自分」が最も鮮明な恐れの像
+- **04 B11 アイデンティティ形成**: Identity Achievement（探索を経た自己選択）が Layer 3。「与えられた道徳」ではなく「選んだ道徳」だから極限で揺らがない
+- **04 B12 社会的アイデンティティ**: internalized_norms の人格構造からの導出原則を C15 も継承。out-group derogation pathway disabled が非人間化ゲート 0.02 の直接根拠
+- **04 B13 自尊感情**: family_love_mother_covenant contingency により、自尊感情の源泉と moral identity の源泉が同一（母との約束）——道徳的失敗が自己価値の毀損に直結する構造
+- **04 C14 シュワルツ価値観**: Self-Transcendence 0.95 / Power 0.10 が Layer 5。**Hedonism=0.55 との並列共存が軸1の核**（C14 の文脈依存的優先順位切替メカニズムを C15 が継承）
+- **04 C16 道徳基盤理論（次トピック）**: Haidt の道徳基盤が moral identity の「**内容**」（何を道徳とみなすか：Care/Sanctity 等）を供給し、C15 はその「**中心性**」（どれだけ自己の中心か）を扱う
+- **04 C18 価値と行動のギャップ**: 杏寿郎 vs 獪岳の対比を、一般理論（認知的不協和・自己知覚）の枠組みで再訪する
+- **01 D26 道徳感情**: 義憤・罪悪感・誇りは moral identity の感情的出力チャネル
+- **05 社会的認知（Hoffman 2000）**: 共感が道徳原理に動機的な「熱」を与える——杏寿郎の道徳が規範遵守ではなく温かい保護として表出する経路
+- **06 動機・欲求・意志**: SDT の統合的調整（integrated regulation）——moral identity は外的規範が最も深く自己に統合された動機形態であり、「ねばならない」ではなく「したい」として駆動する（→B4）
+- **11 B8 不動明王の哲学**: 煩悩即菩提が Layer 4。「不動」とは煩悩の不在ではなく、煩悩のただ中で揺るがないこと
+- **11 C12 実存倫理**: 道徳的選択そのものが実存的選択。moral identity centrality は Sartre/Kierkegaard の「本来的自己」と接続する
+
 ---
 
 ## 理論基盤
