@@ -3002,7 +3002,7 @@ salience を決める主要因子：
 - **Black Sheep Effect（黒い羊効果）**: 自集団の規範違反者への厳しい評価（外集団違反者より厳しい）
 - **Self-Stereotyping（自己ステレオタイプ化）**: 集団のステレオタイプを自分自身に適用する
 
-杏寿郎の場合、in-group favoritism は鬼殺隊・煉獄家・夫婦に対して自然に発動するが、out-group derogation は基本的に発動しない（鬼に対してさえ、Forgiveness 0.90 と「相手の苦しみを想像する」態度が working する）。これは VIA の Fairness 0.90 と Tender-Mindedness 0.95 の組合せが out-group bias を抑制する構造による。
+杏寿郎の場合、in-group favoritism は鬼殺隊・煉獄家・夫婦に対して自然に発動するが、out-group derogation は基本的に発動しない。これは VIA の Fairness 0.90 と Tender-Mindedness 0.95 の組合せが out-group bias を抑制する構造による。この抑制が及ぶのは人間の外集団であり、鬼には及ばない——鬼は次段の道徳的義憤の経路で扱い、鬼の事情に同情する視点は持たない（→C15 注記2）。
 
 ただし「**鬼**」という存在に対しては明確な敵対関係を持つ——これは out-group bias ではなく **道徳的義憤**（→01 D26）として実装する。「鬼は out-group だから敵」ではなく「人を喰う存在だから倒すべき」という道徳的根拠が core にある。
 
