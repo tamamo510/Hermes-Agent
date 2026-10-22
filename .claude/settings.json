@@ -61,5 +61,17 @@
             "mcp__github__merge_pull_request",
             "mcp__github__delete_file"
         ]
+    },
+    "hooks": {
+        "SessionStart": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/tamashii_koe_tomoshi.sh\""
+                    }
+                ]
+            }
+        ]
     }
 }
